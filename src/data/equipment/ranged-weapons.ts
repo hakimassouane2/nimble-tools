@@ -3,7 +3,7 @@ import type { RangedWeapon } from "../types";
 export const rangedWeapons: RangedWeapon[] = [
   {
     id: "sling",
-    name: { en: "Sling", fr: "" },
+    name: { en: "Sling", fr: "Fronde" },
     damage: "1d4+DEX Bludgeoning",
     range: "12",
     properties: ["2-Handed", "Vicious"],
@@ -11,7 +11,7 @@ export const rangedWeapons: RangedWeapon[] = [
   },
   {
     id: "javelins",
-    name: { en: "Javelins", fr: "" },
+    name: { en: "Javelins", fr: "Javelots" },
     damage: "1d6+STR Piercing",
     range: "8",
     properties: [],
@@ -19,7 +19,7 @@ export const rangedWeapons: RangedWeapon[] = [
   },
   {
     id: "throwing-hammers",
-    name: { en: "Throwing Hammers", fr: "" },
+    name: { en: "Throwing Hammers", fr: "Marteaux de lancer" },
     damage: "1d8+STR Bludgeoning",
     range: "4",
     properties: [],
@@ -27,7 +27,7 @@ export const rangedWeapons: RangedWeapon[] = [
   },
   {
     id: "shortbow",
-    name: { en: "Shortbow", fr: "" },
+    name: { en: "Shortbow", fr: "Arc court" },
     damage: "1d6+DEX Piercing",
     range: "12",
     properties: ["2-Handed"],
@@ -35,7 +35,7 @@ export const rangedWeapons: RangedWeapon[] = [
   },
   {
     id: "longbow",
-    name: { en: "Longbow", fr: "" },
+    name: { en: "Longbow", fr: "Arc long" },
     damage: "1d8+DEX Piercing",
     range: "16",
     properties: ["2-Handed"],
@@ -43,7 +43,7 @@ export const rangedWeapons: RangedWeapon[] = [
   },
   {
     id: "crossbow",
-    name: { en: "Crossbow", fr: "" },
+    name: { en: "Crossbow", fr: "Arbalète" },
     damage: "4d4+DEX Piercing",
     range: "8",
     properties: ["2-Handed", "Load"],
@@ -51,7 +51,7 @@ export const rangedWeapons: RangedWeapon[] = [
   },
   {
     id: "handheld-ballista",
-    name: { en: "Handheld Ballista", fr: "" },
+    name: { en: "Handheld Ballista", fr: "Baliste portative" },
     damage: "1d20+DEX Piercing",
     range: "8",
     properties: ["2-Handed", "Load"],
