@@ -8,7 +8,8 @@ import { rangedWeapons } from "@/data/equipment/ranged-weapons";
 import { adventuringGear } from "@/data/equipment/adventuring-gear";
 import { magicalItems, wands } from "@/data/equipment/magical-items";
 import { Badge, rarityBadgeVariant } from "@/components/ui/badge";
-import { t, tArmorCategory, tWeaponProperty, tRarity, tCost, tDamage } from "@/lib/utils";
+import { Tooltip } from "@/components/ui/tooltip";
+import { t, tArmorCategory, splitWeaponProperties, tWeaponProperty, tWeaponPropertyTooltip, tRarity, tCost, tDamage } from "@/lib/utils";
 
 type Tab = "armor" | "melee" | "ranged" | "gear" | "magical";
 
@@ -130,10 +131,12 @@ function MeleeTable({ locale, query }: { locale: string; query: string }) {
               <td className="py-2 pr-4 text-foreground">{tDamage(w.damage, locale)}</td>
               <td className="py-2 pr-4">
                 <div className="flex flex-wrap gap-1">
-                  {w.properties.map((p) => (
-                    <Badge key={p} variant="default">
-                      {tWeaponProperty(p, locale)}
-                    </Badge>
+                  {splitWeaponProperties(w.properties).map((p) => (
+                    <Tooltip key={p} content={tWeaponPropertyTooltip(p, locale)}>
+                      <Badge variant="default" className="cursor-help">
+                        {tWeaponProperty(p, locale)}
+                      </Badge>
+                    </Tooltip>
                   ))}
                 </div>
               </td>
@@ -161,7 +164,6 @@ function RangedTable({ locale, query }: { locale: string; query: string }) {
           <tr className="border-b border-border text-left text-muted">
             <th className="pb-2 pr-4">{te("name")}</th>
             <th className="pb-2 pr-4">{tc("damage")}</th>
-            <th className="pb-2 pr-4">{tc("range")}</th>
             <th className="pb-2 pr-4">{tc("properties")}</th>
             <th className="pb-2">{tc("cost")}</th>
           </tr>
@@ -173,13 +175,14 @@ function RangedTable({ locale, query }: { locale: string; query: string }) {
                 {t(w.name, locale)}
               </td>
               <td className="py-2 pr-4 text-foreground">{tDamage(w.damage, locale)}</td>
-              <td className="py-2 pr-4 text-muted">{w.range}</td>
               <td className="py-2 pr-4">
                 <div className="flex flex-wrap gap-1">
-                  {w.properties.map((p) => (
-                    <Badge key={p} variant="default">
-                      {tWeaponProperty(p, locale)}
-                    </Badge>
+                  {splitWeaponProperties(w.properties).map((p) => (
+                    <Tooltip key={p} content={tWeaponPropertyTooltip(p, locale)}>
+                      <Badge variant="default" className="cursor-help">
+                        {tWeaponProperty(p, locale)}
+                      </Badge>
+                    </Tooltip>
                   ))}
                 </div>
               </td>

@@ -107,21 +107,11 @@ export type ArmorItem = {
   description?: LocalizedString;
 };
 
-export type WeaponProperty =
-  | "Light"
-  | "2-Handed"
-  | "Reach"
-  | "Thrown"
-  | "Vicious"
-  | "Load"
-  | "Finesse"
-  | "Versatile";
-
 export type MeleeWeapon = {
   id: string;
   name: LocalizedString;
   damage: string;
-  properties: WeaponProperty[];
+  properties: string;
   cost: string;
   description?: LocalizedString;
 };
@@ -130,8 +120,7 @@ export type RangedWeapon = {
   id: string;
   name: LocalizedString;
   damage: string;
-  range: string;
-  properties: WeaponProperty[];
+  properties: string;
   cost: string;
   description?: LocalizedString;
 };
