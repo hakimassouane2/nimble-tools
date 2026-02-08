@@ -20,9 +20,10 @@
   --color-utility: #9ca3af;
 
   --color-rarity-common: #9ca3af;
-  --color-rarity-uncommon: #4ade80;
-  --color-rarity-rare: #60a5fa;
-  --color-rarity-legendary: #a855f7;
+  --color-rarity-uncommon: #1eff00;
+  --color-rarity-rare: #0070dd;
+  --color-rarity-very-rare: #a335ee;
+  --color-rarity-legendary: #ff8000;
 
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }

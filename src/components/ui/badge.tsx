@@ -28,11 +28,11 @@ const variantClasses: Record<string, string> = {
   radiant: "bg-radiant/20 text-radiant",
   necrotic: "bg-necrotic/20 text-necrotic",
   utility: "bg-utility/20 text-utility",
-  common: "bg-rarity-common/20 text-rarity-common",
-  uncommon: "bg-rarity-uncommon/20 text-rarity-uncommon",
-  rare: "bg-rarity-rare/20 text-rarity-rare",
-  "very-rare": "bg-rarity-rare/20 text-rarity-rare",
-  legendary: "bg-rarity-legendary/20 text-rarity-legendary",
+  common: "bg-[var(--color-rarity-common)]/20 text-[var(--color-rarity-common)]",
+  uncommon: "bg-[var(--color-rarity-uncommon)]/20 text-[var(--color-rarity-uncommon)]",
+  rare: "bg-[var(--color-rarity-rare)]/20 text-[var(--color-rarity-rare)]",
+  "very-rare": "bg-[var(--color-rarity-very-rare)]/20 text-[var(--color-rarity-very-rare)]",
+  legendary: "bg-[var(--color-rarity-legendary)]/20 text-[var(--color-rarity-legendary)]",
 };
 
 export function Badge({ children, variant = "default", className = "" }: BadgeProps) {

@@ -100,11 +100,14 @@ export const ancestries: Ancestry[] = [
       ],
     },
   },
+
+  // ─── Exotic Ancestries ──────────────────────────────────────────────────────
+
   {
     id: "bunbun",
     name: { en: "Bunbun", fr: "" },
     size: "Small",
-    category: "common",
+    category: "exotic",
     trait: {
       name: { en: "Bunny Legs", fr: "" },
       description: {
@@ -113,14 +116,9 @@ export const ancestries: Ancestry[] = [
       },
     },
     modifiers: {
-      other: [
-        { en: "Free hop movement up to Speed 1/encounter", fr: "" },
-      ],
+      other: [{ en: "Free hop movement up to Speed 1/encounter", fr: "" }],
     },
   },
-
-  // ─── Exotic Ancestries ──────────────────────────────────────────────────────
-
   {
     id: "dragonborn",
     name: { en: "Dragonborn", fr: "" },
@@ -310,9 +308,7 @@ export const ancestries: Ancestry[] = [
     },
     modifiers: {
       languages: [{ en: "Elvish", fr: "" }],
-      other: [
-        { en: "Daze adjacent enemies when you take Wounds", fr: "" },
-      ],
+      other: [{ en: "Daze adjacent enemies when you take Wounds", fr: "" }],
     },
   },
   {
@@ -348,9 +344,7 @@ export const ancestries: Ancestry[] = [
       },
     },
     modifiers: {
-      other: [
-        { en: "Push creatures when moving 4+ spaces 1/turn", fr: "" },
-      ],
+      other: [{ en: "Push creatures when moving 4+ spaces 1/turn", fr: "" }],
     },
   },
   {
@@ -405,9 +399,7 @@ export const ancestries: Ancestry[] = [
     },
     modifiers: {
       armor: 2,
-      other: [
-        { en: "+2 Armor (conditional: must have moved)", fr: "" },
-      ],
+      other: [{ en: "+2 Armor (conditional: must have moved)", fr: "" }],
     },
   },
   {
@@ -461,9 +453,7 @@ export const ancestries: Ancestry[] = [
       },
     },
     modifiers: {
-      other: [
-        { en: "Chaos Table on tiered spell 1/encounter", fr: "" },
-      ],
+      other: [{ en: "Chaos Table on tiered spell 1/encounter", fr: "" }],
     },
   },
 ];
