@@ -1,0 +1,125 @@
+{
+  "app": {
+    "title": "Nimble Tools",
+    "description": "Référence rapide pour les règles du JDR Nimble"
+  },
+  "nav": {
+    "home": "Accueil",
+    "classes": "Classes",
+    "spells": "Sorts",
+    "equipment": "Équipement",
+    "ancestries": "Ascendances",
+    "backgrounds": "Historiques",
+    "conditions": "Conditions",
+    "rules": "Règles",
+    "search": "Recherche"
+  },
+  "common": {
+    "search": "Rechercher...",
+    "searchPlaceholder": "Rechercher dans les règles...",
+    "filter": "Filtrer",
+    "all": "Tous",
+    "noResults": "Aucun résultat trouvé.",
+    "level": "Niveau",
+    "tier": "Palier",
+    "cantrip": "Cantrip",
+    "cost": "Coût",
+    "damage": "Dégâts",
+    "range": "Portée",
+    "properties": "Propriétés",
+    "description": "Description",
+    "effects": "Effets",
+    "back": "Retour",
+    "showMore": "Voir plus",
+    "showLess": "Voir moins"
+  },
+  "home": {
+    "subtitle": "Votre référence bilingue pour Nimble JDR",
+    "classesDesc": "11 classes uniques avec sous-classes",
+    "spellsDesc": "Sorts répartis en 7 écoles de magie",
+    "equipmentDesc": "Armes, armures et équipement",
+    "ancestriesDesc": "Ascendances communes et exotiques",
+    "backgroundsDesc": "Historiques et traits de personnage",
+    "conditionsDesc": "Référence rapide des conditions",
+    "rulesDesc": "Mécaniques de base, combat et repos"
+  },
+  "classes": {
+    "title": "Classes",
+    "complexity": "Complexité",
+    "keyStats": "Stats clés",
+    "hitDie": "Dé de vie",
+    "startingHp": "PV de départ",
+    "saves": "Sauvegardes",
+    "strong": "Forte",
+    "weak": "Faible",
+    "armorProf": "Maîtrise d'armure",
+    "weaponProf": "Maîtrise d'arme",
+    "startingGear": "Équipement de départ",
+    "levelProgression": "Progression par niveau",
+    "subclasses": "Sous-classes",
+    "abilityPool": "Réserve de capacités",
+    "storySubclass": "Sous-classe narrative"
+  },
+  "spells": {
+    "title": "Sorts",
+    "school": "École",
+    "castingTime": "Temps d'incantation",
+    "actions": "{count, plural, one {# action} other {# actions}}",
+    "concentration": "Concentration",
+    "upcast": "Incantation supérieure",
+    "classRestriction": "Restriction de classe",
+    "saveType": "Sauvegarde",
+    "schools": {
+      "fire": "Feu",
+      "ice": "Glace",
+      "lightning": "Foudre",
+      "wind": "Vent",
+      "radiant": "Radiant",
+      "necrotic": "Nécrotique",
+      "utility": "Utilitaire"
+    }
+  },
+  "equipment": {
+    "title": "Équipement",
+    "armor": "Armure",
+    "meleeWeapons": "Armes de mêlée",
+    "rangedWeapons": "Armes à distance",
+    "adventuringGear": "Équipement d'aventurier",
+    "magicalItems": "Objets magiques",
+    "armorValue": "Valeur d'armure",
+    "strReq": "Prérequis FOR",
+    "weaponProperties": "Propriétés des armes",
+    "name": "Nom",
+    "category": "Catégorie",
+    "wands": "Baguettes",
+    "charges": "Charges",
+    "spell": "Sort",
+    "attunement": "Harmonisation"
+  },
+  "ancestries": {
+    "title": "Ascendances",
+    "common": "Communes",
+    "exotic": "Exotiques",
+    "trait": "Trait",
+    "size": "Taille"
+  },
+  "backgrounds": {
+    "title": "Historiques",
+    "requirement": "Prérequis",
+    "hasRequirement": "Avec prérequis",
+    "noRequirement": "Sans prérequis"
+  },
+  "conditions": {
+    "title": "Conditions",
+    "minorStatuses": "Statuts mineurs"
+  },
+  "rules": {
+    "title": "Règles de base",
+    "combat": "Combat",
+    "resting": "Repos",
+    "coreMechanics": "Mécaniques de base"
+  },
+  "footer": {
+    "attribution": "Nimble Tools est un produit indépendant publié sous la licence Nimble 3rd Party Creator License et n'est pas affilié à Nimble Co. Nimble © 2025 Nimble Co."
+  }
+}

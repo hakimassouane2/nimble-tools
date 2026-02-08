@@ -1,0 +1,60 @@
+import type { RangedWeapon } from "../types";
+
+export const rangedWeapons: RangedWeapon[] = [
+  {
+    id: "sling",
+    name: { en: "Sling", fr: "" },
+    damage: "1d4+DEX Bludgeoning",
+    range: "12",
+    properties: ["2-Handed", "Vicious"],
+    cost: "4 gp",
+  },
+  {
+    id: "javelins",
+    name: { en: "Javelins", fr: "" },
+    damage: "1d6+STR Piercing",
+    range: "8",
+    properties: [],
+    cost: "20 gp",
+  },
+  {
+    id: "throwing-hammers",
+    name: { en: "Throwing Hammers", fr: "" },
+    damage: "1d8+STR Bludgeoning",
+    range: "4",
+    properties: [],
+    cost: "25 gp",
+  },
+  {
+    id: "shortbow",
+    name: { en: "Shortbow", fr: "" },
+    damage: "1d6+DEX Piercing",
+    range: "12",
+    properties: ["2-Handed"],
+    cost: "25 gp",
+  },
+  {
+    id: "longbow",
+    name: { en: "Longbow", fr: "" },
+    damage: "1d8+DEX Piercing",
+    range: "16",
+    properties: ["2-Handed"],
+    cost: "30 gp",
+  },
+  {
+    id: "crossbow",
+    name: { en: "Crossbow", fr: "" },
+    damage: "4d4+DEX Piercing",
+    range: "8",
+    properties: ["2-Handed", "Load"],
+    cost: "60 gp",
+  },
+  {
+    id: "handheld-ballista",
+    name: { en: "Handheld Ballista", fr: "" },
+    damage: "1d20+DEX Piercing",
+    range: "8",
+    properties: ["2-Handed", "Load"],
+    cost: "120 gp",
+  },
+];

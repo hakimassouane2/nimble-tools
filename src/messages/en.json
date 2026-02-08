@@ -1,0 +1,125 @@
+{
+  "app": {
+    "title": "Nimble Tools",
+    "description": "Quick reference for Nimble RPG rules"
+  },
+  "nav": {
+    "home": "Home",
+    "classes": "Classes",
+    "spells": "Spells",
+    "equipment": "Equipment",
+    "ancestries": "Ancestries",
+    "backgrounds": "Backgrounds",
+    "conditions": "Conditions",
+    "rules": "Rules",
+    "search": "Search"
+  },
+  "common": {
+    "search": "Search...",
+    "searchPlaceholder": "Search rules...",
+    "filter": "Filter",
+    "all": "All",
+    "noResults": "No results found.",
+    "level": "Level",
+    "tier": "Tier",
+    "cantrip": "Cantrip",
+    "cost": "Cost",
+    "damage": "Damage",
+    "range": "Range",
+    "properties": "Properties",
+    "description": "Description",
+    "effects": "Effects",
+    "back": "Back",
+    "showMore": "Show more",
+    "showLess": "Show less"
+  },
+  "home": {
+    "subtitle": "Your bilingual reference for Nimble RPG",
+    "classesDesc": "11 unique classes with subclasses",
+    "spellsDesc": "Spells across 7 schools of magic",
+    "equipmentDesc": "Weapons, armor, and gear",
+    "ancestriesDesc": "Common and exotic ancestries",
+    "backgroundsDesc": "Character backgrounds and traits",
+    "conditionsDesc": "Status conditions quick reference",
+    "rulesDesc": "Core mechanics, combat, and resting"
+  },
+  "classes": {
+    "title": "Classes",
+    "complexity": "Complexity",
+    "keyStats": "Key Stats",
+    "hitDie": "Hit Die",
+    "startingHp": "Starting HP",
+    "saves": "Saves",
+    "strong": "Strong",
+    "weak": "Weak",
+    "armorProf": "Armor Proficiency",
+    "weaponProf": "Weapon Proficiency",
+    "startingGear": "Starting Gear",
+    "levelProgression": "Level Progression",
+    "subclasses": "Subclasses",
+    "abilityPool": "Ability Pool",
+    "storySubclass": "Story-Based Subclass"
+  },
+  "spells": {
+    "title": "Spells",
+    "school": "School",
+    "castingTime": "Casting Time",
+    "actions": "{count, plural, one {# action} other {# actions}}",
+    "concentration": "Concentration",
+    "upcast": "Upcast",
+    "classRestriction": "Class Restriction",
+    "saveType": "Save",
+    "schools": {
+      "fire": "Fire",
+      "ice": "Ice",
+      "lightning": "Lightning",
+      "wind": "Wind",
+      "radiant": "Radiant",
+      "necrotic": "Necrotic",
+      "utility": "Utility"
+    }
+  },
+  "equipment": {
+    "title": "Equipment",
+    "armor": "Armor",
+    "meleeWeapons": "Melee Weapons",
+    "rangedWeapons": "Ranged Weapons",
+    "adventuringGear": "Adventuring Gear",
+    "magicalItems": "Magical Items",
+    "armorValue": "Armor Value",
+    "strReq": "STR Req",
+    "weaponProperties": "Weapon Properties",
+    "name": "Name",
+    "category": "Category",
+    "wands": "Wands",
+    "charges": "Charges",
+    "spell": "Spell",
+    "attunement": "Attunement"
+  },
+  "ancestries": {
+    "title": "Ancestries",
+    "common": "Common",
+    "exotic": "Exotic",
+    "trait": "Trait",
+    "size": "Size"
+  },
+  "backgrounds": {
+    "title": "Backgrounds",
+    "requirement": "Requirement",
+    "hasRequirement": "Has Requirement",
+    "noRequirement": "No Requirement"
+  },
+  "conditions": {
+    "title": "Conditions",
+    "minorStatuses": "Minor Statuses"
+  },
+  "rules": {
+    "title": "Core Rules",
+    "combat": "Combat",
+    "resting": "Resting",
+    "coreMechanics": "Core Mechanics"
+  },
+  "footer": {
+    "attribution": "Nimble Tools is an independent product published under the Nimble 3rd Party Creator License and is not affiliated with Nimble Co. Nimble © 2025 Nimble Co."
+  }
+}
