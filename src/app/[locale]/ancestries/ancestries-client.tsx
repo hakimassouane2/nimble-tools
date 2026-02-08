@@ -105,30 +105,6 @@ function AncestryCard({
           {t(ancestry.trait.description, locale)}
         </p>
       </div>
-      {ancestry.modifiers.speed !== undefined && (
-        <p className="mt-2 text-xs text-muted">
-          {locale === "fr" ? "Vitesse" : "Speed"} : {ancestry.modifiers.speed}
-        </p>
-      )}
-      {ancestry.modifiers.armor !== undefined && (
-        <p className="text-xs text-muted">
-          {locale === "fr" ? "Armure" : "Armor"} : +{ancestry.modifiers.armor}
-        </p>
-      )}
-      {ancestry.modifiers.languages && ancestry.modifiers.languages.length > 0 && (
-        <p className="text-xs text-muted">
-          {locale === "fr" ? "Langues" : "Languages"} : {ancestry.modifiers.languages.map((l) => t(l, locale)).join(", ")}
-        </p>
-      )}
-      {ancestry.modifiers.other && ancestry.modifiers.other.length > 0 && (
-        <ul className="mt-1">
-          {ancestry.modifiers.other.map((o, i) => (
-            <li key={i} className="text-xs text-muted">
-              {t(o, locale)}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 }
