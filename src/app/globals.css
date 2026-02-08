@@ -1,7 +1,34 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@theme inline {
+@theme {
+  --color-background: #faf8f5;
+  --color-foreground: #1a1410;
+  --color-surface: #f0ece7;
+  --color-surface-hover: #e6e0d9;
+  --color-border: #d6cfc6;
+  --color-muted: #7a7068;
+  --color-accent: #b07d4f;
+  --color-accent-hover: #96693f;
+
+  --color-fire: #dc2626;
+  --color-ice: #2563eb;
+  --color-lightning: #ca8a04;
+  --color-wind: #16a34a;
+  --color-radiant: #d97706;
+  --color-necrotic: #9333ea;
+  --color-utility: #6b7280;
+
+  --color-rarity-common: #6b7280;
+  --color-rarity-uncommon: #15803d;
+  --color-rarity-rare: #0070dd;
+  --color-rarity-very-rare: #7c3aed;
+  --color-rarity-legendary: #ea580c;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.dark {
   --color-background: #0f0f0f;
   --color-foreground: #e8e0d6;
   --color-surface: #1a1a1a;
@@ -24,8 +51,6 @@
   --color-rarity-rare: #0070dd;
   --color-rarity-very-rare: #a335ee;
   --color-rarity-legendary: #ff8000;
-
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
@@ -34,7 +59,7 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Scrollbar styling for dark theme */
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }

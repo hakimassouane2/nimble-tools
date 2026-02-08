@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageToggle } from "./language-toggle";
+import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
 
 const navLinks = [
@@ -64,6 +65,7 @@ export function Nav() {
               <path d="m21 21-4.3-4.3" />
             </svg>
           </Link>
+          <ThemeToggle />
           <LanguageToggle />
           <MobileNav />
         </div>
