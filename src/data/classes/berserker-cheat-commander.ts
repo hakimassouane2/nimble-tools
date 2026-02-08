@@ -116,7 +116,10 @@ export const berserker: HeroClass = {
     },
     {
       level: 5,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 INT or WIL.", fr: "+1 INT ou VOL." },
       type: "stat-increase",
     },
@@ -177,7 +180,10 @@ export const berserker: HeroClass = {
     },
     {
       level: 9,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 INT or WIL.", fr: "+1 INT ou VOL." },
       type: "stat-increase",
     },
@@ -229,7 +235,10 @@ export const berserker: HeroClass = {
     },
     {
       level: 13,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 INT or WIL.", fr: "+1 INT ou VOL." },
       type: "stat-increase",
     },
@@ -281,7 +290,10 @@ export const berserker: HeroClass = {
     },
     {
       level: 17,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 INT or WIL.", fr: "+1 INT ou VOL." },
       type: "stat-increase",
     },
@@ -320,7 +332,10 @@ export const berserker: HeroClass = {
     // ── Path of the Mountainheart ──
     {
       id: "path-of-the-mountainheart",
-      name: { en: "Path of the Mountainheart", fr: "Voie du coeur de la montagne" },
+      name: {
+        en: "Path of the Mountainheart",
+        fr: "Voie du coeur de la montagne",
+      },
       description: {
         en: "An indomitable path focused on endurance, resilience, and surviving what should kill you.",
         fr: "Une voie indomptable axée sur l'endurance, la résilience et la capacité de survivre à ce qui devrait vous tuer.",
@@ -518,7 +533,7 @@ export const berserker: HeroClass = {
 
 export const cheat: HeroClass = {
   id: "the-cheat",
-  name: { en: "The Cheat", fr: "Le Roublard" },
+  name: { en: "The Cheat", fr: "Roublard" },
   description: {
     en: "A sneaky, backstabbing, dirty-fighting rogue. Break the rules, manipulate dice rolls, and deliver devastating Sneak Attacks from the shadows.",
     fr: "Un voleur sournois, traître et bagarreur. Brisez les règles, manipulez les jets de dés et portez des Attaques sournoises dévastatrices depuis les ombres.",
@@ -631,7 +646,10 @@ export const cheat: HeroClass = {
     },
     {
       level: 5,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 WIL or STR.", fr: "+1 VOL ou FOR." },
       type: "stat-increase",
     },
@@ -647,7 +665,10 @@ export const cheat: HeroClass = {
     },
     {
       level: 6,
-      name: { en: "THAT'S Not What Happened!", fr: "C'est PAS ce qui s'est passé !" },
+      name: {
+        en: "THAT'S Not What Happened!",
+        fr: "C'est PAS ce qui s'est passé !",
+      },
       description: {
         en: "(1/Safe Rest) Action: After a Distracted enemy attacks you, change the Primary Die roll to whatever you like (changing it to the minimum counts as a miss).",
         fr: "(1/Repos sûr) Action : Après qu'un ennemi Distrait vous attaque, changez le résultat du Dé primaire à la valeur de votre choix (le changer au minimum compte comme un échec).",
@@ -701,7 +722,10 @@ export const cheat: HeroClass = {
     },
     {
       level: 9,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 WIL or STR.", fr: "+1 VOL ou FOR." },
       type: "stat-increase",
     },
@@ -762,7 +786,10 @@ export const cheat: HeroClass = {
     },
     {
       level: 13,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 WIL or STR.", fr: "+1 VOL ou FOR." },
       type: "stat-increase",
     },
@@ -823,7 +850,10 @@ export const cheat: HeroClass = {
     },
     {
       level: 17,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 WIL or STR.", fr: "+1 VOL ou FOR." },
       type: "stat-increase",
     },
@@ -862,7 +892,10 @@ export const cheat: HeroClass = {
     // ── Tools of the Silent Blade ──
     {
       id: "tools-of-the-silent-blade",
-      name: { en: "Tools of the Silent Blade", fr: "Outils de la lame silencieuse" },
+      name: {
+        en: "Tools of the Silent Blade",
+        fr: "Outils de la lame silencieuse",
+      },
       description: {
         en: "A murderous path focused on stealth kills, invisibility, and eliminating targets without a trace.",
         fr: "Une voie meurtrière axée sur les assassinats furtifs, l'invisibilité et l'élimination des cibles sans laisser de trace.",
@@ -871,7 +904,10 @@ export const cheat: HeroClass = {
       features: [
         {
           level: 3,
-          name: { en: "Amidst All This Commotion...", fr: "Au milieu de toute cette agitation" },
+          name: {
+            en: "Amidst All This Commotion...",
+            fr: "Au milieu de toute cette agitation",
+          },
           description: {
             en: "If a creature dies while you Sneak Attack them, you may turn Invisible until you attack again or until the beginning of your next turn.",
             fr: "Si une créature meurt suite à votre Attaque sournoise, vous pouvez devenir Invisible jusqu'à ce que vous attaquiez à nouveau ou jusqu'au début de votre prochain tour.",
@@ -955,7 +991,10 @@ export const cheat: HeroClass = {
         },
         {
           level: 15,
-          name: { en: "Heads I Win, Tails You Lose", fr: "Pile, je gagne. Face, tu perds." },
+          name: {
+            en: "Heads I Win, Tails You Lose",
+            fr: "Pile, je gagne. Face, tu perds.",
+          },
           description: {
             en: "(1/encounter) Attacks you make this round don't miss, you crit on 1 less than normally needed, and you gain LVL temp HP.",
             fr: "(1/rencontre) Les attaques que vous effectuez ce round ne ratent pas, vous faites un coup critique avec 1 de moins que le seuil normal, et vous gagnez NIV PV temporaires.",
@@ -969,7 +1008,7 @@ export const cheat: HeroClass = {
     selectAtLevels: [4, 6, 8, 10, 12, 14, 16, 18],
     abilities: [
       {
-        name: { en: '"Creative" Accounting', fr: "Comptabilité \"créative\"" },
+        name: { en: '"Creative" Accounting', fr: 'Comptabilité "créative"' },
         description: {
           en: "Steal up to INT actions from your next turn (gain up to INT actions now; next turn, subtract the number stolen). Cannot use 2 turns in a row.",
           fr: "Volez jusqu'à INT actions de votre prochain tour (gagnez jusqu'à INT actions maintenant ; au prochain tour, soustrayez le nombre volé). Ne peut pas être utilisé 2 tours de suite.",
@@ -993,7 +1032,7 @@ export const cheat: HeroClass = {
         name: { en: "How'd YOU Get Here?!", fr: "Comment t'es arrivé là ?!" },
         description: {
           en: '2 actions: "Teleport" up to 4 spaces away, adjacent to a Distracted target, and make a melee attack. If you crit, you may teleport again.',
-          fr: "2 actions : \"Téléportez-vous\" jusqu'à 4 cases, adjacent à une cible Distraite, et effectuez une attaque de mêlée. Si vous faites un coup critique, vous pouvez vous téléporter à nouveau.",
+          fr: '2 actions : "Téléportez-vous" jusqu\'à 4 cases, adjacent à une cible Distraite, et effectuez une attaque de mêlée. Si vous faites un coup critique, vous pouvez vous téléporter à nouveau.',
         },
       },
       {
@@ -1018,7 +1057,10 @@ export const cheat: HeroClass = {
         },
       },
       {
-        name: { en: "Sunder Armor (Medium)", fr: "Briser l'armure (intermédiaire)" },
+        name: {
+          en: "Sunder Armor (Medium)",
+          fr: "Briser l'armure (intermédiaire)",
+        },
         description: {
           en: "Action: When you crit an enemy with medium armor, sunder their armor. Until the start of your next turn, ALL melee attacks against that target ignore its armor.",
           fr: "Action : Lorsque vous infligez un coup critique à un ennemi en armure intermédiaire, brisez son armure. Jusqu'au début de votre prochain tour, TOUTES les attaques de mêlée contre cette cible ignorent son armure.",
@@ -1060,7 +1102,9 @@ export const commander: HeroClass = {
     { en: "Mail Armor", fr: "Armure de mailles" },
     { en: "Shields", fr: "Boucliers" },
   ],
-  weaponProficiency: [{ en: "All Martial Weapons", fr: "Toutes les armes martiales" }],
+  weaponProficiency: [
+    { en: "All Martial Weapons", fr: "Toutes les armes martiales" },
+  ],
   startingGear: [
     { en: "Short Sword", fr: "Épée courte" },
     { en: "Javelins", fr: "Javelots" },
@@ -1109,7 +1153,10 @@ export const commander: HeroClass = {
     // ── Level 4 ──
     {
       level: 4,
-      name: { en: "Fit for Any Battlefield", fr: "Prêt pour tout champ de bataille" },
+      name: {
+        en: "Fit for Any Battlefield",
+        fr: "Prêt pour tout champ de bataille",
+      },
       description: {
         en: "Choose a Combat Tactic. When you roll Initiative, gain STR Combat Dice (d6). (1/attack) Expend a Combat Die to perform a special maneuver. Combat Dice are lost when combat ends.",
         fr: "Choisissez une Tactique de combat. Lorsque vous lancez l'Initiative, gagnez FOR Dés de combat (d6). (1/attaque) Dépensez un Dé de combat pour effectuer une manœuvre spéciale. Les Dés de combat sont perdus à la fin du combat.",
@@ -1143,14 +1190,20 @@ export const commander: HeroClass = {
     },
     {
       level: 5,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or WIL.", fr: "+1 DEX ou VOL." },
       type: "stat-increase",
     },
     // ── Level 6 ──
     {
       level: 6,
-      name: { en: "Fit for Any Battlefield (2)", fr: "Prêt pour tout champ de bataille (2)" },
+      name: {
+        en: "Fit for Any Battlefield (2)",
+        fr: "Prêt pour tout champ de bataille (2)",
+      },
       description: {
         en: "Choose another Combat Ability or gain +1 max Combat Dice.",
         fr: "Choisissez une autre Capacité de combat ou gagnez +1 Dé de combat max.",
@@ -1179,7 +1232,10 @@ export const commander: HeroClass = {
     // ── Level 8 ──
     {
       level: 8,
-      name: { en: "Fit for Any Battlefield (3)", fr: "Prêt pour tout champ de bataille (3)" },
+      name: {
+        en: "Fit for Any Battlefield (3)",
+        fr: "Prêt pour tout champ de bataille (3)",
+      },
       description: {
         en: "Choose another Combat Ability or gain +1 max Combat Dice.",
         fr: "Choisissez une autre Capacité de combat ou gagnez +1 Dé de combat max.",
@@ -1213,14 +1269,20 @@ export const commander: HeroClass = {
     },
     {
       level: 9,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or WIL.", fr: "+1 DEX ou VOL." },
       type: "stat-increase",
     },
     // ── Level 10 ──
     {
       level: 10,
-      name: { en: "Fit for Any Battlefield (4)", fr: "Prêt pour tout champ de bataille (4)" },
+      name: {
+        en: "Fit for Any Battlefield (4)",
+        fr: "Prêt pour tout champ de bataille (4)",
+      },
       description: {
         en: "Choose another Combat Ability or gain +1 max Combat Dice.",
         fr: "Choisissez une autre Capacité de combat ou gagnez +1 Dé de combat max.",
@@ -1249,7 +1311,10 @@ export const commander: HeroClass = {
     // ── Level 12 ──
     {
       level: 12,
-      name: { en: "Fit for Any Battlefield (5)", fr: "Prêt pour tout champ de bataille (5)" },
+      name: {
+        en: "Fit for Any Battlefield (5)",
+        fr: "Prêt pour tout champ de bataille (5)",
+      },
       description: {
         en: "Choose another Combat Ability or gain +1 max Combat Dice.",
         fr: "Choisissez une autre Capacité de combat ou gagnez +1 Dé de combat max.",
@@ -1283,7 +1348,10 @@ export const commander: HeroClass = {
     },
     {
       level: 13,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or WIL.", fr: "+1 DEX ou VOL." },
       type: "stat-increase",
     },
@@ -1310,7 +1378,10 @@ export const commander: HeroClass = {
     // ── Level 16 ──
     {
       level: 16,
-      name: { en: "Fit for Any Battlefield (6)", fr: "Prêt pour tout champ de bataille (6)" },
+      name: {
+        en: "Fit for Any Battlefield (6)",
+        fr: "Prêt pour tout champ de bataille (6)",
+      },
       description: {
         en: "Choose another Combat Ability or gain +1 max Combat Dice.",
         fr: "Choisissez une autre Capacité de combat ou gagnez +1 Dé de combat max.",
@@ -1344,7 +1415,10 @@ export const commander: HeroClass = {
     },
     {
       level: 17,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or WIL.", fr: "+1 DEX ou VOL." },
       type: "stat-increase",
     },
@@ -1460,7 +1534,10 @@ export const commander: HeroClass = {
         },
         {
           level: 11,
-          name: { en: "Survey the Battlefield", fr: "Analyse du champ de bataille" },
+          name: {
+            en: "Survey the Battlefield",
+            fr: "Analyse du champ de bataille",
+          },
           description: {
             en: "When you roll Initiative, regain 1 use of Coordinated Strike. +1 max Combat Dice.",
             fr: "Lorsque vous lancez l'Initiative, récupérez 1 utilisation de Frappe coordonnée. +1 Dé de combat max.",
@@ -1556,7 +1633,10 @@ export const commander: HeroClass = {
         },
       },
       {
-        name: { en: "I Can Do This ALL DAY!", fr: "J'peux faire ça TOUTE LA JOURNÉE !" },
+        name: {
+          en: "I Can Do This ALL DAY!",
+          fr: "J'peux faire ça TOUTE LA JOURNÉE !",
+        },
         description: {
           en: "(1/encounter) Reaction (when you would drop to 0 HP): Expend any number of Hit Dice and set your HP to the sum rolled instead (do not add STR).",
           fr: "(1/rencontre) Réaction (quand vous devriez tomber à 0 PV) : Dépensez n'importe quel nombre de Dés de vie et fixez vos PV à la somme obtenue (n'ajoutez pas la FOR).",
