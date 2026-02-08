@@ -4,7 +4,7 @@ import type { HeroClass } from "../types";
 
 export const shadowmancer: HeroClass = {
   id: "shadowmancer",
-  name: { en: "Shadowmancer", fr: "Ombromancien" },
+  name: { en: "Shadowmancer", fr: "Occultiste" },
   description: {
     en: "Summon hordes of expendable shadow minions and wield necrotic power stolen from ancient patrons. Choose between the Pact of the Red Dragon and the Pact of the Abyssal Depths.",
     fr: "Invoquez des hordes de serviteurs d'ombre sacrifiables et maniez le pouvoir nécrotique dérobé à d'anciens patrons. Choisissez entre le Pacte du dragon rouge et le Pacte des profondeurs abyssales.",
@@ -57,7 +57,7 @@ export const shadowmancer: HeroClass = {
       name: { en: "The Pact is Sealed", fr: "Le pacte est SCELLÉ" },
       description: {
         en: "Choose a subclass and 1 Lesser Shadow Invocation. You may supplicate your Patron on a Safe Rest to change your Shadowmancer options.",
-        fr: "Choisissez une sous-classe et 1 Invocation d'ombre mineure. Vous pouvez supplier votre Patron lors d'un Repos sûr pour changer vos options d'Ombremancien.",
+        fr: "Choisissez une sous-classe et 1 Invocation d'ombre mineure. Vous pouvez supplier votre Patron lors d'un Repos sûr pour changer vos options d'Occultiste.",
       },
       type: "subclass",
     },
@@ -117,7 +117,7 @@ export const shadowmancer: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Shadowmancer subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe d'Ombremancien.",
+        fr: "Obtenez la capacité de votre sous-classe d'Occultiste.",
       },
       type: "subclass",
     },
@@ -186,7 +186,7 @@ export const shadowmancer: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Shadowmancer subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe d'Ombremancien.",
+        fr: "Obtenez la capacité de votre sous-classe d'Occultiste.",
       },
       type: "subclass",
     },
@@ -252,7 +252,7 @@ export const shadowmancer: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Shadowmancer subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe d'Ombremancien.",
+        fr: "Obtenez la capacité de votre sous-classe d'Occultiste.",
       },
       type: "subclass",
     },
@@ -654,7 +654,7 @@ export const shadowmancer: HeroClass = {
 
 export const shepherd: HeroClass = {
   id: "shepherd",
-  name: { en: "Shepherd", fr: "Berger" },
+  name: { en: "Shepherd", fr: "Clerc" },
   description: {
     en: "Master of life and death who leads a faithful Lifebinding Spirit companion. Choose between the nurturing Luminary of Mercy and the ruinous Luminary of Malice.",
     fr: "Maître de la vie et de la mort qui guide un fidèle Esprit compagnon. Choisissez entre l'Astre de la miséricorde nourricier et l'Astre de la malice destructeur.",
@@ -720,7 +720,7 @@ export const shepherd: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Choose a Shepherd subclass.",
-        fr: "Choisissez une sous-classe de Berger.",
+        fr: "Choisissez une sous-classe de Clerc.",
       },
       type: "subclass",
     },
@@ -765,7 +765,7 @@ export const shepherd: HeroClass = {
       name: { en: "Sacred Grace", fr: "Grâce sacrée" },
       description: {
         en: "Choose 2 Sacred Graces. You may change your Shepherd options after serving others or tending a sacred place during a Safe Rest.",
-        fr: "Choisissez 2 Grâces sacrées. Vous pouvez changer vos options de Berger après avoir servi autrui ou entretenu un lieu sacré lors d'un Repos sûr.",
+        fr: "Choisissez 2 Grâces sacrées. Vous pouvez changer vos options de Clerc après avoir servi autrui ou entretenu un lieu sacré lors d'un Repos sûr.",
       },
       type: "core",
     },
@@ -792,7 +792,7 @@ export const shepherd: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Shepherd subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Berger.",
+        fr: "Obtenez la capacité de votre sous-classe de Clerc.",
       },
       type: "subclass",
     },
@@ -843,7 +843,7 @@ export const shepherd: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Shepherd subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Berger.",
+        fr: "Obtenez la capacité de votre sous-classe de Clerc.",
       },
       type: "subclass",
     },
@@ -897,7 +897,7 @@ export const shepherd: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Shepherd subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Berger.",
+        fr: "Obtenez la capacité de votre sous-classe de Clerc.",
       },
       type: "subclass",
     },
@@ -1140,7 +1140,7 @@ export const shepherd: HeroClass = {
 
 export const songweaver: HeroClass = {
   id: "songweaver",
-  name: { en: "Songweaver", fr: "Tissechant" },
+  name: { en: "Songweaver", fr: "Barde" },
   description: {
     en: "An inspiring presence with sharp wit and a sharper tongue. Use powerful charisma and lyrical weaponry to dominate enemies and bolster allies.",
     fr: "Une présence inspirante à l'esprit vif et à la langue encore plus acérée. Utilisez un charisme puissant et un armement lyrique pour dominer les ennemis et galvaniser les alliés.",
@@ -1176,7 +1176,7 @@ export const songweaver: HeroClass = {
     },
     {
       level: 1,
-      name: { en: "Songweaver's Inspiration", fr: "Inspiration du Tissechant" },
+      name: { en: "Songweaver's Inspiration", fr: "Inspiration du Barde" },
       description: {
         en: "(2xWIL times/Safe Rest) Free Reaction: Allow an ally to reroll a single die related to an attack or save (must keep either result).",
         fr: "(2xVOL fois/Repos sûr) Réaction gratuite : Permettez à un allié de relancer un dé lié à une attaque ou un jet de sauvegarde (il doit garder l'un des deux résultats).",
@@ -1215,7 +1215,7 @@ export const songweaver: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Choose a Songweaver subclass.",
-        fr: "Choisissez une sous-classe de Tissechant.",
+        fr: "Choisissez une sous-classe de Barde.",
       },
       type: "subclass",
     },
@@ -1224,7 +1224,7 @@ export const songweaver: HeroClass = {
       name: { en: "Quick Wit", fr: "Presence d'esprit" },
       description: {
         en: "When you roll Initiative, regain 2 spent uses of Songweaver's Inspiration (these expire at the end of combat if unused).",
-        fr: "Lorsque vous lancez l'Initiative, récupérez 2 utilisations dépensées d'Inspiration du Tissechant (elles expirent à la fin du combat si non utilisées).",
+        fr: "Lorsque vous lancez l'Initiative, récupérez 2 utilisations dépensées d'Inspiration du Barde (elles expirent à la fin du combat si non utilisées).",
       },
       type: "core",
     },
@@ -1305,7 +1305,7 @@ export const songweaver: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Songweaver subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Tissechant.",
+        fr: "Obtenez la capacité de votre sous-classe de Barde.",
       },
       type: "subclass",
     },
@@ -1359,7 +1359,7 @@ export const songweaver: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Songweaver subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Tissechant.",
+        fr: "Obtenez la capacité de votre sous-classe de Barde.",
       },
       type: "subclass",
     },
@@ -1416,7 +1416,7 @@ export const songweaver: HeroClass = {
       name: { en: "Subclass Feature", fr: "Capacité de sous-classe" },
       description: {
         en: "Gain your Songweaver subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Tissechant.",
+        fr: "Obtenez la capacité de votre sous-classe de Barde.",
       },
       type: "subclass",
     },
@@ -1476,7 +1476,7 @@ export const songweaver: HeroClass = {
       name: { en: "I'm So Famous!", fr: "Je suis tellement célèbre !" },
       description: {
         en: "+1 to any 2 of your stats. Your Songweaver's Inspiration cannot fail (your target succeeds).",
-        fr: "+1 à 2 caractéristiques de votre choix. Votre Inspiration du Tissechant ne peut pas échouer (votre cible réussit).",
+        fr: "+1 à 2 caractéristiques de votre choix. Votre Inspiration du Barde ne peut pas échouer (votre cible réussit).",
       },
       type: "capstone",
     },
@@ -1545,7 +1545,7 @@ export const songweaver: HeroClass = {
           name: { en: "Inspiring Presence", fr: "Présence inspirante" },
           description: {
             en: "Whenever you use Songweaver's Inspiration, your allies within 12 spaces who can hear you gain WIL temp HP.",
-            fr: "Chaque fois que vous utilisez l'Inspiration du Tissechant, vos alliés dans un rayon de 12 cases qui peuvent vous entendre gagnent VOL PV temporaires.",
+            fr: "Chaque fois que vous utilisez l'Inspiration du Barde, vos alliés dans un rayon de 12 cases qui peuvent vous entendre gagnent VOL PV temporaires.",
           },
         },
         {
@@ -1553,7 +1553,7 @@ export const songweaver: HeroClass = {
           name: { en: "Unfailing Courage", fr: "Courage sans faille" },
           description: {
             en: "Your Songweaver's Inspiration allows your target to roll with advantage.",
-            fr: "Votre Inspiration du Tissechant permet à votre cible de lancer avec Avantage.",
+            fr: "Votre Inspiration du Barde permet à votre cible de lancer avec Avantage.",
           },
         },
         {
@@ -1561,7 +1561,7 @@ export const songweaver: HeroClass = {
           name: { en: "Fire in my Bones", fr: "Feu de l'âme" },
           description: {
             en: "Your Songweaver's Inspiration also grants your target 1 additional action.",
-            fr: "Votre Inspiration du Tissechant octroie également à votre cible 1 action supplémentaire.",
+            fr: "Votre Inspiration du Barde octroie également à votre cible 1 action supplémentaire.",
           },
         },
         {
@@ -1583,7 +1583,7 @@ export const songweaver: HeroClass = {
         name: { en: "Heroic Ballad", fr: "Ballade héroïque" },
         description: {
           en: "+2 max Songweaver's Inspiration charges. When used to reroll an ally's attack, also grants +WIL damage on the attack.",
-          fr: "+2 charges maximales d'Inspiration du Tissechant. Lorsqu'elle est utilisée pour relancer l'attaque d'un allié, octroie aussi +VOL dégâts sur l'attaque.",
+          fr: "+2 charges maximales d'Inspiration du Barde. Lorsqu'elle est utilisée pour relancer l'attaque d'un allié, octroie aussi +VOL dégâts sur l'attaque.",
         },
       },
       {
@@ -1604,7 +1604,7 @@ export const songweaver: HeroClass = {
         name: { en: "Rhapsody of the Normal", fr: "Rhapsodie de la normalité" },
         description: {
           en: "When you roll 4+ on Vicious Mockery, spend a Songweaver's Inspiration charge to suppress the target's special abilities until end of their next turn, reducing them to basic attacks only.",
-          fr: "Lorsque vous obtenez 4+ sur Moquerie cruelle, dépensez une charge d'Inspiration du Tissechant pour supprimer les capacités spéciales de la cible jusqu'à la fin de son prochain tour, la réduisant aux attaques de base uniquement.",
+          fr: "Lorsque vous obtenez 4+ sur Moquerie cruelle, dépensez une charge d'Inspiration du Barde pour supprimer les capacités spéciales de la cible jusqu'à la fin de son prochain tour, la réduisant aux attaques de base uniquement.",
         },
       },
       {

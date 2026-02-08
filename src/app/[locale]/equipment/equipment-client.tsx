@@ -8,7 +8,7 @@ import { rangedWeapons } from "@/data/equipment/ranged-weapons";
 import { adventuringGear } from "@/data/equipment/adventuring-gear";
 import { magicalItems, wands } from "@/data/equipment/magical-items";
 import { Badge, rarityBadgeVariant } from "@/components/ui/badge";
-import { t } from "@/lib/utils";
+import { t, tArmorCategory, tWeaponProperty, tRarity, tCost, tDamage } from "@/lib/utils";
 
 type Tab = "armor" | "melee" | "ranged" | "gear" | "magical";
 
@@ -88,12 +88,12 @@ function ArmorTable({ locale, query }: { locale: string; query: string }) {
               <td className="py-2 pr-4 font-medium text-foreground">
                 {t(a.name, locale)}
               </td>
-              <td className="py-2 pr-4 capitalize text-muted">{a.category}</td>
+              <td className="py-2 pr-4 capitalize text-muted">{tArmorCategory(a.category, locale)}</td>
               <td className="py-2 pr-4 text-foreground">{a.armorValue}</td>
               <td className="py-2 pr-4 text-muted">
                 {a.strReq !== undefined ? a.strReq : "—"}
               </td>
-              <td className="py-2 text-muted">{a.cost}</td>
+              <td className="py-2 text-muted">{tCost(a.cost, locale)}</td>
             </tr>
           ))}
         </tbody>
@@ -127,17 +127,17 @@ function MeleeTable({ locale, query }: { locale: string; query: string }) {
               <td className="py-2 pr-4 font-medium text-foreground">
                 {t(w.name, locale)}
               </td>
-              <td className="py-2 pr-4 text-foreground">{w.damage}</td>
+              <td className="py-2 pr-4 text-foreground">{tDamage(w.damage, locale)}</td>
               <td className="py-2 pr-4">
                 <div className="flex flex-wrap gap-1">
                   {w.properties.map((p) => (
                     <Badge key={p} variant="default">
-                      {p}
+                      {tWeaponProperty(p, locale)}
                     </Badge>
                   ))}
                 </div>
               </td>
-              <td className="py-2 text-muted">{w.cost}</td>
+              <td className="py-2 text-muted">{tCost(w.cost, locale)}</td>
             </tr>
           ))}
         </tbody>
@@ -172,18 +172,18 @@ function RangedTable({ locale, query }: { locale: string; query: string }) {
               <td className="py-2 pr-4 font-medium text-foreground">
                 {t(w.name, locale)}
               </td>
-              <td className="py-2 pr-4 text-foreground">{w.damage}</td>
+              <td className="py-2 pr-4 text-foreground">{tDamage(w.damage, locale)}</td>
               <td className="py-2 pr-4 text-muted">{w.range}</td>
               <td className="py-2 pr-4">
                 <div className="flex flex-wrap gap-1">
                   {w.properties.map((p) => (
                     <Badge key={p} variant="default">
-                      {p}
+                      {tWeaponProperty(p, locale)}
                     </Badge>
                   ))}
                 </div>
               </td>
-              <td className="py-2 text-muted">{w.cost}</td>
+              <td className="py-2 text-muted">{tCost(w.cost, locale)}</td>
             </tr>
           ))}
         </tbody>
@@ -209,7 +209,7 @@ function GearList({ locale, query }: { locale: string; query: string }) {
             <h3 className="font-semibold text-foreground">
               {t(g.name, locale)}
             </h3>
-            <span className="text-xs text-muted">{g.cost}</span>
+            <span className="text-xs text-muted">{tCost(g.cost, locale)}</span>
           </div>
           <p className="mt-1 text-sm text-muted">
             {t(g.description, locale)}
@@ -243,7 +243,7 @@ function MagicalList({ locale, query }: { locale: string; query: string }) {
             <h3 className="font-semibold text-foreground">
               {t(m.name, locale)}
             </h3>
-            <Badge variant={rarityBadgeVariant(m.rarity)}>{m.rarity}</Badge>
+            <Badge variant={rarityBadgeVariant(m.rarity)}>{tRarity(m.rarity, locale)}</Badge>
             {m.attunement && <Badge variant="default">{te("attunement")}</Badge>}
           </div>
           <p className="mt-1 text-sm text-muted">
@@ -268,7 +268,7 @@ function MagicalList({ locale, query }: { locale: string; query: string }) {
                   {t(w.name, locale)}
                 </h3>
                 <Badge variant={rarityBadgeVariant(w.rarity)}>
-                  {w.rarity}
+                  {tRarity(w.rarity, locale)}
                 </Badge>
               </div>
               <p className="mt-1 text-sm text-muted">

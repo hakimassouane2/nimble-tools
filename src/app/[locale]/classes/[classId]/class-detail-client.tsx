@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { HeroClass } from "@/data/types";
 import { t } from "@/lib/utils";
 import { AbilityBlock } from "@/components/ui/ability-block";
+import { useTranslations } from "next-intl";
 
 type Props = {
   heroClass: HeroClass;
@@ -11,12 +12,14 @@ type Props = {
 };
 
 export function ClassDetailClient({ heroClass, locale }: Props) {
+  const tc = useTranslations("classes");
+  const tcom = useTranslations("common");
   const levels = Array.from(
-    new Set(heroClass.abilities.map((a) => a.level))
+    new Set(heroClass.abilities.map((a) => a.level)),
   ).sort((a, b) => a - b);
 
   const [openLevels, setOpenLevels] = useState<Set<number>>(
-    new Set(levels.slice(0, 3))
+    new Set(levels.slice(0, 3)),
   );
 
   function toggleLevel(lv: number) {
@@ -32,7 +35,9 @@ export function ClassDetailClient({ heroClass, locale }: Props) {
     <>
       {/* Level Progression */}
       <section className="space-y-2">
-        <h2 className="text-lg font-bold text-foreground">Level Progression</h2>
+        <h2 className="text-lg font-bold text-foreground">
+          {tc("levelProgression")}
+        </h2>
         {levels.map((lv) => {
           const abilities = heroClass.abilities.filter((a) => a.level === lv);
           const isOpen = openLevels.has(lv);
@@ -48,11 +53,18 @@ export function ClassDetailClient({ heroClass, locale }: Props) {
                 aria-expanded={isOpen}
               >
                 <span className="font-semibold text-foreground">
-                  Level {lv}
+                  {tcom("level")} {lv}
                 </span>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted">
-                    {abilities.length} {abilities.length === 1 ? "ability" : "abilities"}
+                    {abilities.length}{" "}
+                    {abilities.length === 1
+                      ? locale === "fr"
+                        ? "capacité"
+                        : "ability"
+                      : locale === "fr"
+                        ? "capacités"
+                        : "abilities"}
                   </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +104,9 @@ export function ClassDetailClient({ heroClass, locale }: Props) {
       {/* Subclasses */}
       {heroClass.subclasses.length > 0 && (
         <section className="space-y-4">
-          <h2 className="text-lg font-bold text-foreground">Subclasses</h2>
+          <h2 className="text-lg font-bold text-foreground">
+            {tc("subclasses")}
+          </h2>
           {heroClass.subclasses.map((sc) => (
             <div
               key={sc.id}
@@ -104,7 +118,7 @@ export function ClassDetailClient({ heroClass, locale }: Props) {
                 </h3>
                 {sc.type === "story-based" && (
                   <span className="rounded-full bg-necrotic/20 px-2 py-0.5 text-xs font-medium text-necrotic">
-                    Story-Based
+                    {locale === "fr" ? "Narrative" : "Story-Based"}
                   </span>
                 )}
               </div>
@@ -113,10 +127,13 @@ export function ClassDetailClient({ heroClass, locale }: Props) {
               </p>
               <div className="mt-3 space-y-2">
                 {sc.features.map((f, i) => (
-                  <div key={i} className="rounded-md border border-border/50 bg-background p-3">
+                  <div
+                    key={i}
+                    className="rounded-md border border-border/50 bg-background p-3"
+                  >
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-medium text-accent">
-                        Lv {f.level}
+                        {locale === "fr" ? "Niv" : "Lv"} {f.level}
                       </span>
                       <span className="font-medium text-foreground">
                         {t(f.name, locale)}
@@ -140,7 +157,7 @@ export function ClassDetailClient({ heroClass, locale }: Props) {
             {t(heroClass.abilityPool.name, locale)}
           </h2>
           <p className="text-sm text-muted">
-            Select at levels:{" "}
+            {locale === "fr" ? "Sélection aux niveaux" : "Select at levels"} :{" "}
             {heroClass.abilityPool.selectAtLevels.join(", ")}
           </p>
           <div className="grid gap-3 sm:grid-cols-2">

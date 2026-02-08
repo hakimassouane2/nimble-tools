@@ -4,7 +4,7 @@ import type { HeroClass } from "../types";
 
 export const berserker: HeroClass = {
   id: "berserker",
-  name: { en: "Berserker", fr: "Berserker" },
+  name: { en: "Berserker", fr: "Barbare" },
   description: {
     en: "An unstoppable force of wrath and ruin. The longer a fight goes on, the more your Rage intensifies, fueling devastating attacks through Fury Dice.",
     fr: "Une force imparable de colère et de destruction. Plus un combat dure, plus votre Rage s'intensifie, alimentant des attaques dévastatrices grâce aux Dés de fureur.",
@@ -66,7 +66,7 @@ export const berserker: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Choose a Berserker subclass.",
-        fr: "Choisissez une sous-classe de Berserker.",
+        fr: "Choisissez une sous-classe de Barbare.",
       },
       type: "subclass",
     },
@@ -145,7 +145,7 @@ export const berserker: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Berserker subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Berserker.",
+        fr: "Gagnez votre capacité de sous-classe de Barbare.",
       },
       type: "subclass",
     },
@@ -197,7 +197,7 @@ export const berserker: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Berserker subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Berserker.",
+        fr: "Gagnez votre capacité de sous-classe de Barbare.",
       },
       type: "subclass",
     },
@@ -249,7 +249,7 @@ export const berserker: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Berserker subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Berserker.",
+        fr: "Gagnez votre capacité de sous-classe de Barbare.",
       },
       type: "subclass",
     },
@@ -518,7 +518,7 @@ export const berserker: HeroClass = {
 
 export const cheat: HeroClass = {
   id: "the-cheat",
-  name: { en: "The Cheat", fr: "Le Tricheur" },
+  name: { en: "The Cheat", fr: "Le Roublard" },
   description: {
     en: "A sneaky, backstabbing, dirty-fighting rogue. Break the rules, manipulate dice rolls, and deliver devastating Sneak Attacks from the shadows.",
     fr: "Un voleur sournois, traître et bagarreur. Brisez les règles, manipulez les jets de dés et portez des Attaques sournoises dévastatrices depuis les ombres.",
@@ -559,7 +559,7 @@ export const cheat: HeroClass = {
     // ── Level 2 ──
     {
       level: 2,
-      name: { en: "Cheat", fr: "Tricheur" },
+      name: { en: "Cheat", fr: "Roublard" },
       description: {
         en: "(1/round) Move or Hide for free. (1/day) Change any skill check to 10+INT. If you roll less than 10 on Initiative, change it to 10. Advantage on skill checks in games, competitions, or wagers.",
         fr: "(1/round) Déplacez-vous ou Cachez-vous gratuitement. (1/jour) Changez n'importe quel jet de compétence en 10+INT. Si vous obtenez moins de 10 à l'Initiative, changez le résultat en 10. Avantage aux jets de compétence lors de jeux, compétitions ou paris.",
@@ -572,7 +572,7 @@ export const cheat: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Choose a Cheat subclass.",
-        fr: "Choisissez une sous-classe de Tricheur.",
+        fr: "Choisissez une sous-classe de Roublard.",
       },
       type: "subclass",
     },
@@ -660,7 +660,7 @@ export const cheat: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Cheat subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Tricheur.",
+        fr: "Gagnez votre capacité de sous-classe de Roublard.",
       },
       type: "subclass",
     },
@@ -721,7 +721,7 @@ export const cheat: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Cheat subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Tricheur.",
+        fr: "Gagnez votre capacité de sous-classe de Roublard.",
       },
       type: "subclass",
     },
@@ -782,7 +782,7 @@ export const cheat: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Cheat subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Tricheur.",
+        fr: "Gagnez votre capacité de sous-classe de Roublard.",
       },
       type: "subclass",
     },
@@ -1046,7 +1046,7 @@ export const cheat: HeroClass = {
 
 export const commander: HeroClass = {
   id: "commander",
-  name: { en: "Commander", fr: "Commandeur" },
+  name: { en: "Commander", fr: "Guerrier" },
   description: {
     en: "A battlefield tactician, leader, and weapon master. Issue powerful orders to allies, wield all martial weapons with deadly efficiency, and lead your party to triumph through cunning strategy.",
     fr: "Un tacticien du champ de bataille, meneur et maître d'armes. Donnez des ordres puissants à vos alliés, maniez toutes les armes martiales avec une efficacité mortelle et menez votre groupe à la victoire grâce à une stratégie ingénieuse.",
@@ -1073,17 +1073,17 @@ export const commander: HeroClass = {
       name: { en: "Coordinated Strike!", fr: "Frappe coordonnée !" },
       description: {
         en: "Gain the Coordinated Strike! Commander's Order. (1/round) Free action: you and an ally within 6 spaces both immediately make a weapon attack or cast a cantrip for free. Usable INT times per Safe Rest.",
-        fr: "Gagnez l'ordre de Commandeur Frappe coordonnée ! (1/round) Action gratuite : vous et un allié à 6 cases ou moins effectuez immédiatement une attaque d'arme ou lancez un cantrip gratuitement. Utilisable INT fois par Repos sûr.",
+        fr: "Gagnez l'ordre de Guerrier Frappe coordonnée ! (1/round) Action gratuite : vous et un allié à 6 cases ou moins effectuez immédiatement une attaque d'arme ou lancez un cantrip gratuitement. Utilisable INT fois par Repos sûr.",
       },
       type: "core",
     },
     // ── Level 2 ──
     {
       level: 2,
-      name: { en: "Commander's Orders", fr: "Ordres du Commandeur" },
+      name: { en: "Commander's Orders", fr: "Ordres du Guerrier" },
       description: {
         en: "Choose 2 Commander's Orders.",
-        fr: "Choisissez 2 Ordres du Commandeur.",
+        fr: "Choisissez 2 Ordres du Guerrier.",
       },
       type: "core",
     },
@@ -1102,7 +1102,7 @@ export const commander: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Choose a Commander subclass.",
-        fr: "Choisissez une sous-classe de Commandeur.",
+        fr: "Choisissez une sous-classe de Guerrier.",
       },
       type: "subclass",
     },
@@ -1172,7 +1172,7 @@ export const commander: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Commander subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Commandeur.",
+        fr: "Gagnez votre capacité de sous-classe de Guerrier.",
       },
       type: "subclass",
     },
@@ -1242,7 +1242,7 @@ export const commander: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Commander subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Commandeur.",
+        fr: "Gagnez votre capacité de sous-classe de Guerrier.",
       },
       type: "subclass",
     },
@@ -1303,7 +1303,7 @@ export const commander: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Commander subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Commandeur.",
+        fr: "Gagnez votre capacité de sous-classe de Guerrier.",
       },
       type: "subclass",
     },
@@ -1371,7 +1371,7 @@ export const commander: HeroClass = {
     // ── Level 20 ──
     {
       level: 20,
-      name: { en: "Captain of Legions", fr: "Commandeur des légions" },
+      name: { en: "Captain of Legions", fr: "Guerrier des légions" },
       description: {
         en: "+1 to any 2 of your stats. The first time each encounter you use Coordinated Strike, EVERY ally within 12 spaces gains +1 action (replaces Unparalleled Tactics).",
         fr: "+1 à 2 stats de votre choix. La première fois que vous utilisez Frappe coordonnée lors de chaque rencontre, TOUS les alliés à 12 cases ou moins gagnent +1 action (remplace Tactiques inégalées).",
@@ -1482,7 +1482,7 @@ export const commander: HeroClass = {
       name: { en: "Spellblade", fr: "Sorcelame" },
       description: {
         en: "A story-based subclass where steel meets spell. You lose Weapon Mastery and Combat Tactics, but gain mana, spells, and magically empowered Commander's Orders.",
-        fr: "Une sous-classe narrative où l'acier rencontre le sort. Vous perdez Maîtrise des armes et Tactiques de combat, mais gagnez du mana, des sorts et des Ordres du Commandeur imprégnés de magie.",
+        fr: "Une sous-classe narrative où l'acier rencontre le sort. Vous perdez Maîtrise des armes et Tactiques de combat, mais gagnez du mana, des sorts et des Ordres du Guerrier imprégnés de magie.",
       },
       type: "story-based",
       features: [
@@ -1491,7 +1491,7 @@ export const commander: HeroClass = {
           name: { en: "Arcane Command", fr: "Ordre arcanique" },
           description: {
             en: "You lose Weapon Mastery and Combat Tactics but gain INT mana when you roll Initiative (lost when combat ends). Whenever you could choose a Combat Tactic or Weapon Mastery, instead choose a Commander's Order or a tier 1 spell. Your Commander's Orders are empowered with magical variants.",
-            fr: "Vous perdez Maîtrise des armes et Tactiques de combat mais gagnez INT mana lorsque vous lancez l'Initiative (perdu à la fin du combat). Chaque fois que vous pourriez choisir une Tactique de combat ou Maîtrise des armes, choisissez plutôt un Ordre du Commandeur ou un sort de rang 1. Vos Ordres du Commandeur sont dotés de variantes magiques.",
+            fr: "Vous perdez Maîtrise des armes et Tactiques de combat mais gagnez INT mana lorsque vous lancez l'Initiative (perdu à la fin du combat). Chaque fois que vous pourriez choisir une Tactique de combat ou Maîtrise des armes, choisissez plutôt un Ordre du Guerrier ou un sort de rang 1. Vos Ordres du Guerrier sont dotés de variantes magiques.",
           },
         },
         {
@@ -1538,7 +1538,7 @@ export const commander: HeroClass = {
     },
   ],
   abilityPool: {
-    name: { en: "Commander's Orders", fr: "Ordres du Commandeur" },
+    name: { en: "Commander's Orders", fr: "Ordres du Guerrier" },
     selectAtLevels: [2],
     abilities: [
       {

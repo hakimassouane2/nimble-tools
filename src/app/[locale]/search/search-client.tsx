@@ -17,7 +17,7 @@ import {
 } from "@/data/equipment";
 import { allRules } from "@/data/rules";
 import { heroClasses } from "@/data/classes";
-import { t } from "@/lib/utils";
+import { t, tArmorCategory } from "@/lib/utils";
 
 type SearchResult = {
   title: string;
@@ -95,6 +95,20 @@ export function SearchClient({ locale }: { locale: string }) {
   );
 }
 
+function tCategory(key: string, locale: string): string {
+  if (locale !== "fr") return key;
+  const map: Record<string, string> = {
+    Classes: "Classes",
+    Spells: "Sorts",
+    Conditions: "Conditions",
+    Ancestries: "Ascendances",
+    Backgrounds: "Historiques",
+    Equipment: "Équipement",
+    Rules: "Règles",
+  };
+  return map[key] ?? key;
+}
+
 function search(q: string, locale: string): SearchResult[] {
   const results: SearchResult[] = [];
 
@@ -108,7 +122,7 @@ function search(q: string, locale: string): SearchResult[] {
         title: t(hc.name, locale),
         description: t(hc.description, locale),
         href: `/classes/${hc.id}`,
-        category: "Classes",
+        category: tCategory("Classes", locale),
       });
     }
   }
@@ -123,7 +137,7 @@ function search(q: string, locale: string): SearchResult[] {
         title: t(spell.name, locale),
         description: t(spell.effects, locale),
         href: "/spells",
-        category: "Spells",
+        category: tCategory("Spells", locale),
       });
     }
   }
@@ -138,7 +152,7 @@ function search(q: string, locale: string): SearchResult[] {
         title: t(c.name, locale),
         description: t(c.description, locale),
         href: "/conditions",
-        category: "Conditions",
+        category: tCategory("Conditions", locale),
       });
     }
   }
@@ -153,7 +167,7 @@ function search(q: string, locale: string): SearchResult[] {
         title: t(a.name, locale),
         description: t(a.trait.description, locale),
         href: "/ancestries",
-        category: "Ancestries",
+        category: tCategory("Ancestries", locale),
       });
     }
   }
@@ -168,7 +182,7 @@ function search(q: string, locale: string): SearchResult[] {
         title: t(b.name, locale),
         description: t(b.description, locale),
         href: "/backgrounds",
-        category: "Backgrounds",
+        category: tCategory("Backgrounds", locale),
       });
     }
   }
@@ -177,7 +191,7 @@ function search(q: string, locale: string): SearchResult[] {
   const allEquip = [
     ...armor.map((a) => ({
       name: t(a.name, locale),
-      desc: a.description ? t(a.description, locale) : a.category,
+      desc: a.description ? t(a.description, locale) : tArmorCategory(a.category, locale),
     })),
     ...meleeWeapons.map((w) => ({
       name: t(w.name, locale),
@@ -202,7 +216,7 @@ function search(q: string, locale: string): SearchResult[] {
         title: e.name,
         description: e.desc,
         href: "/equipment",
-        category: "Equipment",
+        category: tCategory("Equipment", locale),
       });
     }
   }
@@ -218,7 +232,7 @@ function search(q: string, locale: string): SearchResult[] {
           title: t(section.title, locale),
           description: t(section.content, locale).slice(0, 150) + "...",
           href: "/rules",
-          category: "Rules",
+          category: tCategory("Rules", locale),
         });
       }
     }

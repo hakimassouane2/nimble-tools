@@ -38,7 +38,7 @@ export function AbilityBlock({
           <span
             className={`text-xs font-medium ${typeColors[ability.type] || "text-muted"}`}
           >
-            Lv {ability.level}
+            {locale === "fr" ? "Niv" : "Lv"} {ability.level}
           </span>
           <span className="font-medium text-foreground">{name}</span>
         </div>

@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { heroClasses } from "@/data/classes";
 import { Link } from "@/i18n/navigation";
-import { t, complexityDiamonds } from "@/lib/utils";
+import { t, tStat, complexityDiamonds } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -29,7 +29,7 @@ export default async function ClassesPage({ params }: Props) {
             </h2>
             <div className="mt-1 flex items-center gap-3 text-sm text-muted">
               <span>{complexityDiamonds(hc.complexity)}</span>
-              <span>{hc.keyStats.join(" / ")}</span>
+              <span>{hc.keyStats.map((s) => tStat(s, locale)).join(" / ")}</span>
               <span>{hc.hitDie}</span>
             </div>
             <p className="mt-2 text-sm text-muted line-clamp-2">

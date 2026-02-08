@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Ancestry } from "@/data/types";
-import { t } from "@/lib/utils";
+import { t, tSize } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
 
@@ -95,7 +95,7 @@ function AncestryCard({
         <h3 className="font-semibold text-foreground">
           {t(ancestry.name, locale)}
         </h3>
-        <Badge variant="default">{ancestry.size}</Badge>
+        <Badge variant="default">{tSize(ancestry.size, locale)}</Badge>
       </div>
       <div className="mt-2">
         <p className="text-sm font-medium text-accent">
@@ -107,17 +107,17 @@ function AncestryCard({
       </div>
       {ancestry.modifiers.speed !== undefined && (
         <p className="mt-2 text-xs text-muted">
-          Speed: {ancestry.modifiers.speed}
+          {locale === "fr" ? "Vitesse" : "Speed"} : {ancestry.modifiers.speed}
         </p>
       )}
       {ancestry.modifiers.armor !== undefined && (
         <p className="text-xs text-muted">
-          Armor: +{ancestry.modifiers.armor}
+          {locale === "fr" ? "Armure" : "Armor"} : +{ancestry.modifiers.armor}
         </p>
       )}
       {ancestry.modifiers.languages && ancestry.modifiers.languages.length > 0 && (
         <p className="text-xs text-muted">
-          Languages: {ancestry.modifiers.languages.map((l) => t(l, locale)).join(", ")}
+          {locale === "fr" ? "Langues" : "Languages"} : {ancestry.modifiers.languages.map((l) => t(l, locale)).join(", ")}
         </p>
       )}
       {ancestry.modifiers.other && ancestry.modifiers.other.length > 0 && (

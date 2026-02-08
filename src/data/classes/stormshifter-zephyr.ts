@@ -4,7 +4,7 @@ import type { HeroClass } from "../types";
 
 export const stormshifter: HeroClass = {
   id: "stormshifter",
-  name: { en: "Stormshifter", fr: "Métamorphe des tempêtes" },
+  name: { en: "Stormshifter", fr: "Druide" },
   description: {
     en: "A master of storm and fang who wields lightning and tempests, shapeshifting into fearsome beasts while casting powerful nature spells.",
     fr: "Un maître de la tempête et des crocs qui manie la foudre et les ouragans, se métamorphosant en bêtes redoutables tout en lançant de puissants sorts de la nature.",
@@ -75,7 +75,7 @@ export const stormshifter: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Choose a Stormshifter subclass.",
-        fr: "Choisissez une sous-classe de Métamorphe des tempêtes.",
+        fr: "Choisissez une sous-classe de Druide.",
       },
       type: "subclass",
     },
@@ -178,7 +178,7 @@ export const stormshifter: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Stormshifter subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Métamorphe des tempêtes.",
+        fr: "Obtenez la capacité de votre sous-classe de Druide.",
       },
       type: "subclass",
     },
@@ -272,7 +272,7 @@ export const stormshifter: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Stormshifter subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Métamorphe des tempêtes.",
+        fr: "Obtenez la capacité de votre sous-classe de Druide.",
       },
       type: "subclass",
     },
@@ -348,7 +348,7 @@ export const stormshifter: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Stormshifter subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Métamorphe des tempêtes.",
+        fr: "Obtenez la capacité de votre sous-classe de Druide.",
       },
       type: "subclass",
     },
@@ -652,7 +652,7 @@ export const stormshifter: HeroClass = {
 
 export const zephyr: HeroClass = {
   id: "zephyr",
-  name: { en: "Zephyr", fr: "Zéphyr" },
+  name: { en: "Zephyr", fr: "Moine" },
   description: {
     en: "A martial artist who hones their body into a blur of motion, using speed as both weapon and shield while delivering devastating unarmed strikes.",
     fr: "Un artiste martial qui affûte son corps jusqu'à devenir un tourbillon de mouvements, utilisant la vitesse comme arme et bouclier tout en portant des frappes à mains nues dévastatrices.",
@@ -716,7 +716,7 @@ export const zephyr: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Choose a Zephyr subclass.",
-        fr: "Choisissez une sous-classe de Zéphyr.",
+        fr: "Choisissez une sous-classe de Moine.",
       },
       type: "subclass",
     },
@@ -810,7 +810,7 @@ export const zephyr: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Zephyr subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Zéphyr.",
+        fr: "Obtenez la capacité de votre sous-classe de Moine.",
       },
       type: "subclass",
     },
@@ -877,7 +877,7 @@ export const zephyr: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Zephyr subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Zéphyr.",
+        fr: "Obtenez la capacité de votre sous-classe de Moine.",
       },
       type: "subclass",
     },
@@ -935,7 +935,7 @@ export const zephyr: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Zephyr subclass feature.",
-        fr: "Obtenez la capacité de votre sous-classe de Zéphyr.",
+        fr: "Obtenez la capacité de votre sous-classe de Moine.",
       },
       type: "subclass",
     },

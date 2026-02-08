@@ -94,7 +94,10 @@ export const hunter: HeroClass = {
     },
     {
       level: 4,
-      name: { en: "Explorer of the Wilds", fr: "Explorateur des contrées sauvages" },
+      name: {
+        en: "Explorer of the Wilds",
+        fr: "Explorateur des contrées sauvages",
+      },
       description: {
         en: "+2 speed; gain a climbing speed.",
         fr: "+2 vitesse ; gagnez une vitesse d'escalade.",
@@ -121,7 +124,10 @@ export const hunter: HeroClass = {
     },
     {
       level: 5,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or INT.", fr: "+1 FOR ou INT." },
       type: "stat-increase",
     },
@@ -178,7 +184,10 @@ export const hunter: HeroClass = {
     },
     {
       level: 9,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or INT.", fr: "+1 FOR ou INT." },
       type: "stat-increase",
     },
@@ -235,7 +244,10 @@ export const hunter: HeroClass = {
     },
     {
       level: 13,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or INT.", fr: "+1 FOR ou INT." },
       type: "stat-increase",
     },
@@ -274,7 +286,10 @@ export const hunter: HeroClass = {
     },
     {
       level: 17,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or INT.", fr: "+1 FOR ou INT." },
       type: "stat-increase",
     },
@@ -309,7 +324,10 @@ export const hunter: HeroClass = {
   subclasses: [
     {
       id: "keeper-of-the-shadowpath",
-      name: { en: "Keeper of the Shadowpath", fr: "Gardien du chemin des ombres" },
+      name: {
+        en: "Keeper of the Shadowpath",
+        fr: "Gardien du chemin des ombres",
+      },
       description: {
         en: "A stealthy predator who ambushes foes, tracks with supernatural skill, and hunts in packs to overwhelm quarry.",
         fr: "Un prédateur furtif qui tend des embuscades, traque avec une habileté surnaturelle et chasse en meute pour submerger ses proies.",
@@ -628,7 +646,10 @@ export const mage: HeroClass = {
     },
     {
       level: 2,
-      name: { en: "Mana and Unlock Tier 1 Spells", fr: "Mana et Sorts de rang 1" },
+      name: {
+        en: "Mana and Unlock Tier 1 Spells",
+        fr: "Mana et Sorts de rang 1",
+      },
       description: {
         en: "Unlock tier 1 Fire, Ice, and Lightning spells. Gain a mana pool equal to (INT x 3) + LVL, recharging on a Safe Rest.",
         fr: "Débloquez les sorts de rang 1 de Feu, Glace et Foudre. Gagnez une réserve de mana égale à (INT x 3) + NIV, qui se recharge lors d'un Repos sûr.",
@@ -697,7 +718,10 @@ export const mage: HeroClass = {
     },
     {
       level: 5,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or DEX.", fr: "+1 FOR ou DEX." },
       type: "stat-increase",
     },
@@ -763,7 +787,10 @@ export const mage: HeroClass = {
     },
     {
       level: 9,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or DEX.", fr: "+1 FOR ou DEX." },
       type: "stat-increase",
     },
@@ -829,7 +856,10 @@ export const mage: HeroClass = {
     },
     {
       level: 13,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or DEX.", fr: "+1 FOR ou DEX." },
       type: "stat-increase",
     },
@@ -895,7 +925,10 @@ export const mage: HeroClass = {
     },
     {
       level: 17,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 STR or DEX.", fr: "+1 FOR ou DEX." },
       type: "stat-increase",
     },
@@ -1053,7 +1086,10 @@ export const mage: HeroClass = {
     selectAtLevels: [4, 9, 13],
     abilities: [
       {
-        name: { en: "Dimensional Compression", fr: "Compression dimensionnelle" },
+        name: {
+          en: "Dimensional Compression",
+          fr: "Compression dimensionnelle",
+        },
         description: {
           en: "(1+ mana) +4 range to a spell for each additional mana spent.",
           fr: "(1+ mana) +4 portée à un sort par mana supplémentaire dépensé.",
@@ -1074,14 +1110,20 @@ export const mage: HeroClass = {
         },
       },
       {
-        name: { en: "Elemental Transmutation", fr: "Transmutation des éléments" },
+        name: {
+          en: "Elemental Transmutation",
+          fr: "Transmutation des éléments",
+        },
         description: {
           en: "(1 mana) Change a spell's damage type to Fire, Ice, Lightning, Necrotic, or Radiant.",
           fr: "(1 mana) Changez le type de dégâts d'un sort en Feu, Glace, Foudre, Nécrotique ou Radiant.",
         },
       },
       {
-        name: { en: "Extra-Dimensional Vision", fr: "Vision extra-dimensionnelle" },
+        name: {
+          en: "Extra-Dimensional Vision",
+          fr: "Vision extra-dimensionnelle",
+        },
         description: {
           en: "(2 mana) Ignore line of sight for a spell. It phases through barriers to reach a known target within range.",
           fr: "(2 mana) Ignorez la ligne de vue pour un sort. Il traverse les barrières pour atteindre une cible connue à portée.",
@@ -1116,7 +1158,7 @@ export const mage: HeroClass = {
 
 export const oathsworn: HeroClass = {
   id: "oathsworn",
-  name: { en: "Oathsworn", fr: "Chevalier du Serment" },
+  name: { en: "Oathsworn", fr: "Paladin" },
   description: {
     en: "A zealous holy warrior who channels radiant power through sacred oaths, shielding allies and smiting evil with divine judgment.",
     fr: "Un guerrier saint zélé qui canalise le pouvoir radiant à travers des serments sacrés, protégeant ses alliés et châtiant le mal par le jugement divin.",
@@ -1155,7 +1197,10 @@ export const oathsworn: HeroClass = {
     },
     {
       level: 2,
-      name: { en: "Mana and Radiant Spellcasting", fr: "Mana et Incantation radieuse" },
+      name: {
+        en: "Mana and Radiant Spellcasting",
+        fr: "Mana et Incantation radieuse",
+      },
       description: {
         en: "Learn Radiant cantrips and tier 1 Radiant spells. Gain a mana pool equal to WIL + LVL, recharging on Safe Rest.",
         fr: "Apprenez les cantrips Radiants et les sorts Radiants de rang 1. Gagnez une réserve de mana égale à VOL + NIV, qui se recharge lors d'un Repos sûr.",
@@ -1251,7 +1296,10 @@ export const oathsworn: HeroClass = {
     },
     {
       level: 5,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or INT.", fr: "+1 DEX ou INT." },
       type: "stat-increase",
     },
@@ -1278,7 +1326,7 @@ export const oathsworn: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Oathsworn subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Chevalier du Serment.",
+        fr: "Gagnez votre capacité de sous-classe de Paladin.",
       },
       type: "subclass",
     },
@@ -1326,7 +1374,10 @@ export const oathsworn: HeroClass = {
     },
     {
       level: 9,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or INT.", fr: "+1 DEX ou INT." },
       type: "stat-increase",
     },
@@ -1362,7 +1413,7 @@ export const oathsworn: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Oathsworn subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Chevalier du Serment.",
+        fr: "Gagnez votre capacité de sous-classe de Paladin.",
       },
       type: "subclass",
     },
@@ -1401,7 +1452,10 @@ export const oathsworn: HeroClass = {
     },
     {
       level: 13,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or INT.", fr: "+1 DEX ou INT." },
       type: "stat-increase",
     },
@@ -1428,7 +1482,7 @@ export const oathsworn: HeroClass = {
       name: { en: "Subclass", fr: "Sous-classe" },
       description: {
         en: "Gain your Oathsworn subclass feature.",
-        fr: "Gagnez votre capacité de sous-classe de Chevalier du Serment.",
+        fr: "Gagnez votre capacité de sous-classe de Paladin.",
       },
       type: "subclass",
     },
@@ -1467,7 +1521,10 @@ export const oathsworn: HeroClass = {
     },
     {
       level: 17,
-      name: { en: "Secondary Stat Increase", fr: "Augmentation de stat secondaire" },
+      name: {
+        en: "Secondary Stat Increase",
+        fr: "Augmentation de stat secondaire",
+      },
       description: { en: "+1 DEX or INT.", fr: "+1 DEX ou INT." },
       type: "stat-increase",
     },
@@ -1571,7 +1628,10 @@ export const oathsworn: HeroClass = {
         },
         {
           level: 7,
-          name: { en: "Face Me, Foul Creature!", fr: "Viens te battre, créature infâme !" },
+          name: {
+            en: "Face Me, Foul Creature!",
+            fr: "Viens te battre, créature infâme !",
+          },
           description: {
             en: "When you Interpose, the attacking enemy is Taunted by you until the end of their next turn.",
             fr: "Lorsque vous Interposez, l'ennemi attaquant est Provoqué par vous jusqu'à la fin de son prochain tour.",
@@ -1600,7 +1660,7 @@ export const oathsworn: HeroClass = {
       name: { en: "Oathbreaker", fr: "Parjure" },
       description: {
         en: "A story-based subclass for a fallen Oathsworn seeking redemption. You lose some Radiant spells but gain Necrotic ones, and your aura shifts to one of suffering and sacrifice.",
-        fr: "Une sous-classe narrative pour un Assermenté déchu en quête de rédemption. Vous perdez certains sorts Radiants mais gagnez des sorts Nécrotiques, et votre aura se transforme en une aura de souffrance et de sacrifice.",
+        fr: "Une sous-classe narrative pour un Paladin déchu en quête de rédemption. Vous perdez certains sorts Radiants mais gagnez des sorts Nécrotiques, et votre aura se transforme en une aura de souffrance et de sacrifice.",
       },
       type: "story-based",
       features: [
