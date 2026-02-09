@@ -27,11 +27,11 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
   const skillBase = calculateSkillBase(data.stats);
 
   function handleExportPdf() {
-    window.open(`/api/characters/${characterId}/pdf`, "_blank");
+    window.open(`/api/characters/${characterId}/pdf?locale=${locale}`, "_blank");
   }
 
   function handlePreviewPdf() {
-    window.open(`/api/characters/${characterId}/pdf?inline`, "_blank");
+    window.open(`/api/characters/${characterId}/pdf?inline&locale=${locale}`, "_blank");
   }
 
   return (

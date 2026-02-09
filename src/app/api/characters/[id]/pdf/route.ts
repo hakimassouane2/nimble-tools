@@ -8,7 +8,15 @@ import { heroClasses } from "@/data/classes";
 import { ancestries } from "@/data/ancestries";
 import { backgrounds } from "@/data/backgrounds";
 import { skills } from "@/data/skills";
-import { calculateSkillBase } from "@/lib/character-rules";
+import { calculateSkillBase, ALL_LANGUAGES } from "@/lib/character-rules";
+import {
+  armor,
+  meleeWeapons,
+  rangedWeapons,
+  adventuringGear,
+} from "@/data/equipment";
+import type { LocalizedString } from "@/data/types";
+import { t as tl } from "@/lib/utils";
 
 // Skill center X positions (left to right across the skill row)
 const SKILL_XS: Record<string, number> = {
@@ -44,6 +52,9 @@ export async function GET(request: Request, { params }: RouteParams) {
     }
 
     const data = JSON.parse(character.data) as CharacterData;
+
+    const url = new URL(request.url);
+    const locale = url.searchParams.get("locale") || "en";
 
     // Try to load the official character sheet PDF
     let pdfBytes: ArrayBuffer;
@@ -104,15 +115,43 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // ===== HEADER ROW =====
     drawBold(data.name, 50, 572, 8);
-    draw(ancestryInfo?.name.en ?? data.ancestryId, 130, 572, 8);
-    draw(classInfo?.name.en ?? data.classId, 170, 572, 8);
+    draw(
+      ancestryInfo ? tl(ancestryInfo.name, locale) : data.ancestryId,
+      130,
+      572,
+      8,
+    );
+    draw(classInfo ? tl(classInfo.name, locale) : data.classId, 170, 572, 8);
     drawBold(String(data.level), 220, 572, 8);
 
     // ===== PRIMARY STATS (inside shield shapes) =====
-    drawCentered(formatStat(data.stats.STR), 79, 510, 16);
-    drawCentered(formatStat(data.stats.DEX), 131, 510, 16);
-    drawCentered(formatStat(data.stats.INT), 184, 510, 16);
-    drawCentered(formatStat(data.stats.WIL), 235, 510, 16);
+    const statCenterX: Record<string, number> = {
+      STR: 79,
+      DEX: 131,
+      INT: 184,
+      WIL: 235.8,
+    };
+    drawCentered(formatStat(data.stats.STR), statCenterX.STR, 510, 16);
+    drawCentered(formatStat(data.stats.DEX), statCenterX.DEX, 510, 16);
+    drawCentered(formatStat(data.stats.INT), statCenterX.INT, 510, 16);
+    drawCentered(formatStat(data.stats.WIL), statCenterX.WIL, 510, 16);
+
+    // ===== SAVE TRIANGLES =====
+    // Filled upward triangle for strong save, downward for weak save
+    const upTriangle = "M 0 -7 L -5 0 L 5 0 Z";
+    const downTriangle = "M 0 6 L -5 0 L 5 0 Z";
+
+    const green = rgb(0.13, 0.55, 0.13);
+    const red = rgb(0.8, 0.15, 0.15);
+
+    const strongX = statCenterX[data.saves.strong];
+    if (strongX) {
+      page.drawSvgPath(upTriangle, { x: strongX, y: 534, color: green });
+    }
+    const weakX = statCenterX[data.saves.weak];
+    if (weakX) {
+      page.drawSvgPath(downTriangle, { x: weakX, y: 464, color: red });
+    }
 
     // ===== COMBAT STATS (right side) =====
     // Armor - resolve formula like "2+DEX" to a number
@@ -160,7 +199,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     // ===== FEATURES SECTION =====
     // Ancestry - name + trait name + trait description
     if (ancestryInfo) {
-      const traitText = `${ancestryInfo.name.en} — ${ancestryInfo.trait.name.en}: ${ancestryInfo.trait.description.en}`;
+      const traitText = `${tl(ancestryInfo.name, locale)} - ${tl(ancestryInfo.trait.name, locale)}: ${tl(ancestryInfo.trait.description, locale)}`;
       draw(
         traitText.length > 150 ? traitText.slice(0, 147) + "..." : traitText,
         31,
@@ -171,11 +210,13 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // Background
     if (backgroundInfo) {
-      const effects = backgroundInfo.effects.map((e) => e.en).join(", ");
-      const bgText = `${backgroundInfo.name.en} — ${effects}`;
+      const effects = backgroundInfo.effects
+        .map((e) => tl(e, locale))
+        .join(", ");
+      const bgText = `${tl(backgroundInfo.name, locale)} - ${effects}`;
       // Truncate if too long for the field
       draw(
-        bgText.length > 150 ? bgText.slice(0, 147) + "..." : bgText,
+        bgText.length > 140 ? bgText.slice(0, 137) + "..." : bgText,
         32,
         283,
         7,
@@ -198,7 +239,7 @@ export async function GET(request: Request, { params }: RouteParams) {
       let classY = 211;
       const level1Abilities = classInfo.abilities.filter((a) => a.level === 1);
       for (const ability of level1Abilities) {
-        const text = `${ability.name.en}: ${ability.description.en}`;
+        const text = `${tl(ability.name, locale)}: ${tl(ability.description, locale)}`;
         // Truncate long descriptions to fit the column width
         draw(
           text.length > 150 ? text.slice(0, 147) + "..." : text,
@@ -211,9 +252,25 @@ export async function GET(request: Request, { params }: RouteParams) {
     }
 
     // ===== INVENTORY =====
+    // Build a name lookup map (en/fr → LocalizedString) for re-translation
+    const equipNameMap = new Map<string, LocalizedString>();
+    const allItems = [
+      ...armor.map((i) => i.name),
+      ...meleeWeapons.map((i) => i.name),
+      ...rangedWeapons.map((i) => i.name),
+      ...adventuringGear.map((i) => i.name),
+      ...(classInfo?.startingGear ?? []),
+    ];
+    for (const name of allItems) {
+      equipNameMap.set(name.en, name);
+      equipNameMap.set(name.fr, name);
+    }
+
     let invY = 329.5;
     for (let i = 0; i < Math.min(data.equipment.length, 16); i++) {
-      const item = data.equipment[i];
+      const raw = data.equipment[i];
+      const found = equipNameMap.get(raw);
+      const item = found ? tl(found, locale) : raw;
       draw(item.length > 25 ? item.slice(0, 22) + "..." : item, 540, invY, 7);
       draw("1", 745, invY, 7);
       invY -= 15.7;
@@ -221,17 +278,28 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // ===== PROFICIENCIES =====
     if (classInfo) {
-      draw(classInfo.armorProficiency.map((p) => p.en).join(", "), 577, 69, 7);
-      draw(classInfo.weaponProficiency.map((p) => p.en).join(", "), 586, 54, 7);
+      draw(
+        classInfo.armorProficiency.map((p) => tl(p, locale)).join(", "),
+        577,
+        69,
+        7,
+      );
+      draw(
+        classInfo.weaponProficiency.map((p) => tl(p, locale)).join(", "),
+        586,
+        54,
+        7,
+      );
     }
-    draw(data.languages.join(", "), 596, 38, 7);
-
-    // ===== SAVES (in the strong/weak save section) =====
-    // Not a dedicated field on the sheet — covered by class abilities
+    const translatedLangs = data.languages.map((lang) => {
+      if (lang === "Common") return locale === "fr" ? "Commun" : "Common";
+      const found = ALL_LANGUAGES.find((l) => l.en === lang);
+      return found ? tl(found, locale) : lang;
+    });
+    draw(translatedLangs.join(", "), 596, 38, 7);
 
     const modifiedPdfBytes = await pdfDoc.save();
 
-    const url = new URL(request.url);
     const inline = url.searchParams.has("inline");
     const safeName = data.name.replace(/[^a-zA-Z0-9-_ ]/g, "");
 
