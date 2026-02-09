@@ -75,6 +75,19 @@ export function MobileNav() {
         />
         <div className="fixed inset-x-0 top-14 z-50 border-b border-border bg-background p-4" role="dialog" aria-modal="true">
           <nav className="flex flex-col gap-1">
+            {session && (
+              <Link
+                href="/characters"
+                onClick={() => setOpen(false)}
+                className={`rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${
+                  pathname === "/characters" || pathname.startsWith("/characters/")
+                    ? "bg-surface text-accent"
+                    : "text-accent/80 hover:text-accent"
+                }`}
+              >
+                {t("characters")}
+              </Link>
+            )}
             {navLinks.map((link) => (
               <Link
                 key={link.key}

@@ -14,6 +14,12 @@ export type StatArray = {
   values: Record<Stat, number>;
 };
 
+export type StatArrayOption = {
+  id: string;
+  name: LocalizedString;
+  values: number[];
+};
+
 export type Skill = {
   id: string;
   name: LocalizedString;
@@ -224,4 +230,39 @@ export type RulesCategory = {
   id: string;
   title: LocalizedString;
   sections: RuleSection[];
+};
+
+// ─── Character Data (stored in DB as JSON) ──────────────────────────────────
+
+export type CharacterData = {
+  name: string;
+  level: 1;
+  height?: string;
+  weight?: string;
+  adventuringMotivation?: string;
+
+  classId: string;
+  ancestryId: string;
+  backgroundId: string;
+
+  statArrayType: "standard" | "balanced" | "min-max";
+  stats: Record<Stat, number>;
+
+  bonusSkillPoints: Record<string, number>;
+
+  equipmentChoice: "starting-gear" | "gold";
+  equipment: string[];
+  goldRemaining: number;
+
+  languages: string[];
+
+  hp: number;
+  hitDie: string;
+  hitDiceCount: number;
+  initiative: number;
+  speed: number;
+  maxWounds: number;
+  inventorySlots: number;
+  armorValue: string;
+  saves: { strong: Stat; weak: Stat };
 };
