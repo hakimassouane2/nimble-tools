@@ -121,5 +121,23 @@
   },
   "footer": {
     "attribution": "Nimble Tools est un produit indépendant publié sous la licence Nimble 3rd Party Creator License et n'est pas affilié à Nimble Co. Nimble © 2025 Nimble Co."
+  },
+  "auth": {
+    "signIn": "Connexion",
+    "signOut": "Déconnexion",
+    "signUp": "Créer un compte",
+    "signInDescription": "Connectez-vous pour sauvegarder vos personnages.",
+    "signUpDescription": "Créez un compte pour sauvegarder vos personnages.",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "usernamePlaceholder": "Entrez votre nom d'utilisateur",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "invalidCredentials": "Nom d'utilisateur ou mot de passe invalide",
+    "signingIn": "Connexion en cours...",
+    "creatingAccount": "Création du compte...",
+    "signUpError": "Échec de la création du compte",
+    "usernameTaken": "Nom d'utilisateur déjà pris",
+    "noAccount": "Pas encore de compte ?",
+    "hasAccount": "Déjà un compte ?"
   }
 }

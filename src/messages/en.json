@@ -121,5 +121,23 @@
   },
   "footer": {
     "attribution": "Nimble Tools is an independent product published under the Nimble 3rd Party Creator License and is not affiliated with Nimble Co. Nimble © 2025 Nimble Co."
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signUp": "Sign Up",
+    "signInDescription": "Sign in to save your characters.",
+    "signUpDescription": "Create an account to save your characters.",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Enter your username",
+    "passwordPlaceholder": "Enter your password",
+    "invalidCredentials": "Invalid username or password",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "signUpError": "Failed to create account",
+    "usernameTaken": "Username already taken",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
   }
 }

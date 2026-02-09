@@ -3,6 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Nav } from "@/components/layout/nav";
+import { AuthProvider } from "@/components/auth/auth-provider";
+import { auth } from "@/lib/auth";
 import "../globals.css";
 
 type Props = {
@@ -41,6 +43,9 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
 
+  // Fetch session server-side
+  const session = await auth();
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
@@ -51,15 +56,17 @@ export default async function LocaleLayout({ children, params }: Props) {
         />
       </head>
       <body className="min-h-screen bg-background text-foreground antialiased">
-        <NextIntlClientProvider>
-          <Nav />
-          <main className="mx-auto max-w-7xl px-4 py-6">{children}</main>
-          <footer className="border-t border-border px-4 py-6 text-center text-xs text-muted">
-            Nimble Tools is an independent product published under the Nimble
-            3rd Party Creator License and is not affiliated with Nimble Co.
-            Nimble &copy; 2025 Nimble Co.
-          </footer>
-        </NextIntlClientProvider>
+        <AuthProvider session={session}>
+          <NextIntlClientProvider>
+            <Nav />
+            <main className="mx-auto max-w-7xl px-4 py-6">{children}</main>
+            <footer className="border-t border-border px-4 py-6 text-center text-xs text-muted">
+              Nimble Tools is an independent product published under the Nimble
+              3rd Party Creator License and is not affiliated with Nimble Co.
+              Nimble &copy; 2025 Nimble Co.
+            </footer>
+          </NextIntlClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );

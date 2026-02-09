@@ -5,6 +5,9 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { LanguageToggle } from "./language-toggle";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileNav } from "./mobile-nav";
+import { SignInButton } from "@/components/auth/sign-in-button";
+import { UserMenu } from "@/components/auth/user-menu";
+import { useSession } from "next-auth/react";
 
 const navLinks = [
   { href: "/classes", key: "classes" },
@@ -19,6 +22,7 @@ const navLinks = [
 export function Nav() {
   const t = useTranslations("nav");
   const pathname = usePathname();
+  const { data: session, status } = useSession();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
@@ -67,6 +71,16 @@ export function Nav() {
           </Link>
           <ThemeToggle />
           <LanguageToggle />
+          {/* Auth UI - desktop only, mobile handled in MobileNav */}
+          <div className="hidden md:block">
+            {status === "loading" ? (
+              <div className="h-8 w-8 animate-pulse rounded-full bg-surface" />
+            ) : session ? (
+              <UserMenu />
+            ) : (
+              <SignInButton />
+            )}
+          </div>
           <MobileNav />
         </div>
       </div>
