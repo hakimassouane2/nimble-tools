@@ -8,8 +8,8 @@ export const restingRules: RulesCategory = {
       id: "field-rests",
       title: { en: "Field Rests", fr: "Repos de terrain" },
       content: {
-        en: "While adventuring, heroes can take Field Rests to regain HP.\n\n**Catch Breath** — At least 10 minutes. Expend any number of Hit Dice (roll + STR each). Regain that many HP.\n\n**Make Camp** — At least 8 hours with food and sleep. Take max value for each Hit Die expended (+ STR each).\n\n**Negative STR?** — Subtract STR from each HD expended.",
-        fr: "En aventure, les héros peuvent prendre des Repos de terrain pour récupérer des PV.\n\n**Reprendre son souffle** — Au moins 10 minutes. Dépensez un nombre quelconque de Dés de vie (lancez + FOR chacun). Récupérez autant de PV.\n\n**Établir un camp** — Au moins 8 heures avec nourriture et sommeil. Prenez la valeur maximale pour chaque Dé de vie dépensé (+ FOR chacun).\n\n**FOR négatif ?** — Soustrayez la FOR de chaque DV dépensé.",
+        en: "While adventuring, heroes can take Field Rests to regain HP.\n\n**Catch Breath** - At least 10 minutes. Expend any number of Hit Dice (roll + STR each). Regain that many HP.\n\n**Make Camp** - At least 8 hours with food and sleep. Take max value for each Hit Die expended (+ STR each).\n\n**Negative STR?** - Subtract STR from each HD expended.",
+        fr: "En aventure, les héros peuvent prendre des Repos de terrain pour récupérer des PV.\n\n**Reprendre son souffle** - Au moins 10 minutes. Dépensez un nombre quelconque de Dés de vie (lancez + FOR chacun). Récupérez autant de PV.\n\n**Établir un camp** - Au moins 8 heures avec nourriture et sommeil. Prenez la valeur maximale pour chaque Dé de vie dépensé (+ FOR chacun).\n\n**FOR négatif ?** - Soustrayez la FOR de chaque DV dépensé.",
       },
     },
     {
@@ -24,8 +24,8 @@ export const restingRules: RulesCategory = {
       id: "lodging",
       title: { en: "Lodging", fr: "Hébergement" },
       content: {
-        en: "**Poor** (5 sp/person/day) — May lead to complications.\n**Comfortable** (2 gp/person/day) — Standard accommodations.\n**Lavish** (10 gp/person/day) — Gain one Temporary Boon the following day.",
-        fr: "**Pauvre** (5 pa/personne/jour) — Peut entraîner des complications.\n**Confortable** (2 po/personne/jour) — Hébergement standard.\n**Luxe** (10 po/personne/jour) — Obtenez un Don temporaire le jour suivant.",
+        en: "**Poor** (5 sp/person/day) - May lead to complications.\n**Comfortable** (2 gp/person/day) - Standard accommodations.\n**Lavish** (10 gp/person/day) - Gain one Temporary Boon the following day.",
+        fr: "**Pauvre** (5 pa/personne/jour) - Peut entraîner des complications.\n**Confortable** (2 po/personne/jour) - Hébergement standard.\n**Luxe** (10 po/personne/jour) - Obtenez un Don temporaire le jour suivant.",
       },
     },
     {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import type { CharacterData } from "@/data/types";
 import { heroClasses } from "@/data/classes";
@@ -9,6 +10,18 @@ import { skills } from "@/data/skills";
 import { calculateSkillBase, ALL_LANGUAGES } from "@/lib/character-rules";
 import { t as tl, tStat } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
+
+const PDF_GROUPS = [
+  { key: "identity", labelKey: "group_identity" },
+  { key: "stats", labelKey: "group_stats" },
+  { key: "hitPoints", labelKey: "group_hitPoints" },
+  { key: "hitDice", labelKey: "group_hitDice" },
+  { key: "combat", labelKey: "group_combat" },
+  { key: "skills", labelKey: "group_skills" },
+  { key: "features", labelKey: "group_features" },
+  { key: "equipment", labelKey: "group_equipment" },
+  { key: "proficiencies", labelKey: "group_proficiencies" },
+] as const;
 
 type Props = {
   locale: string;
@@ -20,6 +33,9 @@ type Props = {
 export function CharacterDetail({ locale, characterId, data }: Props) {
   const t = useTranslations("builder");
   const tc = useTranslations("characters");
+  const [showPrintModal, setShowPrintModal] = useState(false);
+  const [hiddenGroups, setHiddenGroups] = useState<Set<string>>(new Set());
+  const [pdfMode, setPdfMode] = useState<"export" | "preview">("export");
 
   const classData = heroClasses.find((c) => c.id === data.classId);
   const ancestryData = ancestries.find((a) => a.id === data.ancestryId);
@@ -27,11 +43,30 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
   const skillBase = calculateSkillBase(data.stats);
 
   function handleExportPdf() {
-    window.open(`/api/characters/${characterId}/pdf?locale=${locale}`, "_blank");
+    setPdfMode("export");
+    setShowPrintModal(true);
   }
 
   function handlePreviewPdf() {
-    window.open(`/api/characters/${characterId}/pdf?inline&locale=${locale}`, "_blank");
+    setPdfMode("preview");
+    setShowPrintModal(true);
+  }
+
+  function handleConfirmPdf() {
+    let url = `/api/characters/${characterId}/pdf?locale=${locale}`;
+    if (pdfMode === "preview") url += "&inline";
+    if (hiddenGroups.size > 0) url += `&hide=${[...hiddenGroups].join(",")}`;
+    window.open(url, "_blank");
+    setShowPrintModal(false);
+  }
+
+  function toggleGroup(key: string) {
+    setHiddenGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
   }
 
   return (
@@ -218,6 +253,67 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
           </p>
         </div>
       </div>
+
+      {/* Print Options Modal */}
+      {showPrintModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="w-full max-w-md rounded-lg border border-border bg-surface p-6">
+            <h2 className="text-lg font-bold text-foreground">
+              {tc("printOptions")}
+            </h2>
+            <p className="mt-1 text-sm text-muted">{tc("printOptionsDesc")}</p>
+
+            <div className="mt-3 flex gap-2">
+              <button
+                onClick={() => setHiddenGroups(new Set())}
+                className="text-xs font-medium text-accent hover:underline"
+              >
+                {tc("showAll")}
+              </button>
+              <button
+                onClick={() =>
+                  setHiddenGroups(new Set(PDF_GROUPS.map((g) => g.key)))
+                }
+                className="text-xs font-medium text-accent hover:underline"
+              >
+                {tc("hideAll")}
+              </button>
+            </div>
+
+            <div className="mt-3 space-y-2">
+              {PDF_GROUPS.map((group) => (
+                <label
+                  key={group.key}
+                  className="flex items-center gap-2 text-sm text-foreground"
+                >
+                  <input
+                    type="checkbox"
+                    checked={!hiddenGroups.has(group.key)}
+                    onChange={() => toggleGroup(group.key)}
+                    className="rounded border-border"
+                  />
+                  {tc(group.labelKey)}
+                </label>
+              ))}
+            </div>
+
+            <div className="mt-5 flex justify-end gap-2">
+              <button
+                onClick={() => setShowPrintModal(false)}
+                className="rounded-md border border-border px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
+              >
+                {tc("cancel")}
+              </button>
+              <button
+                onClick={handleConfirmPdf}
+                className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-accent/90"
+              >
+                {pdfMode === "preview" ? tc("preview") : tc("export")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

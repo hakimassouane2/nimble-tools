@@ -2,11 +2,13 @@
 
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { useState, useRef, useEffect } from "react";
 
 export function UserMenu() {
   const { data: session, status } = useSession();
   const t = useTranslations("auth");
+  const tNav = useTranslations("nav");
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -55,19 +57,28 @@ export function UserMenu() {
       {isOpen && (
         <div className="absolute right-0 top-full mt-2 w-48 rounded-md border border-border bg-background py-1 shadow-lg">
           <div className="border-b border-border px-4 py-2">
-            <p className="truncate text-sm font-medium text-foreground">
+            <p className="truncate text-sm font-medium capitalize text-foreground">
               {session.user.name}
             </p>
             <p className="truncate text-xs text-muted">
               {session.user.email}
             </p>
           </div>
-          <button
-            onClick={() => signOut()}
-            className="w-full px-4 py-2 text-left text-sm text-foreground transition-colors hover:bg-surface"
+          <Link
+            href="/characters"
+            onClick={() => setIsOpen(false)}
+            className="block px-4 py-2 text-sm text-foreground transition-colors hover:bg-surface"
           >
-            {t("signOut")}
-          </button>
+            {tNav("characters")}
+          </Link>
+          <div className="border-t border-border">
+            <button
+              onClick={() => signOut()}
+              className="w-full px-4 py-2 text-left text-sm text-foreground transition-colors hover:bg-surface"
+            >
+              {t("signOut")}
+            </button>
+          </div>
         </div>
       )}
     </div>

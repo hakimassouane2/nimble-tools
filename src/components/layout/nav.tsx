@@ -33,18 +33,6 @@ export function Nav() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
-          {session && (
-            <Link
-              href="/characters"
-              className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                pathname === "/characters" || pathname.startsWith("/characters/")
-                  ? "bg-surface text-accent"
-                  : "text-accent/80 hover:text-accent"
-              }`}
-            >
-              {t("characters")}
-            </Link>
-          )}
           {navLinks.map((link) => (
             <Link
               key={link.key}

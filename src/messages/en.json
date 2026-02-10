@@ -137,7 +137,21 @@
     "backToList": "Back to Characters",
     "deleting": "Deleting...",
     "deleteError": "Failed to delete character.",
-    "level": "Level {level}"
+    "level": "Level {level}",
+    "printOptions": "Print Options",
+    "printOptionsDesc": "Choose which sections to include in the PDF.",
+    "showAll": "Show All",
+    "hideAll": "Hide All",
+    "group_identity": "Identity",
+    "group_stats": "Stats & Saves",
+    "group_hitPoints": "Hit Points",
+    "group_hitDice": "Hit Dice",
+    "group_combat": "Combat Stats",
+    "group_skills": "Skills",
+    "group_features": "Features & Abilities",
+    "group_equipment": "Equipment",
+    "group_proficiencies": "Proficiencies & Languages",
+    "cancel": "Cancel"
   },
   "builder": {
     "title": "Create New Character",

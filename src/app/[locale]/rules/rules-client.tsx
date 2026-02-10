@@ -96,7 +96,7 @@ export function RulesClient({ rules, locale }: Props) {
                 {isOpen && (
                   <div className="border-t border-border/50 p-4">
                     <div
-                      className="prose prose-invert prose-sm max-w-none prose-p:text-foreground prose-strong:text-foreground prose-li:text-foreground prose-headings:text-foreground"
+                      className="prose prose-sm max-w-none [--tw-prose-body:var(--color-foreground)] [--tw-prose-headings:var(--color-foreground)] [--tw-prose-bold:var(--color-foreground)] [--tw-prose-bullets:var(--color-foreground)] [--tw-prose-counters:var(--color-muted)]"
                       dangerouslySetInnerHTML={{
                         __html: markdownToHtml(t(section.content, locale)),
                       }}
@@ -118,7 +118,7 @@ function markdownToHtml(md: string): string {
     .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
     .replace(/\n- /g, "\n<li>")
     .replace(/<li>(.*?)(?=\n|$)/g, "<li>$1</li>")
-    .replace(/(<li>.*<\/li>\n?)+/g, (m) => `<ul>${m}</ul>`)
+    .replace(/(<li>.*<\/li>\n?)+/g, (m) => `<ul>${m.replace(/\n/g, "")}</ul>`)
     .replace(/\n\n/g, "</p><p>")
     .replace(/\n/g, "<br/>")
     .replace(/^/, "<p>")

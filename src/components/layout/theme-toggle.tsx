@@ -6,7 +6,10 @@ export function ThemeToggle() {
   const [dark, setDark] = useState(true);
 
   useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
+    const saved = localStorage.getItem("theme");
+    const isDark = saved !== "light";
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
   }, []);
 
   function toggle() {
@@ -19,7 +22,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="rounded-md border border-border px-2.5 py-1 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-accent"
+      className="rounded-md p-2 text-muted transition-colors hover:text-foreground"
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {dark ? (
