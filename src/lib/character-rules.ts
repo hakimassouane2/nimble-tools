@@ -5,6 +5,10 @@ import type {
   Background,
   Skill,
   CharacterData,
+  Subclass,
+  SubclassFeature,
+  ClassAbility,
+  LocalizedString,
 } from "@/data/types";
 import { statArrayOptions } from "@/data/stat-arrays";
 import { skills } from "@/data/skills";
@@ -12,7 +16,7 @@ import { heroClasses } from "@/data/classes";
 import { ancestries } from "@/data/ancestries";
 import { backgrounds } from "@/data/backgrounds";
 
-const STATS: Stat[] = ["STR", "DEX", "INT", "WIL"];
+const ALL_STATS: Stat[] = ["STR", "DEX", "INT", "WIL"];
 const MAX_BONUS_SKILL_POINTS = 4;
 const BASE_SPEED = 6;
 const BASE_WOUNDS = 6;
@@ -25,7 +29,7 @@ export function validateStatArray(
   const option = statArrayOptions.find((o) => o.id === arrayType);
   if (!option) return false;
 
-  const assigned = STATS.map((s) => stats[s]);
+  const assigned = ALL_STATS.map((s) => stats[s]);
   const sorted = [...assigned].sort((a, b) => b - a);
   const expected = [...option.values].sort((a, b) => b - a);
 
@@ -69,6 +73,181 @@ export function getTotalBonusSkillPoints(
   return Object.values(bonusPoints).reduce((sum, v) => sum + v, 0);
 }
 
+// ─── Class Resource ─────────────────────────────────────────────────────────
+
+export type ClassResource = {
+  name: LocalizedString;
+  max: number;
+  die?: string;
+};
+
+type DieStep = { level: number; die: string };
+
+function resolveDie(steps: DieStep[], level: number): string {
+  let current = steps[0].die;
+  for (const step of steps) {
+    if (level >= step.level) current = step.die;
+  }
+  return current;
+}
+
+const FURY_DIE_STEPS: DieStep[] = [
+  { level: 1, die: "d4" },
+  { level: 6, die: "d6" },
+  { level: 9, die: "d8" },
+  { level: 13, die: "d10" },
+  { level: 17, die: "d12" },
+];
+
+const COMBAT_DIE_STEPS: DieStep[] = [
+  { level: 1, die: "d6" },
+  { level: 5, die: "d8" },
+  { level: 9, die: "d10" },
+  { level: 13, die: "d12" },
+  { level: 17, die: "d20" },
+];
+
+export function calculateClassResource(
+  classId: string,
+  stats: Record<Stat, number>,
+  level: number,
+): ClassResource | null {
+  switch (classId) {
+    case "berserker":
+      return {
+        name: { en: "Fury Dice", fr: "Dés de fureur" },
+        max: Math.max(stats.STR, stats.DEX),
+        die: resolveDie(FURY_DIE_STEPS, level),
+      };
+    case "commander":
+      return {
+        name: { en: "Combat Dice", fr: "Dés de combat" },
+        max: stats.STR,
+        die: resolveDie(COMBAT_DIE_STEPS, level),
+      };
+    case "oathsworn":
+      return {
+        name: { en: "Lay on Hands", fr: "Imposition des mains" },
+        max: 5 * level,
+      };
+    case "shadowmancer":
+      return {
+        name: { en: "Pilfered Power", fr: "Pouvoir dérobé" },
+        max: stats.DEX,
+      };
+    case "shepherd":
+      return {
+        name: { en: "Searing Light", fr: "Lumière ardente" },
+        max: stats.WIL,
+      };
+    case "songweaver":
+      return {
+        name: { en: "Inspiration", fr: "Inspiration" },
+        max: 2 * stats.WIL,
+      };
+    case "stormshifter":
+      return {
+        name: { en: "Beastshift", fr: "Forme de bête" },
+        max: stats.DEX + (level >= 6 ? 1 : 0) + (level >= 9 ? 1 : 0) + (level >= 12 ? 1 : 0),
+      };
+    case "zephyr":
+      return {
+        name: { en: "Bursts of Speed", fr: "Fulgurances" },
+        max: stats.DEX,
+      };
+    default:
+      return null;
+  }
+}
+
+// ─── Level-Aware Helpers ────────────────────────────────────────────────────
+
+const KEY_STAT_LEVELS = [4, 8, 12, 16, 20];
+const SECONDARY_STAT_LEVELS = [5, 9, 13, 17];
+
+const CASTER_CLASSES: Record<string, (stats: Record<Stat, number>, level: number) => number> = {
+  mage: (s, l) => s.INT * 3 + l,
+  oathsworn: (s, l) => s.WIL + l,
+  shadowmancer: (s, l) => s.INT + s.DEX + 2 * l,
+  shepherd: (s, l) => s.WIL * 3 + l,
+  songweaver: (s, l) => s.INT * 3 + l,
+  stormshifter: (s, l) => s.WIL * 3 + l,
+};
+
+export function getHitDieSize(hitDie: string): number {
+  const match = hitDie.match(/\d*d(\d+)/);
+  return match ? parseInt(match[1], 10) : 6;
+}
+
+export function calculateHp(classData: HeroClass, level: number): number {
+  return classData.startingHp + (level - 1) * getHitDieSize(classData.hitDie);
+}
+
+export function calculateManaPool(
+  classId: string,
+  stats: Record<Stat, number>,
+  level: number
+): number | null {
+  const formula = CASTER_CLASSES[classId];
+  return formula ? formula(stats, level) : null;
+}
+
+export function getMaxSpellTier(level: number): number {
+  if (level < 2) return 0;
+  return Math.min(Math.floor(level / 2), 9);
+}
+
+export function getStatIncreaseAtLevel(
+  level: number,
+  classData: HeroClass
+): { type: "key"; options: Stat[] } | { type: "secondary"; options: Stat[] } | null {
+  // Level 20 has both a key stat increase AND a separate capstone (+1 to any 2 stats).
+  // The key stat increase is handled here; the capstone is handled separately via capstoneStatIncreases.
+  if (KEY_STAT_LEVELS.includes(level)) {
+    return { type: "key", options: [...classData.keyStats] };
+  }
+  if (SECONDARY_STAT_LEVELS.includes(level)) {
+    const secondary = ALL_STATS.filter((s) => !classData.keyStats.includes(s));
+    return { type: "secondary", options: secondary };
+  }
+  return null;
+}
+
+export function getAbilityPoolPicksNeeded(classData: HeroClass, level: number): number {
+  if (!classData.abilityPool) return 0;
+  return classData.abilityPool.selectAtLevels.filter((l) => l <= level).length;
+}
+
+export function getAbilitiesAtLevel(classData: HeroClass, level: number): ClassAbility[] {
+  return classData.abilities.filter((a) => a.level === level && a.type === "core");
+}
+
+export function getSubclassFeaturesUpToLevel(subclass: Subclass, level: number): SubclassFeature[] {
+  return subclass.features.filter((f) => f.level <= level);
+}
+
+export function getEffectiveStats(
+  baseStats: Record<Stat, number>,
+  statIncreases: Array<{ stat: Stat }>,
+  capstoneStatIncreases?: [Stat, Stat] | null
+): Record<Stat, number> {
+  const result = { ...baseStats };
+  for (const inc of statIncreases) {
+    result[inc.stat] = (result[inc.stat] ?? 0) + 1;
+  }
+  if (capstoneStatIncreases) {
+    result[capstoneStatIncreases[0]] += 1;
+    result[capstoneStatIncreases[1]] += 1;
+  }
+  return result;
+}
+
+export function getExpectedStatIncreaseCount(level: number): number {
+  const keyCount = KEY_STAT_LEVELS.filter((l) => l <= level).length;
+  const secCount = SECONDARY_STAT_LEVELS.filter((l) => l <= level).length;
+  return keyCount + secCount;
+}
+
 export type SecondaryStats = {
   hp: number;
   hitDie: string;
@@ -84,16 +263,17 @@ export type SecondaryStats = {
 export function calculateSecondaryStats(
   classData: HeroClass,
   ancestryData: Ancestry,
-  stats: Record<Stat, number>
+  stats: Record<Stat, number>,
+  level: number = 1
 ): SecondaryStats {
   const speed = BASE_SPEED + (ancestryData.modifiers.speed ?? 0);
   const maxWounds = BASE_WOUNDS;
   const inventorySlots = calculateInventorySlots(stats.STR);
 
   return {
-    hp: classData.startingHp,
+    hp: calculateHp(classData, level),
     hitDie: classData.hitDie,
-    hitDiceCount: 1,
+    hitDiceCount: level,
     initiative: stats.DEX,
     speed,
     maxWounds,
@@ -178,6 +358,12 @@ export function validateCharacter(
     errors.push("Invalid skill points data.");
   }
 
+  // Level validation
+  const level = data.level ?? 1;
+  if (!Number.isInteger(level) || level < 1 || level > 20) {
+    errors.push("Level must be an integer between 1 and 20.");
+  }
+
   const classData = heroClasses.find((c) => c.id === data.classId);
   if (!classData) {
     errors.push("Invalid class selection.");
@@ -206,7 +392,8 @@ export function validateCharacter(
     }
   }
 
-  if (!validateSkillPoints(data.bonusSkillPoints)) {
+  const maxSkillPoints = MAX_BONUS_SKILL_POINTS + (level - 1);
+  if (!validateSkillPoints(data.bonusSkillPoints, maxSkillPoints)) {
     errors.push("Invalid skill point distribution.");
   }
 
@@ -226,6 +413,78 @@ export function validateCharacter(
     if (!validateEquipment(data.equipment, slots)) {
       errors.push("Equipment exceeds inventory slots.");
     }
+  }
+
+  // Level-up validation (only when level > 1 and classData exists)
+  if (classData && level >= 3) {
+    if (!data.subclassId) {
+      errors.push("Subclass is required at level 3 or higher.");
+    } else {
+      const validSubclass = classData.subclasses.find((s) => s.id === data.subclassId);
+      if (!validSubclass) {
+        errors.push("Invalid subclass selection for this class.");
+      }
+    }
+  }
+
+  if (classData && level < 3 && data.subclassId) {
+    errors.push("Subclass should not be selected below level 3.");
+  }
+
+  if (classData && level > 1) {
+    const expectedStatCount = getExpectedStatIncreaseCount(level);
+    const actualStatCount = data.statIncreases?.length ?? 0;
+    if (actualStatCount !== expectedStatCount) {
+      errors.push(`Expected ${expectedStatCount} stat increases for level ${level}, got ${actualStatCount}.`);
+    }
+
+    // Validate each stat increase references valid options
+    if (data.statIncreases) {
+      for (const inc of data.statIncreases) {
+        const incInfo = getStatIncreaseAtLevel(inc.level, classData);
+        if (!incInfo) {
+          errors.push(`No stat increase expected at level ${inc.level}.`);
+        } else if (!incInfo.options.includes(inc.stat)) {
+          errors.push(`Invalid stat ${inc.stat} for ${inc.type} increase at level ${inc.level}.`);
+        }
+      }
+    }
+
+    // Validate ability pool picks
+    if (classData.abilityPool) {
+      const expectedPicks = getAbilityPoolPicksNeeded(classData, level);
+      const actualPicks = data.abilityPoolPicks?.length ?? 0;
+      if (actualPicks !== expectedPicks) {
+        errors.push(`Expected ${expectedPicks} ability pool picks, got ${actualPicks}.`);
+      }
+
+      // Check for duplicates and bounds
+      if (data.abilityPoolPicks) {
+        const indices = data.abilityPoolPicks.map((p) => p.abilityIndex);
+        const uniqueIndices = new Set(indices);
+        if (uniqueIndices.size !== indices.length) {
+          errors.push("Duplicate ability pool picks are not allowed.");
+        }
+        const maxIndex = classData.abilityPool.abilities.length - 1;
+        for (const pick of data.abilityPoolPicks) {
+          if (pick.abilityIndex < 0 || pick.abilityIndex > maxIndex) {
+            errors.push(`Ability pool pick index ${pick.abilityIndex} is out of bounds.`);
+          }
+        }
+      }
+    }
+  }
+
+  // Level 20 capstone validation
+  if (level === 20) {
+    if (!data.capstoneStatIncreases || data.capstoneStatIncreases.length !== 2) {
+      errors.push("Level 20 capstone requires exactly 2 stat increases.");
+    }
+  }
+
+  // Epic boon validation
+  if (data.epicBoon && data.epicBoon.length > 500) {
+    errors.push("Epic boon description is too long (max 500 characters).");
   }
 
   return { valid: errors.length === 0, errors };

@@ -34,6 +34,7 @@ export default async function CharactersPage({ params }: Props) {
       name: c.name,
       classId: data.classId,
       ancestryId: data.ancestryId,
+      level: data.level ?? 1,
       createdAt: c.createdAt?.toISOString() ?? "",
     };
   });

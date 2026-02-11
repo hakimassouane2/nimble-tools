@@ -159,7 +159,10 @@ export const magicalItems: MagicalItem[] = [
   },
   {
     id: "resolute-fangs-golden-bastion",
-    name: { en: "Resolute Fangs Golden Bastion", fr: "Bastion doré des Crocs résolus" },
+    name: {
+      en: "Resolute Fangs Golden Bastion",
+      fr: "Bastion doré des Crocs résolus",
+    },
     rarity: "legendary",
     description: {
       en: "A shield of immense power, forged by the Resolute Fangs. It gleams with golden light and locks onto enemies.",
@@ -269,7 +272,10 @@ export const wands: Wand[] = [
     name: { en: "Wand of Firestep", fr: "Baguette de Pas de feu" },
     rarity: "uncommon",
     charges: 3,
-    rechargeMethod: { en: "Heat in a forge then quench in oil.", fr: "Chauffez dans une forge puis trempez dans l'huile." },
+    rechargeMethod: {
+      en: "Heat in a forge then quench in oil.",
+      fr: "Chauffez dans une forge puis trempez dans l'huile.",
+    },
     spell: { en: "Firestep (Cantrip)", fr: "Pas de feu (Cantrip)" },
     description: {
       en: "A charred wooden wand that is warm to the touch. It flickers with embers when waved.",
@@ -281,8 +287,11 @@ export const wands: Wand[] = [
     name: { en: "Wand of Dread Visage", fr: "Baguette de Visage d'effroi" },
     rarity: "uncommon",
     charges: 2,
-    rechargeMethod: { en: "Place in a corpse until only bones remain.", fr: "Placez dans un cadavre jusqu'à ce qu'il ne reste que les os." },
-    spell: { en: "Dread Visage (Tier 2)", fr: "Visage d'effroi (Palier 2)" },
+    rechargeMethod: {
+      en: "Place in a corpse until only bones remain.",
+      fr: "Placez dans un cadavre jusqu'à ce qu'il ne reste que les os.",
+    },
+    spell: { en: "Dread Visage (Tier 2)", fr: "Visage d'effroi (Rang 2)" },
     description: {
       en: "A bone-white wand carved from a femur. Shadows seem to gather around its tip.",
       fr: "Une baguette blanc-os sculptée dans un fémur. Les ombres semblent se rassembler autour de sa pointe.",
@@ -293,8 +302,11 @@ export const wands: Wand[] = [
     name: { en: "Wand of Fly", fr: "Baguette de Vol" },
     rarity: "uncommon",
     charges: 2,
-    rechargeMethod: { en: "Give to a wild bird and retrieve it.", fr: "Donnez à un oiseau sauvage puis récupérez-la." },
-    spell: { en: "Fly (Tier 3)", fr: "Vol (Palier 3)" },
+    rechargeMethod: {
+      en: "Give to a wild bird and retrieve it.",
+      fr: "Donnez à un oiseau sauvage puis récupérez-la.",
+    },
+    spell: { en: "Fly (Tier 3)", fr: "Vol (Rang 3)" },
     description: {
       en: "A light wand made from a hollow reed. Feathers sprout from it when activated.",
       fr: "Une baguette légère faite d'un roseau creux. Des plumes en jaillissent quand elle est activée.",
@@ -305,8 +317,11 @@ export const wands: Wand[] = [
     name: { en: "Wand of Glacier Strike", fr: "Baguette de Frappe glaciaire" },
     rarity: "very-rare",
     charges: 1,
-    rechargeMethod: { en: "Leave at the bottom of a lake until it freezes and thaws.", fr: "Laissez au fond d'un lac jusqu'à ce qu'il gèle et dégèle." },
-    spell: { en: "Glacier Strike (Tier 8)", fr: "Frappe glaciaire (Palier 8)" },
+    rechargeMethod: {
+      en: "Leave at the bottom of a lake until it freezes and thaws.",
+      fr: "Laissez au fond d'un lac jusqu'à ce qu'il gèle et dégèle.",
+    },
+    spell: { en: "Glacier Strike (Tier 8)", fr: "Frappe glaciaire (Rang 8)" },
     description: {
       en: "A translucent blue wand of solid ice that never melts. The air around it is frigid.",
       fr: "Une baguette bleu translucide de glace solide qui ne fond jamais. L'air autour est glacial.",
@@ -314,11 +329,20 @@ export const wands: Wand[] = [
   },
   {
     id: "wand-of-ride-the-lightning",
-    name: { en: "Wand of Ride the Lightning", fr: "Baguette de Chevauchée de l'éclair" },
+    name: {
+      en: "Wand of Ride the Lightning",
+      fr: "Baguette de Chevauchée de l'éclair",
+    },
     rarity: "very-rare",
     charges: 2,
-    rechargeMethod: { en: "Place at the highest point and wait for 3 thunderstorms.", fr: "Placez au point le plus haut et attendez 3 orages." },
-    spell: { en: "Ride the Lightning (Tier 6)", fr: "Chevauchée de l'éclair (Palier 6)" },
+    rechargeMethod: {
+      en: "Place at the highest point and wait for 3 thunderstorms.",
+      fr: "Placez au point le plus haut et attendez 3 orages.",
+    },
+    spell: {
+      en: "Ride the Lightning (Tier 6)",
+      fr: "Chevauchée de l'éclair (Rang 6)",
+    },
     description: {
       en: "A copper wand that crackles with static. Hair stands on end when it is nearby.",
       fr: "Une baguette en cuivre qui crépite d'électricité statique. Les cheveux se dressent quand elle est à proximité.",
@@ -329,8 +353,14 @@ export const wands: Wand[] = [
     name: { en: "Wand of Barrier of Wind", fr: "Baguette de Barrière de vent" },
     rarity: "rare",
     charges: 3,
-    rechargeMethod: { en: "Hang with wind chimes for 3 days.", fr: "Suspendez avec des carillons éoliens pendant 3 jours." },
-    spell: { en: "Barrier of Wind (Tier 2)", fr: "Barrière de vent (Palier 2)" },
+    rechargeMethod: {
+      en: "Hang with wind chimes for 3 days.",
+      fr: "Suspendez avec des carillons éoliens pendant 3 jours.",
+    },
+    spell: {
+      en: "Barrier of Wind (Tier 2)",
+      fr: "Barrière de vent (Rang 2)",
+    },
     description: {
       en: "A slender wand of polished bamboo. A gentle breeze follows it wherever it goes.",
       fr: "Une baguette fine en bambou poli. Une brise légère la suit partout où elle va.",
@@ -341,8 +371,11 @@ export const wands: Wand[] = [
     name: { en: "Wand of Sacrifice", fr: "Baguette de Sacrifice" },
     rarity: "very-rare",
     charges: 1,
-    rechargeMethod: { en: "Plant in a garden until flowers bloom around it.", fr: "Plantez dans un jardin jusqu'à ce que des fleurs éclosent autour." },
-    spell: { en: "Sacrifice (Tier 6)", fr: "Sacrifice (Palier 6)" },
+    rechargeMethod: {
+      en: "Plant in a garden until flowers bloom around it.",
+      fr: "Plantez dans un jardin jusqu'à ce que des fleurs éclosent autour.",
+    },
+    spell: { en: "Sacrifice (Tier 6)", fr: "Sacrifice (Rang 6)" },
     description: {
       en: "A wand of living wood that weeps sap. It feels warm and sorrowful to hold.",
       fr: "Une baguette de bois vivant qui pleure de la sève. Elle est chaude et mélancolique au toucher.",
@@ -353,8 +386,11 @@ export const wands: Wand[] = [
     name: { en: "Elderwyrm's Majesty", fr: "Majesté de l'Ancienne Wyrm" },
     rarity: "legendary",
     charges: 1,
-    rechargeMethod: { en: "Gift it to an ancient dragon and ask for it back.", fr: "Offrez-la à un dragon ancien et redemandez-la." },
-    spell: { en: "Dragonform (Tier 9)", fr: "Forme draconique (Palier 9)" },
+    rechargeMethod: {
+      en: "Gift it to an ancient dragon and ask for it back.",
+      fr: "Offrez-la à un dragon ancien et redemandez-la.",
+    },
+    spell: { en: "Dragonform (Tier 9)", fr: "Forme draconique (Rang 9)" },
     description: {
       en: "A massive wand of petrified dragonbone, thrumming with primal power. Scales grow on the hand that holds it.",
       fr: "Une baguette massive en os de dragon pétrifié, vibrant de puissance primordiale. Des écailles poussent sur la main qui la tient.",
@@ -362,11 +398,17 @@ export const wands: Wand[] = [
   },
   {
     id: "heartwood-splinter-of-the-tree-of-life",
-    name: { en: "Heartwood Splinter of the Tree of Life", fr: "Éclat de coeur de l'Arbre de Vie" },
+    name: {
+      en: "Heartwood Splinter of the Tree of Life",
+      fr: "Éclat de coeur de l'Arbre de Vie",
+    },
     rarity: "legendary",
     charges: 1,
-    rechargeMethod: { en: "Sing a sacred hymn over it for 100 years.", fr: "Chantez un hymne sacré au-dessus pendant 100 ans." },
-    spell: { en: "Redeem (Tier 9)", fr: "Rédemption (Palier 9)" },
+    rechargeMethod: {
+      en: "Sing a sacred hymn over it for 100 years.",
+      fr: "Chantez un hymne sacré au-dessus pendant 100 ans.",
+    },
+    spell: { en: "Redeem (Tier 9)", fr: "Rédemption (Rang 9)" },
     description: {
       en: "A sliver of golden wood radiating warmth and life. Flowers bloom where its shadow falls.",
       fr: "Un éclat de bois doré irradiant chaleur et vie. Des fleurs éclosent là où tombe son ombre.",

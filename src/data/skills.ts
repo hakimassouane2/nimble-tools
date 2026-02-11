@@ -66,11 +66,11 @@ export const skills: Skill[] = [
   },
   {
     id: "naturecraft",
-    name: { en: "Naturecraft", fr: "Nature" },
+    name: { en: "Naturecraft", fr: "Survie" },
     linkedStat: "WIL",
     description: {
       en: "Your expertise in wilderness survival, navigation, tracking, and the handling of animals. Use Naturecraft to thrive in the wild, identify flora, fauna, and track creatures with precision. It encompasses knowledge of Beasts, Monstrosities, and Plants, providing insights into their behavior, habitats, and characteristics.",
-      fr: "Votre expertise en survie en milieu sauvage, en navigation, en pistage et en dressage d'animaux. Utilisez Nature pour prospérer dans la nature, identifier la flore et la faune, et pister des créatures avec précision. Cela englobe la connaissance des Bêtes, des Monstruosités et des Plantes, offrant un aperçu de leur comportement, de leurs habitats et de leurs caractéristiques.",
+      fr: "Votre expertise en survie en milieu sauvage, en navigation, en pistage et en dressage d'animaux. Utilisez Survie pour prospérer dans la nature, identifier la flore et la faune, et pister des créatures avec précision. Cela englobe la connaissance des Bêtes, des Monstruosités et des Plantes, offrant un aperçu de leur comportement, de leurs habitats et de leurs caractéristiques.",
     },
   },
   {

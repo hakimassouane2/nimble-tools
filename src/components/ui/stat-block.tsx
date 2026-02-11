@@ -31,7 +31,7 @@ export function StatBlock({ heroClass, locale, labels }: StatBlockProps) {
       </div>
       <div>
         <span className="text-muted">{labels.hitDie}</span>
-        <p className="font-medium">{heroClass.hitDie}</p>
+        <p className="font-medium">{heroClass.hitDie.replace(/^\d+/, "")}</p>
       </div>
       <div>
         <span className="text-muted">{labels.startingHp}</span>

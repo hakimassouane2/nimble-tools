@@ -151,7 +151,7 @@ export const backgrounds: Background[] = [
     effects: [
       {
         en: "+1 Naturecraft.",
-        fr: "+1 Artisanat naturel.",
+        fr: "+1 Survie.",
       },
       {
         en: "While Field Resting, roll your Hit Dice with advantage while in the wild.",
@@ -373,7 +373,10 @@ export const backgrounds: Background[] = [
   },
   {
     id: "so-dumb-im-smart-sometimes",
-    name: { en: "So Dumb I'm Smart Sometimes", fr: "Si bête que j'en suis parfois intelligent" },
+    name: {
+      en: "So Dumb I'm Smart Sometimes",
+      fr: "Si bête que j'en suis parfois intelligent",
+    },
     description: {
       en: "Your lack of intelligence sometimes works in your favor.",
       fr: "Votre manque d'intelligence joue parfois en votre faveur.",

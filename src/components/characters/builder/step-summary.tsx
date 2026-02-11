@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { CharacterDraft } from "./character-builder";
+import type { CharacterDraft, BuilderMode } from "./character-builder";
+import type { CharacterData } from "@/data/types";
 import { heroClasses } from "@/data/classes";
 import { ancestries } from "@/data/ancestries";
 import { backgrounds } from "@/data/backgrounds";
@@ -9,6 +10,7 @@ import { skills } from "@/data/skills";
 import {
   calculateSecondaryStats,
   calculateSkillBase,
+  getEffectiveStats,
   ALL_LANGUAGES,
 } from "@/lib/character-rules";
 import { t as tl, tStat } from "@/lib/utils";
@@ -16,6 +18,8 @@ import { t as tl, tStat } from "@/lib/utils";
 type Props = {
   locale: string;
   draft: CharacterDraft;
+  mode?: BuilderMode;
+  initialData?: CharacterData;
   onUpdateDetails: (
     name: string,
     height?: string,
@@ -25,19 +29,130 @@ type Props = {
   onSave: () => void;
 };
 
-export function StepSummary({ locale, draft, onUpdateDetails }: Props) {
+export function StepSummary({ locale, draft, mode, initialData, onUpdateDetails }: Props) {
   const t = useTranslations("builder");
 
   const classData = heroClasses.find((c) => c.id === draft.classId);
   const ancestryData = ancestries.find((a) => a.id === draft.ancestryId);
   const backgroundData = backgrounds.find((b) => b.id === draft.backgroundId);
 
-  const secondary =
-    classData && ancestryData && draft.stats
-      ? calculateSecondaryStats(classData, ancestryData, draft.stats)
+  const effectiveStats =
+    draft.stats
+      ? getEffectiveStats(draft.stats, draft.statIncreases, draft.capstoneStatIncreases)
       : null;
 
-  const skillBase = draft.stats ? calculateSkillBase(draft.stats) : {};
+  const secondary =
+    classData && ancestryData && effectiveStats
+      ? calculateSecondaryStats(classData, ancestryData, effectiveStats, draft.level)
+      : null;
+
+  const skillBase = effectiveStats ? calculateSkillBase(effectiveStats) : {};
+
+  // Level-up summary view
+  if (mode === "levelup" && initialData) {
+    const rollTotal = Object.values(draft.hpRolls).reduce((sum, v) => sum + v, 0);
+    const newHp = initialData.hp + rollTotal;
+    const newFeatures = classData
+      ? classData.abilities.filter((a) => a.level === draft.level && a.type === "core")
+      : [];
+    const statChanges = draft.statIncreases.filter((inc) => inc.level === draft.level);
+
+    return (
+      <div>
+        <h2 className="mb-4 text-lg font-semibold text-foreground">
+          {t("levelUpSummaryTitle")}
+        </h2>
+
+        <div className="space-y-4">
+          {/* HP change */}
+          <div className="grid gap-2 sm:grid-cols-2">
+            <div className="rounded-lg border border-border bg-surface p-3 text-center">
+              <p className="text-xs text-muted">{t("previousHp")}</p>
+              <p className="text-xl font-bold text-foreground">{initialData.hp}</p>
+            </div>
+            <div className="rounded-lg border border-border bg-surface p-3 text-center">
+              <p className="text-xs text-muted">{t("newHp")}</p>
+              <p className="text-xl font-bold text-accent">{newHp}</p>
+              <p className="text-xs text-muted">(+{rollTotal})</p>
+            </div>
+          </div>
+
+          {/* Hit Dice */}
+          {classData && (
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p className="text-xs text-muted">{t("hitDice")}</p>
+              <p className="font-semibold text-foreground">
+                {draft.level}{classData.hitDie.replace(/^\d+/, "")}
+              </p>
+            </div>
+          )}
+
+          {/* Skill changes */}
+          {draft.levelUpNewSkillId && (
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p className="mb-1 text-xs text-muted">{t("skillChanges")}</p>
+              <div className="space-y-1">
+                <p className="text-sm text-foreground">
+                  +1{" "}
+                  {tl(
+                    skills.find((s) => s.id === draft.levelUpNewSkillId)?.name ?? { en: "", fr: "" },
+                    locale
+                  )}
+                </p>
+                {draft.levelUpMoveFromSkillId && draft.levelUpMoveToSkillId && (
+                  <>
+                    <p className="text-sm text-muted">
+                      -1{" "}
+                      {tl(
+                        skills.find((s) => s.id === draft.levelUpMoveFromSkillId)?.name ?? { en: "", fr: "" },
+                        locale
+                      )}
+                    </p>
+                    <p className="text-sm text-foreground">
+                      +1{" "}
+                      {tl(
+                        skills.find((s) => s.id === draft.levelUpMoveToSkillId)?.name ?? { en: "", fr: "" },
+                        locale
+                      )}
+                    </p>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* New class features */}
+          {newFeatures.length > 0 && (
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p className="mb-1 text-xs text-muted">{t("newFeatures")}</p>
+              {newFeatures.map((ability, i) => (
+                <div key={i} className="mb-1">
+                  <span className="text-sm font-medium text-foreground">
+                    {tl(ability.name, locale)}:
+                  </span>{" "}
+                  <span className="text-xs text-muted">
+                    {tl(ability.description, locale)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Stat increases at this level */}
+          {statChanges.length > 0 && (
+            <div className="rounded-lg border border-border bg-surface p-3">
+              <p className="mb-1 text-xs text-muted">{t("statChanges")}</p>
+              {statChanges.map((inc, i) => (
+                <p key={i} className="text-sm text-foreground">
+                  +1 {tStat(inc.stat, locale)}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   const inputClass =
     "mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-foreground placeholder-muted focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
@@ -178,7 +293,7 @@ export function StepSummary({ locale, draft, onUpdateDetails }: Props) {
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
             {[
               { label: t("hp"), value: secondary.hp },
-              { label: t("hitDice"), value: secondary.hitDie },
+              { label: t("hitDice"), value: `${secondary.hitDiceCount}${secondary.hitDie.replace(/^\d+/, "")}` },
               { label: t("initiative"), value: secondary.initiative },
               { label: t("speed"), value: secondary.speed },
               { label: t("wounds"), value: secondary.maxWounds },
@@ -236,7 +351,7 @@ export function StepSummary({ locale, draft, onUpdateDetails }: Props) {
                 ))}
               </ul>
             ) : (
-              <p className="text-sm text-muted">—</p>
+              <p className="text-sm text-muted">-</p>
             )}
           </div>
 
@@ -260,7 +375,7 @@ export function StepSummary({ locale, draft, onUpdateDetails }: Props) {
           <div className="rounded-lg border border-border bg-surface p-3">
             <p className="mb-2 text-xs text-muted">{t("abilities")}</p>
             {classData.abilities
-              .filter((a) => a.level === 1)
+              .filter((a) => a.level <= draft.level && a.type === "core")
               .map((ability, i) => (
                 <div key={i} className="mb-1">
                   <span className="text-sm font-medium text-foreground">
@@ -276,7 +391,7 @@ export function StepSummary({ locale, draft, onUpdateDetails }: Props) {
                 {t("trait")}: {tl(ancestryData.trait.name, locale)}
               </span>
               <span className="ml-1 text-xs text-muted">
-                — {tl(ancestryData.trait.description, locale)}
+                - {tl(ancestryData.trait.description, locale)}
               </span>
             </div>
           </div>

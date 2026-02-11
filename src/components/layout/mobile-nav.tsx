@@ -15,6 +15,7 @@ const navLinks = [
   { href: "/conditions", key: "conditions" },
   { href: "/rules", key: "rules" },
   { href: "/search", key: "search" },
+  { href: "/characters", key: "characters" },
 ] as const;
 
 export function MobileNav() {

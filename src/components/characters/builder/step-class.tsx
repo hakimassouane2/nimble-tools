@@ -50,7 +50,7 @@ export function StepClass({ locale, selectedClassId, onSelect }: Props) {
               <Badge>
                 {tStat(cls.keyStats[0], locale)}/{tStat(cls.keyStats[1], locale)}
               </Badge>
-              <Badge>{cls.hitDie}</Badge>
+              <Badge>{cls.hitDie.replace(/^\d+/, "")}</Badge>
               <Badge>HP {cls.startingHp}</Badge>
             </div>
           </button>

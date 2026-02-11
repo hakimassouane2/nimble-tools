@@ -30,7 +30,7 @@ export default async function ClassesPage({ params }: Props) {
             <div className="mt-1 flex items-center gap-3 text-sm text-muted">
               <span>{complexityDiamonds(hc.complexity)}</span>
               <span>{hc.keyStats.map((s) => tStat(s, locale)).join(" / ")}</span>
-              <span>{hc.hitDie}</span>
+              <span>{hc.hitDie.replace(/^\d+/, "")}</span>
             </div>
             <p className="mt-2 text-sm text-muted line-clamp-2">
               {t(hc.description, locale)}

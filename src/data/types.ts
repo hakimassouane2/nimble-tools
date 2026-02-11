@@ -236,7 +236,7 @@ export type RulesCategory = {
 
 export type CharacterData = {
   name: string;
-  level: 1;
+  level: number;
   height?: string;
   weight?: string;
   adventuringMotivation?: string;
@@ -265,4 +265,11 @@ export type CharacterData = {
   inventorySlots: number;
   armorValue: string;
   saves: { strong: Stat; weak: Stat };
+
+  // Level-up fields
+  subclassId?: string;
+  statIncreases?: Array<{ level: number; stat: Stat; type: "key" | "secondary" }>;
+  capstoneStatIncreases?: [Stat, Stat];
+  abilityPoolPicks?: Array<{ level: number; abilityIndex: number }>;
+  epicBoon?: string;
 };

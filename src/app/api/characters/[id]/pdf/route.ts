@@ -8,7 +8,7 @@ import { heroClasses } from "@/data/classes";
 import { ancestries } from "@/data/ancestries";
 import { backgrounds } from "@/data/backgrounds";
 import { skills } from "@/data/skills";
-import { calculateSkillBase, ALL_LANGUAGES } from "@/lib/character-rules";
+import { calculateSkillBase, ALL_LANGUAGES, getEffectiveStats, calculateClassResource } from "@/lib/character-rules";
 import {
   armor,
   meleeWeapons,
@@ -115,6 +115,18 @@ export async function GET(request: Request, { params }: RouteParams) {
     const ancestryInfo = ancestries.find((a) => a.id === data.ancestryId);
     const backgroundInfo = backgrounds.find((b) => b.id === data.backgroundId);
 
+    // Compute effective stats (base + stat increases + capstone)
+    const effectiveStats = data.statIncreases
+      ? getEffectiveStats(data.stats, data.statIncreases, data.capstoneStatIncreases)
+      : data.stats;
+
+    // Subclass lookup
+    const subclass = data.subclassId && classInfo
+      ? classInfo.subclasses.find((s) => s.id === data.subclassId)
+      : null;
+
+    const level = data.level ?? 1;
+
     // ===== HEADER ROW =====
     if (!hiddenGroups.has("identity")) {
       drawBold(data.name, 50, 572, 8);
@@ -124,8 +136,10 @@ export async function GET(request: Request, { params }: RouteParams) {
         572,
         8,
       );
-      draw(classInfo ? tl(classInfo.name, locale) : data.classId, 170, 572, 8);
-      drawBold(String(data.level), 220, 572, 8);
+      let classLabel = classInfo ? tl(classInfo.name, locale) : data.classId;
+      if (subclass) classLabel += ` (${tl(subclass.name, locale)})`;
+      draw(classLabel, 170, 572, 8);
+      drawBold(String(level), 220, 572, 8);
     }
 
     // ===== PRIMARY STATS (inside shield shapes) =====
@@ -136,10 +150,10 @@ export async function GET(request: Request, { params }: RouteParams) {
       WIL: 235.8,
     };
     if (!hiddenGroups.has("stats")) {
-      drawCentered(formatStat(data.stats.STR), statCenterX.STR, 510, 16);
-      drawCentered(formatStat(data.stats.DEX), statCenterX.DEX, 510, 16);
-      drawCentered(formatStat(data.stats.INT), statCenterX.INT, 510, 16);
-      drawCentered(formatStat(data.stats.WIL), statCenterX.WIL, 510, 16);
+      drawCentered(formatStat(effectiveStats.STR), statCenterX.STR, 510, 16);
+      drawCentered(formatStat(effectiveStats.DEX), statCenterX.DEX, 510, 16);
+      drawCentered(formatStat(effectiveStats.INT), statCenterX.INT, 510, 16);
+      drawCentered(formatStat(effectiveStats.WIL), statCenterX.WIL, 510, 16);
 
       // ===== SAVE TRIANGLES =====
       const upTriangle = "M 0 -7 L -5 0 L 5 0 Z";
@@ -155,6 +169,19 @@ export async function GET(request: Request, { params }: RouteParams) {
       const weakX = statCenterX[data.saves.weak];
       if (weakX) {
         page.drawSvgPath(downTriangle, { x: weakX, y: 464, color: red });
+      }
+    }
+
+    // ===== CLASS RESOURCE (between stats and armor) =====
+    if (!hiddenGroups.has("combat")) {
+      const classResource = calculateClassResource(data.classId, effectiveStats, level);
+      if (classResource) {
+        const resLabel = tl(classResource.name, locale);
+        const resValue = classResource.die
+          ? `${classResource.max} (${classResource.die})`
+          : String(classResource.max);
+        draw(resLabel, 310, 530, 7);
+        drawBold(resValue, 310, 518, 9);
       }
     }
 
@@ -193,7 +220,7 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // ===== SKILL VALUES =====
     if (!hiddenGroups.has("skills")) {
-      const skillBase = calculateSkillBase(data.stats);
+      const skillBase = calculateSkillBase(effectiveStats);
       for (const skill of skills) {
         const base = skillBase[skill.id] ?? 0;
         const bonus = data.bonusSkillPoints[skill.id] ?? 0;
@@ -246,15 +273,37 @@ export async function GET(request: Request, { params }: RouteParams) {
       // ===== CLASS ABILITIES =====
       if (classInfo) {
         let classY = 211;
-        const level1Abilities = classInfo.abilities.filter((a) => a.level === 1);
-        for (const ability of level1Abilities) {
-          const text = `${tl(ability.name, locale)}: ${tl(ability.description, locale)}`;
-          draw(
-            text.length > 150 ? text.slice(0, 147) + "..." : text,
-            32,
-            classY,
-            7,
-          );
+        const maxAbilitySlots = 12;
+        const lvlAbbr = locale === "fr" ? "Niv" : "Lvl";
+
+        // Collect all features into a single list
+        const combined: Array<{ level: number; text: string }> = [];
+
+        for (const ability of classInfo.abilities.filter((a) => a.level <= level && a.type === "core")) {
+          const prefix = level > 1 ? `[${lvlAbbr} ${ability.level}] ` : "";
+          combined.push({ level: ability.level, text: `${prefix}${tl(ability.name, locale)}: ${tl(ability.description, locale)}` });
+        }
+
+        if (subclass) {
+          for (const feature of subclass.features.filter((f) => f.level <= level)) {
+            combined.push({ level: feature.level, text: `[${lvlAbbr} ${feature.level}] ${tl(feature.name, locale)}: ${tl(feature.description, locale)}` });
+          }
+        }
+
+        if (data.abilityPoolPicks && classInfo.abilityPool) {
+          for (const pick of data.abilityPoolPicks) {
+            const ability = classInfo.abilityPool.abilities[pick.abilityIndex];
+            if (!ability) continue;
+            combined.push({ level: pick.level, text: `[${lvlAbbr} ${pick.level}] ${tl(ability.name, locale)}: ${tl(ability.description, locale)}` });
+          }
+        }
+
+        // Sort by level ascending, then render
+        combined.sort((a, b) => a.level - b.level);
+
+        for (let i = 0; i < Math.min(combined.length, maxAbilitySlots); i++) {
+          const text = combined[i].text;
+          draw(text.length > 150 ? text.slice(0, 147) + "..." : text, 32, classY, 7);
           classY -= 15.5;
         }
       }
@@ -310,6 +359,7 @@ export async function GET(request: Request, { params }: RouteParams) {
       draw(translatedLangs.join(", "), 596, 38, 7);
     }
 
+    pdfDoc.setTitle(`${data.name} - PDF`);
     const modifiedPdfBytes = await pdfDoc.save();
 
     const inline = url.searchParams.has("inline");

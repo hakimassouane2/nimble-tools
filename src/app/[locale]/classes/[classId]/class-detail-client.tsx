@@ -118,7 +118,7 @@ export function ClassDetailClient({ heroClass, locale }: Props) {
                 </h3>
                 {sc.type === "story-based" && (
                   <span className="rounded-full bg-necrotic/20 px-2 py-0.5 text-xs font-medium text-necrotic">
-                    {locale === "fr" ? "Narrative" : "Story-Based"}
+                    {locale === "fr" ? "Narratif" : "Story-Based"}
                   </span>
                 )}
               </div>

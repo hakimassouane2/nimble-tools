@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import type { Stat, HeroClass } from "@/data/types";
 import { statArrayOptions } from "@/data/stat-arrays";
@@ -46,37 +46,39 @@ export function StepStats({
     setAssignments({ STR: "", DEX: "", INT: "", WIL: "" });
   }
 
-  // Keep a stable ref to onUpdate to avoid stale closures
-  const onUpdateRef = useRef(onUpdate);
-  onUpdateRef.current = onUpdate;
+  // Track pending notification to parent via effect (avoids setState-during-render)
+  const pendingRef = useRef<{ arrId: string; stats: Record<Stat, number> } | null>(null);
 
-  const tryNotifyParent = useCallback(
-    (next: Record<Stat, string>, arrId: string) => {
-      const opt = statArrayOptions.find((o) => o.id === arrId);
-      if (!opt) return;
-      const allAssigned = STATS.every((s) => next[s] !== "");
-      if (!allAssigned) return;
-
-      const assignedValues = STATS.map((s) => Number(next[s]));
-      const expectedSorted = [...opt.values].sort((a, b) => b - a);
-      const assignedSorted = [...assignedValues].sort((a, b) => b - a);
-      const isValid = expectedSorted.every((v, i) => v === assignedSorted[i]);
-
-      if (isValid) {
-        const statsRecord = {} as Record<Stat, number>;
-        for (const s of STATS) {
-          statsRecord[s] = Number(next[s]);
-        }
-        onUpdateRef.current(arrId, statsRecord);
-      }
-    },
-    []
-  );
+  useEffect(() => {
+    if (pendingRef.current) {
+      const { arrId, stats: s } = pendingRef.current;
+      pendingRef.current = null;
+      onUpdate(arrId, s);
+    }
+  });
 
   function handleStatAssign(stat: Stat, value: string) {
     setAssignments((prev) => {
       const next = { ...prev, [stat]: value };
-      tryNotifyParent(next, selectedArray);
+
+      // Check if all stats are validly assigned
+      const opt = statArrayOptions.find((o) => o.id === selectedArray);
+      if (opt) {
+        const allAssigned = STATS.every((s) => next[s] !== "");
+        if (allAssigned) {
+          const assignedValues = STATS.map((s) => Number(next[s]));
+          const expectedSorted = [...opt.values].sort((a, b) => b - a);
+          const assignedSorted = [...assignedValues].sort((a, b) => b - a);
+          if (expectedSorted.every((v, i) => v === assignedSorted[i])) {
+            const statsRecord = {} as Record<Stat, number>;
+            for (const s of STATS) {
+              statsRecord[s] = Number(next[s]);
+            }
+            pendingRef.current = { arrId: selectedArray, stats: statsRecord };
+          }
+        }
+      }
+
       return next;
     });
   }
@@ -184,7 +186,7 @@ export function StepStats({
                     onChange={(e) => handleStatAssign(stat, e.target.value)}
                     className="rounded-md border border-border bg-background px-3 py-1.5 text-foreground focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
                   >
-                    <option value="">—</option>
+                    <option value="">-</option>
                     {availableVals.map((v) => (
                       <option key={v} value={String(v)}>
                         {v > 0 ? `+${v}` : v}

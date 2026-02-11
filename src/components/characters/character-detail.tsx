@@ -7,7 +7,15 @@ import { heroClasses } from "@/data/classes";
 import { ancestries } from "@/data/ancestries";
 import { backgrounds } from "@/data/backgrounds";
 import { skills } from "@/data/skills";
-import { calculateSkillBase, ALL_LANGUAGES } from "@/lib/character-rules";
+import {
+  calculateSkillBase,
+  ALL_LANGUAGES,
+  getEffectiveStats,
+  getSubclassFeaturesUpToLevel,
+  calculateManaPool,
+  getMaxSpellTier,
+  calculateClassResource,
+} from "@/lib/character-rules";
 import { t as tl, tStat } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 
@@ -40,7 +48,27 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
   const classData = heroClasses.find((c) => c.id === data.classId);
   const ancestryData = ancestries.find((a) => a.id === data.ancestryId);
   const backgroundData = backgrounds.find((b) => b.id === data.backgroundId);
-  const skillBase = calculateSkillBase(data.stats);
+
+  const level = data.level ?? 1;
+
+  // Compute effective stats (base + increases + capstone)
+  const effectiveStats = data.statIncreases
+    ? getEffectiveStats(data.stats, data.statIncreases, data.capstoneStatIncreases)
+    : data.stats;
+
+  const skillBase = calculateSkillBase(effectiveStats);
+
+  // Subclass lookup
+  const subclass = data.subclassId && classData
+    ? classData.subclasses.find((s) => s.id === data.subclassId)
+    : null;
+
+  // Mana pool and spell tier for casters
+  const manaPool = calculateManaPool(data.classId, effectiveStats, level);
+  const maxSpellTier = manaPool !== null ? getMaxSpellTier(level) : null;
+
+  // Class resource (Fury Dice, Combat Dice, etc.)
+  const classResource = calculateClassResource(data.classId, effectiveStats, level);
 
   function handleExportPdf() {
     setPdfMode("export");
@@ -69,19 +97,43 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
     });
   }
 
+  // Group abilities by level
+  const abilitiesByLevel = new Map<number, NonNullable<typeof classData>["abilities"]>();
+  if (classData) {
+    for (const ability of classData.abilities.filter((a) => a.level <= level)) {
+      const group = abilitiesByLevel.get(ability.level) ?? [];
+      group.push(ability);
+      abilitiesByLevel.set(ability.level, group);
+    }
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
       {/* Header */}
-      <div className="mb-6 flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">{data.name}</h1>
-          <p className="text-muted">
-            {classData && tl(classData.name, locale)} ·{" "}
-            {ancestryData && tl(ancestryData.name, locale)} ·{" "}
-            {tc("level", { level: data.level })}
-          </p>
-        </div>
-        <div className="flex gap-2">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-foreground">{data.name}</h1>
+        <p className="text-muted">
+          {classData && tl(classData.name, locale)}
+          {subclass && ` (${tl(subclass.name, locale)})`}
+          {" · "}
+          {ancestryData && tl(ancestryData.name, locale)} ·{" "}
+          {tc("level", { level })}
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {level < 20 && (
+            <Link
+              href={`/characters/new?characterId=${characterId}&mode=levelup`}
+              className="rounded-md border border-border px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
+            >
+              {tc("levelUp")}
+            </Link>
+          )}
+          <Link
+            href={`/characters/new?characterId=${characterId}&mode=edit`}
+            className="rounded-md border border-border px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
+          >
+            {tc("editCharacter")}
+          </Link>
           <button
             onClick={handlePreviewPdf}
             className="rounded-md border border-border px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
@@ -90,40 +142,44 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
           </button>
           <button
             onClick={handleExportPdf}
-            className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-accent/90"
+            className="rounded-md border border-border px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
           >
             {tc("export")}
           </button>
-          <Link
-            href="/characters"
-            className="rounded-md border border-border px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground"
-          >
-            {tc("backToList")}
-          </Link>
         </div>
       </div>
 
       <div className="space-y-4">
-        {/* Stats */}
+        {/* Stats (effective) */}
         <div className="grid grid-cols-4 gap-2">
-          {(["STR", "DEX", "INT", "WIL"] as const).map((stat) => (
-            <div
-              key={stat}
-              className="rounded-lg border border-border bg-surface p-3 text-center"
-            >
-              <p className="text-xs text-muted">{tStat(stat, locale)}</p>
-              <p className="text-2xl font-bold text-foreground">
-                {data.stats[stat] > 0 ? `+${data.stats[stat]}` : data.stats[stat]}
-              </p>
-            </div>
-          ))}
+          {(["STR", "DEX", "INT", "WIL"] as const).map((stat) => {
+            const base = data.stats[stat];
+            const effective = effectiveStats[stat];
+            const diff = effective - base;
+            return (
+              <div
+                key={stat}
+                className="rounded-lg border border-border bg-surface p-3 text-center"
+              >
+                <p className="text-xs text-muted">{tStat(stat, locale)}</p>
+                <p className="text-2xl font-bold text-foreground">
+                  {effective > 0 ? `+${effective}` : effective}
+                </p>
+                {diff > 0 && (
+                  <p className="text-xs text-accent">
+                    ({base > 0 ? `+${base}` : base} +{diff})
+                  </p>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Secondary stats */}
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-7">
           {[
             { label: t("hp"), value: data.hp },
-            { label: t("hitDice"), value: `${data.hitDiceCount}${data.hitDie}` },
+            { label: t("hitDice"), value: `${data.hitDiceCount}${data.hitDie.replace(/^\d+/, "")}` },
             { label: t("initiative"), value: data.initiative },
             { label: t("speed"), value: data.speed },
             { label: t("wounds"), value: data.maxWounds },
@@ -140,6 +196,36 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
           ))}
         </div>
 
+        {/* Mana Pool & Spell Tier (casters only) */}
+        {manaPool !== null && (
+          <div className="grid grid-cols-2 gap-2">
+            <div className="rounded-lg border border-border bg-surface p-3 text-center">
+              <p className="text-xs text-muted">{tc("manaPool")}</p>
+              <p className="text-xl font-bold text-foreground">{manaPool}</p>
+            </div>
+            <div className="rounded-lg border border-border bg-surface p-3 text-center">
+              <p className="text-xs text-muted">{tc("maxSpellTier")}</p>
+              <p className="text-xl font-bold text-foreground">{maxSpellTier}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Class Resource (Fury Dice, Combat Dice, etc.) */}
+        {classResource && (
+          <div className={`grid gap-2 ${classResource.die ? "grid-cols-2" : "grid-cols-1"}`}>
+            <div className="rounded-lg border border-border bg-surface p-3 text-center">
+              <p className="text-xs text-muted">{tl(classResource.name, locale)}</p>
+              <p className="text-xl font-bold text-foreground">{classResource.max}</p>
+            </div>
+            {classResource.die && (
+              <div className="rounded-lg border border-border bg-surface p-3 text-center">
+                <p className="text-xs text-muted">{tc("resourceDie")}</p>
+                <p className="text-xl font-bold text-foreground">{classResource.die}</p>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Saves */}
         <div className="rounded-lg border border-border bg-surface p-4">
           <h3 className="mb-1 text-sm font-medium text-muted">{t("saves")}</h3>
@@ -148,6 +234,29 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
             {tStat(data.saves.weak, locale)}
           </p>
         </div>
+
+        {/* Subclass Info */}
+        {subclass && (
+          <div className="rounded-lg border border-border bg-surface p-4">
+            <h3 className="mb-1 text-sm font-medium text-muted">{tc("subclass")}</h3>
+            <p className="font-medium text-foreground">
+              {tl(subclass.name, locale)}
+            </p>
+            <p className="mb-2 text-sm text-muted">
+              {tl(subclass.description, locale)}
+            </p>
+            {getSubclassFeaturesUpToLevel(subclass, level).map((feature, i) => (
+              <div key={i} className="mb-1">
+                <p className="text-sm font-medium text-foreground">
+                  {locale === "fr" ? "Niv" : "Lvl"} {feature.level}: {tl(feature.name, locale)}
+                </p>
+                <p className="text-xs text-muted">
+                  {tl(feature.description, locale)}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Background */}
         {backgroundData && (
@@ -186,22 +295,33 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
           </div>
         </div>
 
-        {/* Abilities */}
+        {/* Abilities (grouped by level) */}
         {classData && (
           <div className="rounded-lg border border-border bg-surface p-4">
             <h3 className="mb-2 text-sm font-medium text-muted">
               {t("abilities")}
             </h3>
-            {classData.abilities
-              .filter((a) => a.level === 1)
-              .map((ability, i) => (
-                <div key={i} className="mb-2">
-                  <p className="font-medium text-foreground">
-                    {tl(ability.name, locale)}
-                  </p>
-                  <p className="text-sm text-muted">
-                    {tl(ability.description, locale)}
-                  </p>
+            {Array.from(abilitiesByLevel.entries())
+              .sort(([a], [b]) => a - b)
+              .map(([lvl, abilities]) => (
+                <div key={lvl} className="mb-3">
+                  {level > 1 && (
+                    <p className="mb-1 text-xs font-medium text-accent">
+                      {tc("level", { level: lvl })}
+                    </p>
+                  )}
+                  {abilities
+                    .filter((a) => a.type === "core")
+                    .map((ability, i) => (
+                      <div key={i} className="mb-1">
+                        <p className="font-medium text-foreground">
+                          {tl(ability.name, locale)}
+                        </p>
+                        <p className="text-sm text-muted">
+                          {tl(ability.description, locale)}
+                        </p>
+                      </div>
+                    ))}
                 </div>
               ))}
             {ancestryData && (
@@ -214,6 +334,38 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
                 </p>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Ability Pool Picks */}
+        {classData?.abilityPool && data.abilityPoolPicks && data.abilityPoolPicks.length > 0 && (
+          <div className="rounded-lg border border-border bg-surface p-4">
+            <h3 className="mb-2 text-sm font-medium text-muted">
+              {tl(classData.abilityPool.name, locale)}
+            </h3>
+            {data.abilityPoolPicks.map((pick, i) => {
+              const ability = classData.abilityPool!.abilities[pick.abilityIndex];
+              if (!ability) return null;
+              return (
+                <div key={i} className="mb-2">
+                  <p className="font-medium text-foreground">
+                    {tl(ability.name, locale)}
+                    <span className="ml-2 text-xs text-muted">{locale === "fr" ? "Niv" : "Lvl"} {pick.level}</span>
+                  </p>
+                  <p className="text-sm text-muted">
+                    {tl(ability.description, locale)}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Epic Boon */}
+        {data.epicBoon && (
+          <div className="rounded-lg border border-border bg-surface p-4">
+            <h3 className="mb-1 text-sm font-medium text-muted">{tc("epicBoonLabel")}</h3>
+            <p className="text-foreground">{data.epicBoon}</p>
           </div>
         )}
 
@@ -231,7 +383,7 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
               ))}
             </ul>
           ) : (
-            <p className="text-sm text-muted">—</p>
+            <p className="text-sm text-muted">-</p>
           )}
         </div>
 

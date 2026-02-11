@@ -30,6 +30,7 @@ export async function GET() {
         name: c.name,
         classId: data.classId,
         ancestryId: data.ancestryId,
+        level: data.level ?? 1,
         createdAt: c.createdAt,
       };
     });

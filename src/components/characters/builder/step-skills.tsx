@@ -9,21 +9,21 @@ import {
 } from "@/lib/character-rules";
 import { t as tl, tStat } from "@/lib/utils";
 
-const MAX_BONUS_POINTS = 4;
-
 type Props = {
   locale: string;
   stats: Record<Stat, number>;
+  level?: number;
   bonusSkillPoints: Record<string, number>;
   onUpdate: (points: Record<string, number>) => void;
 };
 
-export function StepSkills({ locale, stats, bonusSkillPoints, onUpdate }: Props) {
+export function StepSkills({ locale, stats, level = 1, bonusSkillPoints, onUpdate }: Props) {
   const t = useTranslations("builder");
 
+  const maxBonusPoints = 4 + (level - 1);
   const base = calculateSkillBase(stats);
   const totalUsed = getTotalBonusSkillPoints(bonusSkillPoints);
-  const remaining = MAX_BONUS_POINTS - totalUsed;
+  const remaining = maxBonusPoints - totalUsed;
 
   function handleAdd(skillId: string) {
     if (remaining <= 0) return;
@@ -48,7 +48,12 @@ export function StepSkills({ locale, stats, bonusSkillPoints, onUpdate }: Props)
       <h2 className="mb-1 text-lg font-semibold text-foreground">
         {t("skillsTitle")}
       </h2>
-      <p className="mb-2 text-sm text-muted">{t("skillsDesc")}</p>
+      <p className="mb-2 text-sm text-muted">{t("skillsDesc", { count: maxBonusPoints })}</p>
+      {level > 1 && (
+        <p className="mb-2 text-xs text-muted">
+          {t("skillsBreakdown", { base: 4, levelBonus: level - 1 })}
+        </p>
+      )}
       <p
         className={`mb-4 text-sm font-medium ${
           remaining === 0 ? "text-accent" : "text-foreground"

@@ -13,6 +13,7 @@ type CharacterSummary = {
   name: string;
   classId: string;
   ancestryId: string;
+  level: number;
   createdAt: string;
 };
 
@@ -95,6 +96,7 @@ export function CharacterList({ locale, characters }: Props) {
               <Link href={`/characters/${char.id}`}>
                 <h3 className="font-semibold text-foreground">{char.name}</h3>
                 <p className="text-sm text-muted">
+                  {t("level", { level: char.level ?? 1 })}{" "}
                   {getClassName(char.classId)} · {getAncestryName(char.ancestryId)}
                 </p>
                 {char.createdAt && (

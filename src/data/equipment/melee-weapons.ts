@@ -6,7 +6,7 @@ export const meleeWeapons: MeleeWeapon[] = [
     name: { en: "Unarmed Strike", fr: "Frappe à mains nues" },
     damage: "1d4, 1+STR on hit",
     properties: "",
-    cost: "—",
+    cost: "-",
   },
   {
     id: "dagger",

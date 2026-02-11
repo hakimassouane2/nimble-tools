@@ -92,7 +92,7 @@ function ArmorTable({ locale, query }: { locale: string; query: string }) {
               <td className="py-2 pr-4 capitalize text-muted">{tArmorCategory(a.category, locale)}</td>
               <td className="py-2 pr-4 text-foreground">{a.armorValue}</td>
               <td className="py-2 pr-4 text-muted">
-                {a.strReq !== undefined ? a.strReq : "—"}
+                {a.strReq !== undefined ? a.strReq : "-"}
               </td>
               <td className="py-2 text-muted">{tCost(a.cost, locale)}</td>
             </tr>
