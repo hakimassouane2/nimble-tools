@@ -19,7 +19,7 @@ import type { LocalizedString } from "@/data/types";
 import { t as tl } from "@/lib/utils";
 
 // Skill center X positions (left to right across the skill row)
-const SKILL_XS: Record<string, number> = {
+const SKILL_XS_EN: Record<string, number> = {
   arcana: 78,
   examination: 130,
   finesse: 182,
@@ -30,6 +30,19 @@ const SKILL_XS: Record<string, number> = {
   naturecraft: 443,
   perception: 495,
   stealth: 547,
+};
+// FR order: arcanes, discrétion, finesse, influence, intuition, investigation, perception, puissance, savoir, survie
+const SKILL_XS_FR: Record<string, number> = {
+  arcana: 78,
+  stealth: 130,
+  finesse: 182,
+  influence: 235,
+  insight: 287,
+  examination: 338,
+  perception: 391,
+  might: 443,
+  lore: 495,
+  naturecraft: 547,
 };
 
 type RouteParams = { params: Promise<{ id: string }> };
@@ -58,22 +71,20 @@ export async function GET(request: Request, { params }: RouteParams) {
     const hideParam = url.searchParams.get("hide") || "";
     const hiddenGroups = new Set(hideParam.split(",").filter(Boolean));
 
-    // Try to load the official character sheet PDF
+    // Try to load the official character sheet PDF (FR or EN)
+    const pdfFileName = locale === "fr"
+      ? "fiche-de-perso-nimble.pdf"
+      : "nimble-character-sheet.pdf";
     let pdfBytes: ArrayBuffer;
     try {
       const fs = await import("fs/promises");
       const path = await import("path");
-      const pdfPath = path.join(
-        process.cwd(),
-        "public",
-        "nimble-character-sheet.pdf",
-      );
+      const pdfPath = path.join(process.cwd(), "public", pdfFileName);
       pdfBytes = (await fs.readFile(pdfPath)).buffer as ArrayBuffer;
     } catch {
       return NextResponse.json(
         {
-          error:
-            "Official character sheet PDF not found. Please add nimble-character-sheet.pdf to the public/ directory.",
+          error: `Character sheet PDF not found. Please add ${pdfFileName} to the public/ directory.`,
         },
         { status: 503 },
       );
@@ -220,12 +231,13 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // ===== SKILL VALUES =====
     if (!hiddenGroups.has("skills")) {
+      const skillXs = locale === "fr" ? SKILL_XS_FR : SKILL_XS_EN;
       const skillBase = calculateSkillBase(effectiveStats);
       for (const skill of skills) {
         const base = skillBase[skill.id] ?? 0;
         const bonus = data.bonusSkillPoints[skill.id] ?? 0;
         const total = base + bonus;
-        const cx = SKILL_XS[skill.id];
+        const cx = skillXs[skill.id];
         if (cx) {
           drawCentered(formatStat(total), cx, 407, 10);
         }

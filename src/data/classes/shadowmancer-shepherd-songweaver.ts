@@ -517,7 +517,7 @@ export const shadowmancer: HeroClass = {
         name: { en: "Blood Sight", fr: "Vision du sang" },
         description: {
           en: "(1/day) You may reroll an Examination check. You can also detect traces of blood on a surface, even after it has been cleaned.",
-          fr: "(1/jour) Vous pouvez relancer un jet d'Examen. Vous pouvez également détecter des traces de sang sur une surface, même après qu'elle a été nettoyée.",
+          fr: "(1/jour) Vous pouvez relancer un jet d'Investigation. Vous pouvez également détecter des traces de sang sur une surface, même après qu'elle a été nettoyée.",
         },
       },
       {

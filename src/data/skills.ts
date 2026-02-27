@@ -12,11 +12,11 @@ export const skills: Skill[] = [
   },
   {
     id: "examination",
-    name: { en: "Examination", fr: "Examen" },
+    name: { en: "Examination", fr: "Investigation" },
     linkedStat: "INT",
     description: {
       en: "Your aptitude for thorough analysis and deduction. Use Examination to diagnose injuries, determine causes of death, uncover clues, and unravel the workings of traps or mechanical devices. It also grants insights into the abilities and weaknesses of Constructs.",
-      fr: "Votre aptitude à l'analyse approfondie et à la déduction. Utilisez l'Examen pour diagnostiquer des blessures, déterminer les causes d'un décès, découvrir des indices et comprendre le fonctionnement des pièges ou des dispositifs mécaniques. Cette compétence vous donne également un aperçu des capacités et des faiblesses des Créatures artificielles.",
+      fr: "Votre aptitude à l'analyse approfondie et à la déduction. Utilisez l'Investigation pour diagnostiquer des blessures, déterminer les causes d'un décès, découvrir des indices et comprendre le fonctionnement des pièges ou des dispositifs mécaniques. Cette compétence vous donne également un aperçu des capacités et des faiblesses des Créatures artificielles.",
     },
   },
   {
@@ -39,20 +39,20 @@ export const skills: Skill[] = [
   },
   {
     id: "insight",
-    name: { en: "Insight", fr: "Perspicacité" },
+    name: { en: "Insight", fr: "Intuition" },
     linkedStat: "WIL",
     description: {
       en: 'Your ability to understand people and situations beyond the obvious. Use Insight to sense motives, detect lies, read hidden emotions, make sense of clues, and when faced with uncertainty — you can think ahead or just "get" what is happening. Insight can be used to retroactively change situations.',
-      fr: "Votre capacité à comprendre les gens et les situations au-delà des apparences. Utilisez la Perspicacité pour déceler les motivations, détecter les mensonges, lire les émotions cachées, interpréter les indices, et face à l'incertitude — vous pouvez anticiper ou simplement « saisir » ce qui se passe. La Perspicacité peut être utilisée pour modifier rétroactivement des situations.",
+      fr: "Votre capacité à comprendre les gens et les situations au-delà des apparences. Utilisez l'Intuition pour déceler les motivations, détecter les mensonges, lire les émotions cachées, interpréter les indices, et face à l'incertitude — vous pouvez anticiper ou simplement « saisir » ce qui se passe. L'Intuition peut être utilisée pour modifier rétroactivement des situations.",
     },
   },
   {
     id: "lore",
-    name: { en: "Lore", fr: "Connaissances" },
+    name: { en: "Lore", fr: "Savoir" },
     linkedStat: "INT",
     description: {
       en: "Your understanding of the history of civilization, kingdoms, and religions. Use Lore to recall historical events and grasp the significance of cultural practices. It extends to knowledge of the abilities and behavior of Celestials, Dragons, Fey, Fiends, Giants, Humanoids, and Undead.",
-      fr: "Votre connaissance de l'histoire des civilisations, des royaumes et des religions. Utilisez les Connaissances pour vous remémorer des événements historiques et saisir l'importance des pratiques culturelles. Cela s'étend au savoir sur les capacités et le comportement des Célestes, des Dragons, des Fées, des Fiélons, des Géants, des Humanoïdes et des Morts-vivants.",
+      fr: "Votre connaissance de l'histoire des civilisations, des royaumes et des religions. Utilisez le Savoir pour vous remémorer des événements historiques et saisir l'importance des pratiques culturelles. Cela s'étend à la connaissance des capacités et du comportement des Célestes, des Dragons, des Fées, des Fiélons, des Géants, des Humanoïdes et des Morts-vivants.",
     },
   },
   {

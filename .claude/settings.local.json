@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep -l \"public/.*pdf\")",
+      "Bash(xargs grep -l \"PDFDocument\\\\|pdf-lib\")",
+      "Bash(grep -n \"function draw\\\\|function.*PDF\" /c/Users/PC/Documents/code/nimble-tools/src/app/api/characters/[id]/pdf/route.ts)"
+    ]
+  }
+}

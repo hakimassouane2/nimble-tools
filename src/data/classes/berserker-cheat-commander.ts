@@ -640,7 +640,7 @@ export const cheat: HeroClass = {
       name: { en: "Quick Read", fr: "Analyse express" },
       description: {
         en: "(1/encounter) Advantage on an Assess check. (1/day) Advantage on an Examination check.",
-        fr: "(1/rencontre) Avantage sur un jet d'Évaluation. (1/jour) Avantage sur un jet d'Examen.",
+        fr: "(1/rencontre) Avantage sur un jet d'Évaluation. (1/jour) Avantage sur un jet d'Investigation.",
       },
       type: "core",
     },
@@ -1136,7 +1136,7 @@ export const commander: HeroClass = {
       name: { en: "Field Medic", fr: "Médecin de terrain" },
       description: {
         en: "Roll 1 additional die for any health potion you administer. When you or an ally spends Hit Dice to recover HP after at least ten minutes of examination, add your Examination bonus to HP recovered.",
-        fr: "Lancez 1 dé supplémentaire pour toute potion de soin que vous administrez. Lorsque vous ou un allié dépensez des Dés de vie pour récupérer des PV après au moins dix minutes d'examen, ajoutez votre bonus d'Examen aux PV récupérés.",
+        fr: "Lancez 1 dé supplémentaire pour toute potion de soin que vous administrez. Lorsque vous ou un allié dépensez des Dés de vie pour récupérer des PV après au moins dix minutes d'investigation, ajoutez votre bonus d'Investigation aux PV récupérés.",
       },
       type: "core",
     },
