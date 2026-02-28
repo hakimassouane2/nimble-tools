@@ -15,6 +15,7 @@ import { skills } from "@/data/skills";
 import { heroClasses } from "@/data/classes";
 import { ancestries } from "@/data/ancestries";
 import { backgrounds } from "@/data/backgrounds";
+import { armor as armorData } from "@/data/equipment";
 
 const ALL_STATS: Stat[] = ["STR", "DEX", "INT", "WIL"];
 const MAX_BONUS_SKILL_POINTS = 4;
@@ -260,11 +261,29 @@ export type SecondaryStats = {
   saves: { strong: Stat; weak: Stat };
 };
 
+export function computeArmorValue(equipment: string[], stats: Record<Stat, number>): string {
+  let formula = "2+DEX";
+  for (const itemName of equipment) {
+    const found = armorData.find(
+      (a) => a.category !== "shield" && (a.name.en === itemName || a.name.fr === itemName)
+    );
+    if (found) { formula = found.armorValue; break; }
+  }
+  const match = formula.match(/^(\d+)\+(\w+)(?:\s*\(max\s*(\d+)\))?$/);
+  if (!match) return formula; // flat value like "10"
+  const base = parseInt(match[1], 10);
+  const stat = match[2] as Stat;
+  let statVal = stats[stat] ?? 0;
+  if (match[3]) statVal = Math.min(statVal, parseInt(match[3], 10));
+  return String(base + statVal);
+}
+
 export function calculateSecondaryStats(
   classData: HeroClass,
   ancestryData: Ancestry,
   stats: Record<Stat, number>,
-  level: number = 1
+  level: number = 1,
+  equipment: string[] = []
 ): SecondaryStats {
   const speed = BASE_SPEED + (ancestryData.modifiers.speed ?? 0);
   const maxWounds = BASE_WOUNDS;
@@ -278,7 +297,7 @@ export function calculateSecondaryStats(
     speed,
     maxWounds,
     inventorySlots,
-    armorValue: "2+DEX",
+    armorValue: computeArmorValue(equipment, stats),
     saves: classData.saves,
   };
 }

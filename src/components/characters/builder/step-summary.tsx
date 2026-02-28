@@ -43,7 +43,7 @@ export function StepSummary({ locale, draft, mode, initialData, onUpdateDetails 
 
   const secondary =
     classData && ancestryData && effectiveStats
-      ? calculateSecondaryStats(classData, ancestryData, effectiveStats, draft.level)
+      ? calculateSecondaryStats(classData, ancestryData, effectiveStats, draft.level, draft.equipment)
       : null;
 
   const skillBase = effectiveStats ? calculateSkillBase(effectiveStats) : {};

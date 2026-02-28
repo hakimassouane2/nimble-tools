@@ -203,17 +203,8 @@ export async function GET(request: Request, { params }: RouteParams) {
     }
 
     // ===== COMBAT STATS (right side) =====
-    // Armor - resolve formula like "2+DEX" to a number
     if (!hiddenGroups.has("combatArmor")) {
-      const armorNumeric = (() => {
-        const match = data.armorValue.match(/^(\d+)\+(\w+)$/);
-        if (!match) return data.armorValue;
-        const base = parseInt(match[1], 10);
-        const stat = match[2] as keyof typeof data.stats;
-        const statVal = data.stats[stat] ?? 0;
-        return String(base + statVal);
-      })();
-      drawCentered(armorNumeric, 518, 524, 10);
+      drawCentered(data.armorValue, 518, 524, 10);
     }
 
     // Hit Points (MAX + CURRENT)

@@ -391,7 +391,7 @@ export function CharacterBuilder({ locale, characterId, mode = "create", initial
 
     // Compute effective stats (base + stat increases + capstone)
     const effectiveStats = getEffectiveStats(draft.stats, draft.statIncreases, draft.capstoneStatIncreases);
-    const secondary = calculateSecondaryStats(classData, ancestryData, effectiveStats, draft.level);
+    const secondary = calculateSecondaryStats(classData, ancestryData, effectiveStats, draft.level, draft.equipment);
 
     // Merge levelup skill changes into bonusSkillPoints
     let finalBonusSkillPoints = draft.bonusSkillPoints;
