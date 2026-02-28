@@ -19,17 +19,56 @@ import {
 import { t as tl, tStat } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 
-const PDF_GROUPS = [
-  { key: "identity", labelKey: "group_identity" },
+type PdfGroup = {
+  key: string;
+  labelKey: string;
+  items?: { key: string; labelKey: string }[];
+};
+
+const PDF_GROUPS: PdfGroup[] = [
+  {
+    key: "identity",
+    labelKey: "group_identity",
+    items: [
+      { key: "identityName", labelKey: "group_identity_name" },
+      { key: "identityAncestry", labelKey: "group_identity_ancestry" },
+      { key: "identityClass", labelKey: "group_identity_class" },
+      { key: "identityLevel", labelKey: "group_identity_level" },
+    ],
+  },
   { key: "stats", labelKey: "group_stats" },
-  { key: "hitPoints", labelKey: "group_hitPoints" },
-  { key: "hitDice", labelKey: "group_hitDice" },
-  { key: "combat", labelKey: "group_combat" },
+  {
+    key: "hitPoints",
+    labelKey: "group_hitPoints",
+    items: [
+      { key: "hitPointsMax", labelKey: "group_hitPoints_max" },
+      { key: "hitPointsCurrent", labelKey: "group_hitPoints_current" },
+    ],
+  },
+  {
+    key: "hitDice",
+    labelKey: "group_hitDice",
+    items: [
+      { key: "hitDiceType", labelKey: "group_hitDice_type" },
+      { key: "hitDiceMax", labelKey: "group_hitDice_max" },
+      { key: "hitDiceCurrent", labelKey: "group_hitDice_current" },
+    ],
+  },
+  {
+    key: "combat",
+    labelKey: "group_combat",
+    items: [
+      { key: "combatClassResource", labelKey: "group_combat_classResource" },
+      { key: "combatArmor", labelKey: "group_combat_armor" },
+      { key: "combatInitiative", labelKey: "group_combat_initiative" },
+      { key: "combatSpeed", labelKey: "group_combat_speed" },
+    ],
+  },
   { key: "skills", labelKey: "group_skills" },
   { key: "features", labelKey: "group_features" },
   { key: "equipment", labelKey: "group_equipment" },
   { key: "proficiencies", labelKey: "group_proficiencies" },
-] as const;
+];
 
 type Props = {
   locale: string;
@@ -88,13 +127,41 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
     setShowPrintModal(false);
   }
 
-  function toggleGroup(key: string) {
+  function toggleItem(key: string) {
     setHiddenGroups((prev) => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key);
       else next.add(key);
       return next;
     });
+  }
+
+  function toggleGroup(group: PdfGroup) {
+    if (!group.items) {
+      toggleItem(group.key);
+      return;
+    }
+    const allHidden = group.items.every((item) => hiddenGroups.has(item.key));
+    setHiddenGroups((prev) => {
+      const next = new Set(prev);
+      for (const item of group.items!) {
+        if (allHidden) next.delete(item.key);
+        else next.add(item.key);
+      }
+      return next;
+    });
+  }
+
+  function getGroupCheckedState(group: PdfGroup): "all" | "some" | "none" {
+    if (!group.items) return hiddenGroups.has(group.key) ? "none" : "all";
+    const hiddenCount = group.items.filter((item) => hiddenGroups.has(item.key)).length;
+    if (hiddenCount === 0) return "all";
+    if (hiddenCount === group.items.length) return "none";
+    return "some";
+  }
+
+  function getAllItemKeys(): string[] {
+    return PDF_GROUPS.flatMap((g) => g.items ? g.items.map((i) => i.key) : [g.key]);
   }
 
   // Group abilities by level
@@ -423,30 +490,49 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
                 {tc("showAll")}
               </button>
               <button
-                onClick={() =>
-                  setHiddenGroups(new Set(PDF_GROUPS.map((g) => g.key)))
-                }
+                onClick={() => setHiddenGroups(new Set(getAllItemKeys()))}
                 className="text-xs font-medium text-accent hover:underline"
               >
                 {tc("hideAll")}
               </button>
             </div>
 
-            <div className="mt-3 space-y-2">
-              {PDF_GROUPS.map((group) => (
-                <label
-                  key={group.key}
-                  className="flex items-center gap-2 text-sm text-foreground"
-                >
-                  <input
-                    type="checkbox"
-                    checked={!hiddenGroups.has(group.key)}
-                    onChange={() => toggleGroup(group.key)}
-                    className="rounded border-border"
-                  />
-                  {tc(group.labelKey)}
-                </label>
-              ))}
+            <div className="mt-3 space-y-1">
+              {PDF_GROUPS.map((group) => {
+                const state = getGroupCheckedState(group);
+                return (
+                  <div key={group.key}>
+                    <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+                      <input
+                        type="checkbox"
+                        checked={state === "all"}
+                        ref={(el) => { if (el) el.indeterminate = state === "some"; }}
+                        onChange={() => toggleGroup(group)}
+                        className="rounded border-border"
+                      />
+                      {tc(group.labelKey)}
+                    </label>
+                    {group.items && (
+                      <div className="ml-6 mt-0.5 space-y-0.5">
+                        {group.items.map((item) => (
+                          <label
+                            key={item.key}
+                            className="flex items-center gap-2 text-sm text-muted"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={!hiddenGroups.has(item.key)}
+                              onChange={() => toggleItem(item.key)}
+                              className="rounded border-border"
+                            />
+                            {tc(item.labelKey)}
+                          </label>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             <div className="mt-5 flex justify-end gap-2">
