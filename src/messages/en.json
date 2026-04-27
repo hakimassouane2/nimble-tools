@@ -42,7 +42,11 @@
     "ancestriesDesc": "Common and exotic ancestries",
     "backgroundsDesc": "Character backgrounds and traits",
     "conditionsDesc": "Status conditions quick reference",
-    "rulesDesc": "Core mechanics, combat, and resting"
+    "rulesDesc": "Core mechanics, combat, and resting",
+    "characterSheetTitle": "Blank Character Sheet",
+    "characterSheetDesc": "Download the official printable character sheet.",
+    "characterSheetEn": "English (PDF)",
+    "characterSheetFr": "French (PDF)"
   },
   "classes": {
     "title": "Classes",

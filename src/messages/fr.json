@@ -42,7 +42,11 @@
     "ancestriesDesc": "Ascendances communes et exotiques",
     "backgroundsDesc": "Historiques et traits de personnage",
     "conditionsDesc": "Référence rapide des conditions",
-    "rulesDesc": "Mécaniques de base, combat et repos"
+    "rulesDesc": "Mécaniques de base, combat et repos",
+    "characterSheetTitle": "Fiche de personnage vierge",
+    "characterSheetDesc": "Télécharge la fiche de personnage officielle imprimable.",
+    "characterSheetEn": "Anglais (PDF)",
+    "characterSheetFr": "Français (PDF)"
   },
   "classes": {
     "title": "Classes",
