@@ -449,11 +449,11 @@ export const ancestries: Ancestry[] = [
       name: { en: "Chaotic Surge", fr: "Vague chaotique" },
       description: {
         en: "Whenever you or a willing ally within Reach 6 casts a tiered spell, you may allow them to roll on the Chaos Table. 1/encounter.",
-        fr: "Chaque fois que vous ou un allié consentant à Allonge 6 lance un sort à palier, vous pouvez lui permettre de lancer sur la Table du Chaos. 1/rencontre.",
+        fr: "Chaque fois que vous ou un allié consentant à Allonge 6 lance un sort à rang, vous pouvez lui permettre de lancer sur la Table du Chaos. 1/rencontre.",
       },
     },
     modifiers: {
-      other: [{ en: "Chaos Table on tiered spell 1/encounter", fr: "Table du Chaos sur sort à palier 1/rencontre" }],
+      other: [{ en: "Chaos Table on tiered spell 1/encounter", fr: "Table du Chaos sur sort à rang 1/rencontre" }],
     },
   },
 ];

@@ -95,7 +95,7 @@ export function SpellsClient({ locale }: { locale: string }) {
                   : "bg-surface text-muted hover:text-foreground"
               }`}
             >
-              {ti === 0 ? tc("cantrip") : `T${ti}`}
+              {ti === 0 ? tc("cantrip") : tc("tierShort", { n: ti })}
             </button>
           ))}
         </div>
@@ -151,7 +151,7 @@ function SpellCard({
             {ts(`schools.${spell.school}`)}
           </Badge>
           <Badge variant="default">
-            {spell.tier === 0 ? tc("cantrip") : `T${spell.tier}`}
+            {spell.tier === 0 ? tc("cantrip") : tc("tierShort", { n: spell.tier })}
           </Badge>
           {spell.concentration && (
             <Badge variant="default">{ts("concentration")}</Badge>

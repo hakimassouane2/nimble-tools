@@ -23,6 +23,7 @@
     "noResults": "No results found.",
     "level": "Level",
     "tier": "Tier",
+    "tierShort": "T{n}",
     "cantrip": "Cantrip",
     "cost": "Cost",
     "damage": "Damage",
