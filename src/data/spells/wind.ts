@@ -40,7 +40,7 @@ export const windSpells: Spell[] = [
       en: "Ignores armor. On hit: Taunted. +2 damage every 5 levels.",
       fr: "Ignore l'armure. En cas de touche : Provoqué. +2 dégâts tous les 5 niveaux.",
     },
-    classRestriction: "Songweaver",
+    classRestriction: { en: "Songweaver", fr: "Barde" },
   },
   {
     id: "blustery-gale",

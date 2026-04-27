@@ -98,7 +98,7 @@ export type Spell = {
   saveType?: Stat;
   concentration?: boolean;
   upcast?: LocalizedString;
-  classRestriction?: string;
+  classRestriction?: LocalizedString;
 };
 
 // ─── Equipment ───────────────────────────────────────────────────────────────

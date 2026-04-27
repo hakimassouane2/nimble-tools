@@ -207,7 +207,7 @@ function SpellCard({
           )}
           {spell.classRestriction && (
             <p className="text-muted">
-              {ts("classRestriction")}: {spell.classRestriction}
+              {ts("classRestriction")}: {t(spell.classRestriction, locale)}
             </p>
           )}
           {spell.damageType && (

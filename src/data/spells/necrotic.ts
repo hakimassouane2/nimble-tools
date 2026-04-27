@@ -45,7 +45,7 @@ export const necroticSpells: Spell[] = [
       en: "1/round. +1d12 every 5 levels.",
       fr: "1/round. +1d12 tous les 5 niveaux.",
     },
-    classRestriction: "Shadowmancer",
+    classRestriction: { en: "Shadowmancer", fr: "Occultiste" },
   },
   {
     id: "summon-shadow",
@@ -59,7 +59,7 @@ export const necroticSpells: Spell[] = [
       en: "Shadow minions: 1 HP, d12 each, max INT or LVL minions. +1 Reach every 5 levels.",
       fr: "Sbires d'ombre : 1 PV, d12 chacun, max INT ou NVL sbires. +1 Allonge tous les 5 niveaux.",
     },
-    classRestriction: "Shadowmancer",
+    classRestriction: { en: "Shadowmancer", fr: "Occultiste" },
   },
   {
     id: "shadow-trap",

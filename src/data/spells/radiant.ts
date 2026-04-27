@@ -57,7 +57,7 @@ export const radiantSpells: Spell[] = [
       en: "Summon spirit that follows you. Deals 1d6+WIL radiant OR heals 1d6+WIL. Immune to harm.",
       fr: "Invoque un esprit qui vous suit. Inflige 1d6+VOL radiant OU soigne 1d6+VOL. Immunisé aux dégâts.",
     },
-    classRestriction: "Shepherd",
+    classRestriction: { en: "Shepherd", fr: "Clerc" },
     upcast: { en: "Increment die +1 healing use", fr: "Incrémente le dé +1 utilisation de soin" },
   },
   {
