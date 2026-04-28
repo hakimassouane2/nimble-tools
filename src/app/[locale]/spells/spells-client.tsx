@@ -19,17 +19,28 @@ const schools: SpellSchool[] = [
 
 export function SpellsClient({ locale }: { locale: string }) {
   const [query, setQuery] = useState("");
-  const [school, setSchool] = useState<SpellSchool | "">("");
-  const [tier, setTier] = useState<number | "">("");
+  const [selectedSchools, setSelectedSchools] = useState<SpellSchool[]>([]);
+  const [selectedTiers, setSelectedTiers] = useState<number[]>([]);
   const [expanded, setExpanded] = useState<string | null>(null);
   const tc = useTranslations("common");
   const ts = useTranslations("spells");
   const q = query.toLowerCase();
 
+  const toggleSchool = (s: SpellSchool) =>
+    setSelectedSchools((prev) =>
+      prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
+    );
+  const toggleTier = (ti: number) =>
+    setSelectedTiers((prev) =>
+      prev.includes(ti) ? prev.filter((x) => x !== ti) : [...prev, ti]
+    );
+
   const filtered = allSpells.filter((s) => {
     if (q && !t(s.name, locale).toLowerCase().includes(q)) return false;
-    if (school && s.school !== school) return false;
-    if (tier !== "" && s.tier !== tier) return false;
+    if (selectedSchools.length > 0 && !selectedSchools.includes(s.school))
+      return false;
+    if (selectedTiers.length > 0 && !selectedTiers.includes(s.tier))
+      return false;
     return true;
   });
 
@@ -50,9 +61,9 @@ export function SpellsClient({ locale }: { locale: string }) {
       <div className="space-y-2">
         <div className="flex flex-wrap gap-1.5">
           <button
-            onClick={() => setSchool("")}
+            onClick={() => setSelectedSchools([])}
             className={`rounded-full px-3 py-1 text-sm transition-colors ${
-              !school
+              selectedSchools.length === 0
                 ? "bg-accent text-background font-medium"
                 : "bg-surface text-muted hover:text-foreground"
             }`}
@@ -62,9 +73,9 @@ export function SpellsClient({ locale }: { locale: string }) {
           {schools.map((s) => (
             <button
               key={s}
-              onClick={() => setSchool(s)}
+              onClick={() => toggleSchool(s)}
               className={`rounded-full px-3 py-1 text-sm transition-colors ${
-                school === s
+                selectedSchools.includes(s)
                   ? "bg-accent text-background font-medium"
                   : "bg-surface text-muted hover:text-foreground"
               }`}
@@ -76,9 +87,9 @@ export function SpellsClient({ locale }: { locale: string }) {
 
         <div className="flex flex-wrap gap-1.5">
           <button
-            onClick={() => setTier("")}
+            onClick={() => setSelectedTiers([])}
             className={`rounded-full px-3 py-1 text-sm transition-colors ${
-              tier === ""
+              selectedTiers.length === 0
                 ? "bg-accent text-background font-medium"
                 : "bg-surface text-muted hover:text-foreground"
             }`}
@@ -88,9 +99,9 @@ export function SpellsClient({ locale }: { locale: string }) {
           {tiers.map((ti) => (
             <button
               key={ti}
-              onClick={() => setTier(ti)}
+              onClick={() => toggleTier(ti)}
               className={`rounded-full px-3 py-1 text-sm transition-colors ${
-                tier === ti
+                selectedTiers.includes(ti)
                   ? "bg-accent text-background font-medium"
                   : "bg-surface text-muted hover:text-foreground"
               }`}
