@@ -1075,6 +1075,7 @@ export const shepherd: HeroClass = {
   abilityPool: {
     name: { en: "Sacred Graces", fr: "Grâces sacrées" },
     selectAtLevels: [5, 9, 13],
+    picksAtLevel: { 5: 2 },
     abilities: [
       {
         name: { en: "Assist Me, My Friend!", fr: "Aide-moi, mon ami !" },

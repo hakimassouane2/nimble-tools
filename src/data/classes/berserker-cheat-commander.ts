@@ -1617,6 +1617,7 @@ export const commander: HeroClass = {
   abilityPool: {
     name: { en: "Commander's Orders", fr: "Ordres du Guerrier" },
     selectAtLevels: [2],
+    picksAtLevel: { 2: 2 },
     abilities: [
       {
         name: { en: "Face Me!", fr: "Par ici !" },

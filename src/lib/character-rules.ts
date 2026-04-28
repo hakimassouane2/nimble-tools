@@ -214,9 +214,17 @@ export function getStatIncreaseAtLevel(
   return null;
 }
 
+export function getAbilityPoolPicksAtLevel(classData: HeroClass, level: number): number {
+  const pool = classData.abilityPool;
+  if (!pool || !pool.selectAtLevels.includes(level)) return 0;
+  return pool.picksAtLevel?.[level] ?? 1;
+}
+
 export function getAbilityPoolPicksNeeded(classData: HeroClass, level: number): number {
   if (!classData.abilityPool) return 0;
-  return classData.abilityPool.selectAtLevels.filter((l) => l <= level).length;
+  return classData.abilityPool.selectAtLevels
+    .filter((l) => l <= level)
+    .reduce((sum, l) => sum + getAbilityPoolPicksAtLevel(classData, l), 0);
 }
 
 export function getAbilitiesAtLevel(classData: HeroClass, level: number): ClassAbility[] {

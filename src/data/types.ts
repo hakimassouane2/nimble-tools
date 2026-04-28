@@ -195,6 +195,7 @@ export type PoolAbility = {
 export type AbilityPool = {
   name: LocalizedString;
   selectAtLevels: number[];
+  picksAtLevel?: Record<number, number>;
   abilities: PoolAbility[];
 };
 

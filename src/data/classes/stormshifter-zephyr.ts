@@ -580,6 +580,7 @@ export const stormshifter: HeroClass = {
   abilityPool: {
     name: { en: "Chimeric Boons", fr: "Bienfaits chimériques" },
     selectAtLevels: [6, 9, 12, 17],
+    picksAtLevel: { 6: 2 },
     abilities: [
       {
         name: { en: "Beast of the Sea", fr: "Bête marine" },

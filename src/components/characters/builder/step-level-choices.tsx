@@ -9,6 +9,7 @@ import {
   getStatIncreaseAtLevel,
   getAbilitiesAtLevel,
   getEffectiveStats,
+  getAbilityPoolPicksAtLevel,
 } from "@/lib/character-rules";
 
 type Props = {
@@ -64,16 +65,32 @@ export function StepLevelChoices({
     onUpdateStatIncreases(updated);
   }
 
-  // Get pool pick for a specific level
-  function getPoolPickForLevel(level: number): number | null {
-    const found = draft.abilityPoolPicks.find((p) => p.level === level);
-    return found?.abilityIndex ?? null;
+  // Get pool picks for a specific level
+  function getPoolPicksForLevel(level: number): number[] {
+    return draft.abilityPoolPicks
+      .filter((p) => p.level === level)
+      .map((p) => p.abilityIndex);
   }
 
-  // Update pool pick for a specific level
-  function handlePoolPickChange(level: number, abilityIndex: number) {
-    const updated = draft.abilityPoolPicks.filter((p) => p.level !== level);
-    updated.push({ level, abilityIndex });
+  // Toggle a pool pick at a specific level (respects per-level pick count)
+  function handlePoolPickToggle(level: number, abilityIndex: number, maxPicks: number) {
+    const picksAtLevel = getPoolPicksForLevel(level);
+    const isPicked = picksAtLevel.includes(abilityIndex);
+
+    let updated: typeof draft.abilityPoolPicks;
+    if (isPicked) {
+      updated = draft.abilityPoolPicks.filter(
+        (p) => !(p.level === level && p.abilityIndex === abilityIndex)
+      );
+    } else if (picksAtLevel.length < maxPicks) {
+      updated = [...draft.abilityPoolPicks, { level, abilityIndex }];
+    } else {
+      // Full at this level: replace the oldest pick at this level
+      const others = draft.abilityPoolPicks.filter(
+        (p) => !(p.level === level && p.abilityIndex === picksAtLevel[0])
+      );
+      updated = [...others, { level, abilityIndex }];
+    }
     updated.sort((a, b) => a.level - b.level);
     onUpdateAbilityPoolPicks(updated);
   }
@@ -215,47 +232,56 @@ export function StepLevelChoices({
                   )}
 
                   {/* Ability pool pick */}
-                  {isPoolLevel && classData.abilityPool && (
-                    <div>
-                      <p className="mb-1 text-xs font-medium text-muted">
-                        {tl(classData.abilityPool.name, locale)}
-                      </p>
-                      <div className="space-y-1">
-                        {classData.abilityPool.abilities.map((ability, idx) => {
-                          const isSelected = getPoolPickForLevel(level) === idx;
-                          const isTaken =
-                            !isSelected && pickedIndices.has(idx);
+                  {isPoolLevel && classData.abilityPool && (() => {
+                    const maxPicks = getAbilityPoolPicksAtLevel(classData, level);
+                    const picksAtLevel = getPoolPicksForLevel(level);
+                    return (
+                      <div>
+                        <p className="mb-1 text-xs font-medium text-muted">
+                          {tl(classData.abilityPool!.name, locale)}
+                          {maxPicks > 1 && (
+                            <span className="ml-2 text-xs text-accent">
+                              ({picksAtLevel.length}/{maxPicks})
+                            </span>
+                          )}
+                        </p>
+                        <div className="space-y-1">
+                          {classData.abilityPool!.abilities.map((ability, idx) => {
+                            const isSelected = picksAtLevel.includes(idx);
+                            const isTaken =
+                              !isSelected && pickedIndices.has(idx);
 
-                          return (
-                            <button
-                              key={idx}
-                              onClick={() => handlePoolPickChange(level, idx)}
-                              disabled={isTaken}
-                              className={`w-full rounded-md border p-2 text-left text-sm transition-colors ${
-                                isSelected
-                                  ? "border-accent bg-accent/10"
-                                  : isTaken
-                                    ? "border-border opacity-40"
-                                    : "border-border hover:bg-surface-hover"
-                              }`}
-                            >
-                              <p className="font-medium text-foreground">
-                                {tl(ability.name, locale)}
-                                {isTaken && (
-                                  <span className="ml-2 text-xs text-muted">
-                                    ({t("alreadyPicked")})
-                                  </span>
-                                )}
-                              </p>
-                              <p className="text-xs text-muted">
-                                {tl(ability.description, locale)}
-                              </p>
-                            </button>
-                          );
-                        })}
+                            return (
+                              <button
+                                key={idx}
+                                onClick={() => handlePoolPickToggle(level, idx, maxPicks)}
+                                disabled={isTaken}
+                                className={`w-full rounded-md border p-2 text-left text-sm transition-colors ${
+                                  isSelected
+                                    ? "border-accent bg-accent/10"
+                                    : isTaken
+                                      ? "border-border opacity-40"
+                                      : "border-border hover:bg-surface-hover"
+                                }`}
+                              >
+                                <p className="font-medium text-foreground">
+                                  {tl(ability.name, locale)}
+                                  {isTaken && (
+                                    <span className="ml-2 text-xs text-muted">
+                                      ({t("alreadyPicked")})
+                                    </span>
+                                  )}
+                                </p>
+                                <p className="text-xs text-muted">
+                                  {tl(ability.description, locale)}
+                                </p>
+                              </button>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  })()}
 
                   {/* Epic Boon at level 19 */}
                   {level === 19 && (

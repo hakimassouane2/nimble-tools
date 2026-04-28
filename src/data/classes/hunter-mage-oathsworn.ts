@@ -506,6 +506,7 @@ export const hunter: HeroClass = {
   abilityPool: {
     name: { en: "Thrill of the Hunt", fr: "Frisson de la chasse" },
     selectAtLevels: [2, 4, 6, 8, 12, 14],
+    picksAtLevel: { 2: 2 },
     abilities: [
       {
         name: { en: "Addling Arrow", fr: "Tir de confusion" },
@@ -1084,6 +1085,7 @@ export const mage: HeroClass = {
   abilityPool: {
     name: { en: "Spellshaper", fr: "Sculptesort" },
     selectAtLevels: [4, 9, 13],
+    picksAtLevel: { 4: 2 },
     abilities: [
       {
         name: {
