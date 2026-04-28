@@ -1,22 +1,26 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { characters } from "@/lib/db/schema";
-import { eq, and } from "drizzle-orm";
-import type { CharacterData } from "@/data/types";
-import { heroClasses } from "@/data/classes";
 import { ancestries } from "@/data/ancestries";
 import { backgrounds } from "@/data/backgrounds";
-import { skills } from "@/data/skills";
-import { calculateSkillBase, ALL_LANGUAGES, getEffectiveStats, calculateClassResource } from "@/lib/character-rules";
+import { heroClasses } from "@/data/classes";
 import {
+  adventuringGear,
   armor,
   meleeWeapons,
   rangedWeapons,
-  adventuringGear,
 } from "@/data/equipment";
-import type { LocalizedString } from "@/data/types";
+import { skills } from "@/data/skills";
+import type { CharacterData, LocalizedString } from "@/data/types";
+import { auth } from "@/lib/auth";
+import {
+  ALL_LANGUAGES,
+  calculateClassResource,
+  calculateSkillBase,
+  getEffectiveStats,
+} from "@/lib/character-rules";
+import { db } from "@/lib/db";
+import { characters } from "@/lib/db/schema";
 import { t as tl } from "@/lib/utils";
+import { and, eq } from "drizzle-orm";
+import { NextResponse } from "next/server";
 
 // Skill center X positions (left to right across the skill row)
 const SKILL_XS_EN: Record<string, number> = {
@@ -72,9 +76,10 @@ export async function GET(request: Request, { params }: RouteParams) {
     const hiddenGroups = new Set(hideParam.split(",").filter(Boolean));
 
     // Try to load the official character sheet PDF (FR or EN)
-    const pdfFileName = locale === "fr"
-      ? "fiche-de-perso-nimble.pdf"
-      : "nimble-character-sheet.pdf";
+    const pdfFileName =
+      locale === "fr"
+        ? "fiche-de-perso-nimble.pdf"
+        : "nimble-character-sheet.pdf";
     let pdfBytes: ArrayBuffer;
     try {
       const fs = await import("fs/promises");
@@ -128,13 +133,18 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // Compute effective stats (base + stat increases + capstone)
     const effectiveStats = data.statIncreases
-      ? getEffectiveStats(data.stats, data.statIncreases, data.capstoneStatIncreases)
+      ? getEffectiveStats(
+          data.stats,
+          data.statIncreases,
+          data.capstoneStatIncreases,
+        )
       : data.stats;
 
     // Subclass lookup
-    const subclass = data.subclassId && classInfo
-      ? classInfo.subclasses.find((s) => s.id === data.subclassId)
-      : null;
+    const subclass =
+      data.subclassId && classInfo
+        ? classInfo.subclasses.find((s) => s.id === data.subclassId)
+        : null;
 
     const level = data.level ?? 1;
 
@@ -191,7 +201,11 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // ===== CLASS RESOURCE (between stats and armor) =====
     if (!hiddenGroups.has("combatClassResource")) {
-      const classResource = calculateClassResource(data.classId, effectiveStats, level);
+      const classResource = calculateClassResource(
+        data.classId,
+        effectiveStats,
+        level,
+      );
       if (classResource) {
         const resLabel = tl(classResource.name, locale);
         const resValue = classResource.die
@@ -228,7 +242,8 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // Initiative + Speed
     if (!hiddenGroups.has("combatInitiative")) {
-      const effectiveInitiative = effectiveStats.DEX + (ancestryInfo?.modifiers.initiative ?? 0);
+      const effectiveInitiative =
+        effectiveStats.DEX + (ancestryInfo?.modifiers.initiative ?? 0);
       drawCentered(formatStat(effectiveInitiative), 700, 522, 12);
     }
     if (!hiddenGroups.has("combatSpeed")) {
@@ -253,17 +268,35 @@ export async function GET(request: Request, { params }: RouteParams) {
     // ===== FEATURES SECTION =====
     // Helper: draw text with auto-shrinking font to fit within maxWidth
     const FEATURE_MAX_WIDTH = 470;
-    function drawFit(titleText: string, descText: string, x: number, y: number, maxSize: number, minSize: number) {
+    function drawFit(
+      titleText: string,
+      descText: string,
+      x: number,
+      y: number,
+      maxSize: number,
+      minSize: number,
+    ) {
       const fullText = titleText + descText;
       let size = maxSize;
       while (size > minSize) {
-        const w = boldFont.widthOfTextAtSize(titleText, size) + font.widthOfTextAtSize(descText, size);
+        const w =
+          boldFont.widthOfTextAtSize(titleText, size) +
+          font.widthOfTextAtSize(descText, size);
         if (w <= FEATURE_MAX_WIDTH) break;
         size -= 0.5;
       }
       // If still too wide at minSize, truncate the description
-      if (boldFont.widthOfTextAtSize(titleText, size) + font.widthOfTextAtSize(descText, size) > FEATURE_MAX_WIDTH) {
-        while (descText.length > 3 && boldFont.widthOfTextAtSize(titleText, size) + font.widthOfTextAtSize(descText + "...", size) > FEATURE_MAX_WIDTH) {
+      if (
+        boldFont.widthOfTextAtSize(titleText, size) +
+          font.widthOfTextAtSize(descText, size) >
+        FEATURE_MAX_WIDTH
+      ) {
+        while (
+          descText.length > 3 &&
+          boldFont.widthOfTextAtSize(titleText, size) +
+            font.widthOfTextAtSize(descText + "...", size) >
+            FEATURE_MAX_WIDTH
+        ) {
           descText = descText.slice(0, -1);
         }
         descText = descText + "...";
@@ -309,16 +342,32 @@ export async function GET(request: Request, { params }: RouteParams) {
         const lvlAbbr = locale === "fr" ? "Niv" : "Lvl";
 
         // Collect all features into a single list with title/description split
-        const combined: Array<{ level: number; title: string; description: string }> = [];
+        const combined: Array<{
+          level: number;
+          title: string;
+          description: string;
+        }> = [];
 
-        for (const ability of classInfo.abilities.filter((a) => a.level <= level && a.type === "core")) {
+        for (const ability of classInfo.abilities.filter(
+          (a) => a.level <= level && a.type === "core",
+        )) {
           const prefix = level > 1 ? `[${lvlAbbr} ${ability.level}] ` : "";
-          combined.push({ level: ability.level, title: `${prefix}${tl(ability.name, locale)}:`, description: ` ${tl(ability.description, locale)}` });
+          combined.push({
+            level: ability.level,
+            title: `${prefix}${tl(ability.name, locale)}:`,
+            description: ` ${tl(ability.description, locale)}`,
+          });
         }
 
         if (subclass) {
-          for (const feature of subclass.features.filter((f) => f.level <= level)) {
-            combined.push({ level: feature.level, title: `[${lvlAbbr} ${feature.level}] ${tl(feature.name, locale)}:`, description: ` ${tl(feature.description, locale)}` });
+          for (const feature of subclass.features.filter(
+            (f) => f.level <= level,
+          )) {
+            combined.push({
+              level: feature.level,
+              title: `[${lvlAbbr} ${feature.level}] ${tl(feature.name, locale)}:`,
+              description: ` ${tl(feature.description, locale)}`,
+            });
           }
         }
 
@@ -326,7 +375,11 @@ export async function GET(request: Request, { params }: RouteParams) {
           for (const pick of data.abilityPoolPicks) {
             const ability = classInfo.abilityPool.abilities[pick.abilityIndex];
             if (!ability) continue;
-            combined.push({ level: pick.level, title: `[${lvlAbbr} ${pick.level}] ${tl(ability.name, locale)}:`, description: ` ${tl(ability.description, locale)}` });
+            combined.push({
+              level: pick.level,
+              title: `[${lvlAbbr} ${pick.level}] ${tl(ability.name, locale)}:`,
+              description: ` ${tl(ability.description, locale)}`,
+            });
           }
         }
 
@@ -348,21 +401,33 @@ export async function GET(request: Request, { params }: RouteParams) {
           let wordIdx = 0;
 
           for (; wordIdx < descWords.length; wordIdx++) {
-            const test = firstLineDesc ? `${firstLineDesc} ${descWords[wordIdx]}` : descWords[wordIdx];
-            if (font.widthOfTextAtSize(` ${test}`, CLASS_FONT_SIZE) <= remainingWidth) {
+            const test = firstLineDesc
+              ? `${firstLineDesc} ${descWords[wordIdx]}`
+              : descWords[wordIdx];
+            if (
+              font.widthOfTextAtSize(` ${test}`, CLASS_FONT_SIZE) <=
+              remainingWidth
+            ) {
               firstLineDesc = test;
             } else {
               break;
             }
           }
 
-          lines.push({ bold: title, regular: firstLineDesc ? ` ${firstLineDesc}` : "" });
+          lines.push({
+            bold: title,
+            regular: firstLineDesc ? ` ${firstLineDesc}` : "",
+          });
 
           // Wrap remaining description words on subsequent lines (full width, regular only)
           let currentLine = "";
           for (; wordIdx < descWords.length; wordIdx++) {
-            const test = currentLine ? `${currentLine} ${descWords[wordIdx]}` : descWords[wordIdx];
-            if (font.widthOfTextAtSize(test, CLASS_FONT_SIZE) <= CLASS_MAX_WIDTH) {
+            const test = currentLine
+              ? `${currentLine} ${descWords[wordIdx]}`
+              : descWords[wordIdx];
+            if (
+              font.widthOfTextAtSize(test, CLASS_FONT_SIZE) <= CLASS_MAX_WIDTH
+            ) {
               currentLine = test;
             } else {
               if (currentLine) lines.push({ bold: "", regular: currentLine });
@@ -381,14 +446,31 @@ export async function GET(request: Request, { params }: RouteParams) {
         }
 
         // Draw a render line on a given page at position
-        function drawRenderLine(targetPage: typeof page, line: RenderLine, x: number, y: number) {
+        function drawRenderLine(
+          targetPage: typeof page,
+          line: RenderLine,
+          x: number,
+          y: number,
+        ) {
           let xPos = x;
           if (line.bold) {
-            targetPage.drawText(line.bold, { x: xPos, y, size: CLASS_FONT_SIZE, font: boldFont, color: black });
+            targetPage.drawText(line.bold, {
+              x: xPos,
+              y,
+              size: CLASS_FONT_SIZE,
+              font: boldFont,
+              color: black,
+            });
             xPos += boldFont.widthOfTextAtSize(line.bold, CLASS_FONT_SIZE);
           }
           if (line.regular) {
-            targetPage.drawText(line.regular, { x: xPos, y, size: CLASS_FONT_SIZE, font, color: black });
+            targetPage.drawText(line.regular, {
+              x: xPos,
+              y,
+              size: CLASS_FONT_SIZE,
+              font,
+              color: black,
+            });
           }
         }
 
@@ -407,9 +489,13 @@ export async function GET(request: Request, { params }: RouteParams) {
         if (lineIndex < allLines.length) {
           const allPages = pdfDoc.getPages();
           const { width, height } = page.getSize();
-          const page2 = allPages.length > 1 ? allPages[1] : pdfDoc.addPage([width, height]);
-          const PAGE2_TOP_Y = page2.getSize().height - 40;
-          let page2Y = PAGE2_TOP_Y;
+          const page2 =
+            allPages.length > 1 ? allPages[1] : pdfDoc.addPage([width, height]);
+          // Baseline of the first row in the page 2 CLASSE table (template is
+          // 792x612; first row sits ~56pt below the page top so text lands in
+          // the row band rather than floating above it).
+          const PAGE2_START_Y = page2.getSize().height - 32;
+          let page2Y = PAGE2_START_Y;
           while (lineIndex < allLines.length) {
             drawRenderLine(page2, allLines[lineIndex], CLASS_X, page2Y);
             page2Y -= CLASS_LINE_HEIGHT;
