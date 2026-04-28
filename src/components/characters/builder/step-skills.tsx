@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { Stat } from "@/data/types";
+import type { Ancestry, Stat } from "@/data/types";
 import { skills } from "@/data/skills";
 import {
   calculateSkillBase,
@@ -12,16 +12,17 @@ import { t as tl, tStat } from "@/lib/utils";
 type Props = {
   locale: string;
   stats: Record<Stat, number>;
+  ancestry?: Ancestry | null;
   level?: number;
   bonusSkillPoints: Record<string, number>;
   onUpdate: (points: Record<string, number>) => void;
 };
 
-export function StepSkills({ locale, stats, level = 1, bonusSkillPoints, onUpdate }: Props) {
+export function StepSkills({ locale, stats, ancestry, level = 1, bonusSkillPoints, onUpdate }: Props) {
   const t = useTranslations("builder");
 
   const maxBonusPoints = 4 + (level - 1);
-  const base = calculateSkillBase(stats);
+  const base = calculateSkillBase(stats, ancestry);
   const totalUsed = getTotalBonusSkillPoints(bonusSkillPoints);
   const remaining = maxBonusPoints - totalUsed;
 

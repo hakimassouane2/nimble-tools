@@ -46,7 +46,7 @@ export function StepSummary({ locale, draft, mode, initialData, onUpdateDetails 
       ? calculateSecondaryStats(classData, ancestryData, effectiveStats, draft.level, draft.equipment)
       : null;
 
-  const skillBase = effectiveStats ? calculateSkillBase(effectiveStats) : {};
+  const skillBase = effectiveStats ? calculateSkillBase(effectiveStats, ancestryData) : {};
 
   // Level-up summary view
   if (mode === "levelup" && initialData) {

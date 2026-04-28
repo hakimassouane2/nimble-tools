@@ -16,6 +16,8 @@ export const ancestries: Ancestry[] = [
       },
     },
     modifiers: {
+      initiative: 1,
+      skillBonusAll: 1,
       other: [
         { en: "+1 to all skills", fr: "+1 à toutes les compétences" },
         { en: "+1 Initiative", fr: "+1 Initiative" },
@@ -74,6 +76,7 @@ export const ancestries: Ancestry[] = [
       },
     },
     modifiers: {
+      skillBonus: { stealth: 1 },
       other: [
         { en: "+1 Stealth", fr: "+1 Discrétion" },
         { en: "Auto-succeed a failed save 1/Safe Rest", fr: "Réussir automatiquement un jet de sauvegarde raté 1/Repos sûr" },
@@ -211,6 +214,7 @@ export const ancestries: Ancestry[] = [
     },
     modifiers: {
       languages: [{ en: "Goblin/Orcish", fr: "Gobelin/Orquien" }],
+      skillBonus: { might: 1 },
       other: [
         { en: "Avoid 0 HP (set to LVL) 1/Safe Rest", fr: "Éviter 0 PV (fixé à NIV) 1/Repos sûr" },
         { en: "+1 Might", fr: "+1 Puissance" },
@@ -325,6 +329,7 @@ export const ancestries: Ancestry[] = [
     },
     modifiers: {
       languages: [{ en: "Dwarvish", fr: "Nanique" }],
+      skillBonus: { might: 2 },
       other: [
         { en: "Force enemy crit reroll 1/encounter", fr: "Forcer la relance d'un coup critique ennemi 1/rencontre" },
         { en: "+2 Might", fr: "+2 Puissance" },

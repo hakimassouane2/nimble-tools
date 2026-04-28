@@ -50,12 +50,15 @@ export function getAvailableBackgrounds(
 }
 
 export function calculateSkillBase(
-  stats: Record<Stat, number>
+  stats: Record<Stat, number>,
+  ancestry?: Ancestry | null
 ): Record<string, number> {
   const base: Record<string, number> = {};
+  const allBonus = ancestry?.modifiers.skillBonusAll ?? 0;
+  const perSkill = ancestry?.modifiers.skillBonus ?? {};
   for (const skill of skills) {
     const statValue = stats[skill.linkedStat];
-    base[skill.id] = Math.max(0, statValue);
+    base[skill.id] = Math.max(0, statValue) + allBonus + (perSkill[skill.id] ?? 0);
   }
   return base;
 }
@@ -301,7 +304,7 @@ export function calculateSecondaryStats(
     hp: calculateHp(classData, level),
     hitDie: classData.hitDie,
     hitDiceCount: level,
-    initiative: stats.DEX,
+    initiative: stats.DEX + (ancestryData.modifiers.initiative ?? 0),
     speed,
     maxWounds,
     inventorySlots,

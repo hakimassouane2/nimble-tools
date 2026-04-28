@@ -95,7 +95,8 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
     ? getEffectiveStats(data.stats, data.statIncreases, data.capstoneStatIncreases)
     : data.stats;
 
-  const skillBase = calculateSkillBase(effectiveStats);
+  const skillBase = calculateSkillBase(effectiveStats, ancestryData);
+  const effectiveInitiative = effectiveStats.DEX + (ancestryData?.modifiers.initiative ?? 0);
 
   // Subclass lookup
   const subclass = data.subclassId && classData
@@ -247,7 +248,7 @@ export function CharacterDetail({ locale, characterId, data }: Props) {
           {[
             { label: t("hp"), value: data.hp },
             { label: t("hitDice"), value: `${data.hitDiceCount}${data.hitDie.replace(/^\d+/, "")}` },
-            { label: t("initiative"), value: data.initiative },
+            { label: t("initiative"), value: effectiveInitiative },
             { label: t("speed"), value: data.speed },
             { label: t("wounds"), value: data.maxWounds },
             { label: t("inventorySlots"), value: data.inventorySlots },

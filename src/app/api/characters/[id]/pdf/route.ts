@@ -228,7 +228,8 @@ export async function GET(request: Request, { params }: RouteParams) {
 
     // Initiative + Speed
     if (!hiddenGroups.has("combatInitiative")) {
-      drawCentered(formatStat(data.initiative), 700, 522, 12);
+      const effectiveInitiative = effectiveStats.DEX + (ancestryInfo?.modifiers.initiative ?? 0);
+      drawCentered(formatStat(effectiveInitiative), 700, 522, 12);
     }
     if (!hiddenGroups.has("combatSpeed")) {
       drawCentered(String(data.speed), 700, 480, 12);
@@ -237,7 +238,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     // ===== SKILL VALUES =====
     if (!hiddenGroups.has("skills")) {
       const skillXs = locale === "fr" ? SKILL_XS_FR : SKILL_XS_EN;
-      const skillBase = calculateSkillBase(effectiveStats);
+      const skillBase = calculateSkillBase(effectiveStats, ancestryInfo);
       for (const skill of skills) {
         const base = skillBase[skill.id] ?? 0;
         const bonus = data.bonusSkillPoints[skill.id] ?? 0;
@@ -400,11 +401,14 @@ export async function GET(request: Request, { params }: RouteParams) {
           lineIndex++;
         }
 
-        // If there are remaining lines, add page 2
+        // If there are remaining lines, write them on the existing page 2 of
+        // the template (back of the character sheet) rather than appending a
+        // new blank page after it.
         if (lineIndex < allLines.length) {
+          const allPages = pdfDoc.getPages();
           const { width, height } = page.getSize();
-          const page2 = pdfDoc.addPage([width, height]);
-          const PAGE2_TOP_Y = height - 40;
+          const page2 = allPages.length > 1 ? allPages[1] : pdfDoc.addPage([width, height]);
+          const PAGE2_TOP_Y = page2.getSize().height - 40;
           let page2Y = PAGE2_TOP_Y;
           while (lineIndex < allLines.length) {
             drawRenderLine(page2, allLines[lineIndex], CLASS_X, page2Y);

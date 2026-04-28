@@ -44,6 +44,9 @@ export type Size = "Tiny" | "Small" | "Medium" | "Large" | "Huge";
 export type AncestryModifiers = {
   speed?: number;
   armor?: number;
+  initiative?: number;
+  skillBonusAll?: number;
+  skillBonus?: Record<string, number>;
   languages?: LocalizedString[];
   other?: LocalizedString[];
 };

@@ -559,6 +559,7 @@ export function CharacterBuilder({ locale, characterId, mode = "create", initial
           <StepSkills
             locale={locale}
             stats={draft.stats}
+            ancestry={ancestryData}
             level={draft.level}
             bonusSkillPoints={draft.bonusSkillPoints}
             onUpdate={(bonusSkillPoints) =>
@@ -582,6 +583,7 @@ export function CharacterBuilder({ locale, characterId, mode = "create", initial
           <StepSkillsLevelUp
             locale={locale}
             stats={draft.stats}
+            ancestry={ancestryData}
             bonusSkillPoints={draft.bonusSkillPoints}
             newSkillId={draft.levelUpNewSkillId}
             moveFromSkillId={draft.levelUpMoveFromSkillId}

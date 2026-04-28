@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import type { Stat } from "@/data/types";
+import type { Ancestry, Stat } from "@/data/types";
 import { skills } from "@/data/skills";
 import { calculateSkillBase } from "@/lib/character-rules";
 import { t as tl, tStat } from "@/lib/utils";
@@ -12,6 +12,7 @@ const MAX_SKILL_TOTAL = 12;
 type Props = {
   locale: string;
   stats: Record<Stat, number>;
+  ancestry?: Ancestry | null;
   bonusSkillPoints: Record<string, number>;
   newSkillId: string | null;
   moveFromSkillId: string | null;
@@ -26,6 +27,7 @@ type Props = {
 export function StepSkillsLevelUp({
   locale,
   stats,
+  ancestry,
   bonusSkillPoints,
   newSkillId,
   moveFromSkillId,
@@ -34,7 +36,7 @@ export function StepSkillsLevelUp({
 }: Props) {
   const t = useTranslations("builder");
   const [showMove, setShowMove] = useState(moveFromSkillId !== null);
-  const base = calculateSkillBase(stats);
+  const base = calculateSkillBase(stats, ancestry);
 
   function getOriginalTotal(skillId: string): number {
     return (base[skillId] ?? 0) + (bonusSkillPoints[skillId] ?? 0);
