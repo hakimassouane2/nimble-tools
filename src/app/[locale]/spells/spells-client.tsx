@@ -21,7 +21,6 @@ export function SpellsClient({ locale }: { locale: string }) {
   const [query, setQuery] = useState("");
   const [selectedSchools, setSelectedSchools] = useState<SpellSchool[]>([]);
   const [selectedTiers, setSelectedTiers] = useState<number[]>([]);
-  const [expanded, setExpanded] = useState<string | null>(null);
   const tc = useTranslations("common");
   const ts = useTranslations("spells");
   const q = query.toLowerCase();
@@ -36,7 +35,7 @@ export function SpellsClient({ locale }: { locale: string }) {
     );
 
   const filtered = allSpells.filter((s) => {
-    if (q && !t(s.name, locale).toLowerCase().includes(q)) return false;
+    if (q && !t(s.name, locale).toLowerCase().includes(q) && !t(s.effects, locale).toLowerCase().includes(q)) return false;
     if (selectedSchools.length > 0 && !selectedSchools.includes(s.school))
       return false;
     if (selectedTiers.length > 0 && !selectedTiers.includes(s.tier))
@@ -116,116 +115,87 @@ export function SpellsClient({ locale }: { locale: string }) {
         <p className="text-muted">{tc("noResults")}</p>
       )}
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         {filtered.map((spell) => (
-          <SpellCard
-            key={spell.id}
-            spell={spell}
-            locale={locale}
-            isExpanded={expanded === spell.id}
-            onToggle={() =>
-              setExpanded(expanded === spell.id ? null : spell.id)
-            }
-          />
+          <SpellCard key={spell.id} spell={spell} locale={locale} />
         ))}
       </div>
     </>
   );
 }
 
-function SpellCard({
-  spell,
-  locale,
-  isExpanded,
-  onToggle,
-}: {
-  spell: Spell;
-  locale: string;
-  isExpanded: boolean;
-  onToggle: () => void;
-}) {
+function MetaRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-wrap gap-x-1 text-sm">
+      <span className="font-medium text-muted">{label}:</span>
+      <span className="text-foreground">{value}</span>
+    </div>
+  );
+}
+
+function SpellCard({ spell, locale }: { spell: Spell; locale: string }) {
   const ts = useTranslations("spells");
   const tc = useTranslations("common");
 
   return (
     <div className="rounded-lg border border-border bg-surface p-4">
-      <button
-        onClick={onToggle}
-        className="flex w-full items-start justify-between text-left"
-        aria-expanded={isExpanded}
-      >
-        <div className="flex flex-wrap items-center gap-2">
-          <h3 className="font-semibold text-foreground">
-            {t(spell.name, locale)}
-          </h3>
-          <Badge variant={schoolBadgeVariant(spell.school)}>
-            {ts(`schools.${spell.school}`)}
-          </Badge>
-          <Badge variant="default">
-            {spell.tier === 0 ? tc("cantrip") : tc("tierShort", { n: spell.tier })}
-          </Badge>
-          {spell.concentration && (
-            <Badge variant="default">{ts("concentration")}</Badge>
-          )}
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`mt-0.5 shrink-0 text-muted transition-transform ${
-            isExpanded ? "rotate-180" : ""
-          }`}
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
-      </button>
-
-      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-        <span>
-          {ts("castingTime")}:{" "}
-          {spell.castingTime === 0
-            ? "Special"
-            : `${spell.castingTime} action${spell.castingTime > 1 ? "s" : ""}`}
-        </span>
-        <span>
-          {tc("range")}: {t(spell.range, locale)}
-        </span>
-        {spell.damage && (
-          <span>
-            {tc("damage")}: {t(spell.damage, locale)}
-          </span>
+      <div className="flex flex-wrap items-center gap-2">
+        <h3 className="font-semibold text-foreground">
+          {t(spell.name, locale)}
+        </h3>
+        <Badge variant={schoolBadgeVariant(spell.school)}>
+          {ts(`schools.${spell.school}`)}
+        </Badge>
+        <Badge variant="default">
+          {spell.tier === 0 ? tc("cantrip") : tc("tierShort", { n: spell.tier })}
+        </Badge>
+        {spell.concentration && (
+          <Badge variant="default">{ts("concentration")}</Badge>
+        )}
+        {spell.oncePerWeek && (
+          <Badge variant="default">{ts("oncePerWeek")}</Badge>
+        )}
+        {spell.classRestriction && (
+          <Badge variant="default">{t(spell.classRestriction, locale)}</Badge>
         )}
       </div>
 
-      {isExpanded && (
-        <div className="mt-3 space-y-2 border-t border-border/50 pt-3 text-sm">
-          <p className="text-foreground">{t(spell.effects, locale)}</p>
-          {spell.saveType && (
-            <p className="text-muted">
-              {ts("saveType")}: {spell.saveType}
-            </p>
-          )}
-          {spell.upcast && (
-            <p className="text-muted">
-              {ts("upcast")}: {t(spell.upcast, locale)}
-            </p>
-          )}
-          {spell.classRestriction && (
-            <p className="text-muted">
-              {ts("classRestriction")}: {t(spell.classRestriction, locale)}
-            </p>
-          )}
-          {spell.damageType && (
-            <p className="text-muted">
-              {tc("damage")}: {t(spell.damageType, locale)}
-            </p>
-          )}
+      <div className="mt-3 grid grid-cols-1 gap-x-4 gap-y-1 sm:grid-cols-2">
+        <MetaRow
+          label={ts("castingTime")}
+          value={t(spell.castingTime, locale)}
+        />
+        <MetaRow label={ts("target")} value={t(spell.targetType, locale)} />
+        <MetaRow label={tc("range")} value={t(spell.range, locale)} />
+        {spell.damage && (
+          <MetaRow label={tc("damage")} value={t(spell.damage, locale)} />
+        )}
+        {spell.saveType && (
+          <MetaRow label={ts("saveType")} value={spell.saveType} />
+        )}
+        {spell.concentrationDuration && (
+          <MetaRow
+            label={ts("concentrationDuration")}
+            value={t(spell.concentrationDuration, locale)}
+          />
+        )}
+      </div>
+
+      <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-foreground">
+        {t(spell.effects, locale)}
+      </p>
+
+      {spell.highLevels && (
+        <div className="mt-3 rounded-md border border-border/50 bg-background/50 p-2 text-sm">
+          <span className="font-medium text-muted">{ts("highLevels")}:</span>{" "}
+          <span className="text-foreground">{t(spell.highLevels, locale)}</span>
+        </div>
+      )}
+
+      {spell.upcast && (
+        <div className="mt-2 rounded-md border border-border/50 bg-background/50 p-2 text-sm">
+          <span className="font-medium text-muted">{ts("upcast")}:</span>{" "}
+          <span className="text-foreground">{t(spell.upcast, locale)}</span>
         </div>
       )}
     </div>

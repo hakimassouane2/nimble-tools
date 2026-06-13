@@ -92,16 +92,18 @@ export type Spell = {
   name: LocalizedString;
   school: SpellSchool;
   tier: number; // 0 = cantrip, 1-9 = spell tiers
-  castingTime: number; // in actions
+  castingTime: LocalizedString;
   targetType: LocalizedString;
   range: LocalizedString;
   damage?: LocalizedString;
-  damageType?: LocalizedString;
   effects: LocalizedString;
   saveType?: Stat;
   concentration?: boolean;
+  concentrationDuration?: LocalizedString;
+  highLevels?: LocalizedString;
   upcast?: LocalizedString;
   classRestriction?: LocalizedString;
+  oncePerWeek?: boolean;
 };
 
 // ─── Equipment ───────────────────────────────────────────────────────────────

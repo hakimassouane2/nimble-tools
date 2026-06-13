@@ -70,19 +70,23 @@
     "title": "Sorts",
     "school": "École",
     "castingTime": "Temps d'incantation",
+    "target": "Cible",
     "actions": "{count, plural, one {# action} other {# actions}}",
     "concentration": "Concentration",
-    "upcast": "Incantation supérieure",
-    "classRestriction": "Restriction de classe",
+    "concentrationDuration": "Durée",
+    "upcast": "Amplification",
+    "highLevels": "Niveaux supérieurs",
+    "classRestriction": "Classe",
     "saveType": "Sauvegarde",
+    "oncePerWeek": "1/semaine (Repos sûr)",
     "schools": {
       "fire": "Feu",
       "ice": "Glace",
       "lightning": "Foudre",
       "wind": "Vent",
-      "radiant": "Radiant",
+      "radiant": "Sacré",
       "necrotic": "Nécrotique",
-      "utility": "Utilitaire"
+      "utility": "Petite magie"
     }
   },
   "equipment": {
