@@ -10,7 +10,7 @@ export const windSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Portée 12", fr: "Portée 12" },
     damage: { en: "1d4", fr: "1d4" },
-    effects: { en: "(Vicieux : lancez 1 dé supplémentaire chaque fois que vous lancez des dégâts de crit.). Touche aussi jusqu'à 1 cible adjacente.", fr: "(Vicieux : lancez 1 dé supplémentaire chaque fois que vous lancez des dégâts de crit.). Touche aussi jusqu'à 1 cible adjacente." },
+    effects: { en: "Touche aussi jusqu'à 1 cible adjacente.", fr: "Touche aussi jusqu'à 1 cible adjacente." },
     highLevels: { en: "+2 dégâts tous les 5 niveaux.", fr: "+2 dégâts tous les 5 niveaux." },
   },
   {
@@ -22,7 +22,7 @@ export const windSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Portée 12", fr: "Portée 12" },
     damage: { en: "1d4+INT", fr: "1d4+INT" },
-    effects: { en: "(ignore l'armure). En cas d'attaque réussie : la cible est Provoquée pendant son prochain tour.<br><br> Réservé : Barde.", fr: "(ignore l'armure). En cas d'attaque réussie : la cible est Provoquée pendant son prochain tour.<br><br> Réservé : Barde." },
+    effects: { en: "(ignore l'armure). **En cas d'attaque réussie** : la cible est **Provoquée** pendant son prochain tour.<br><br> **Réservé** : Barde.", fr: "(ignore l'armure). **En cas d'attaque réussie** : la cible est **Provoquée** pendant son prochain tour.<br><br> **Réservé** : Barde." },
     highLevels: { en: "+2 dégâts tous les 5 niveaux.", fr: "+2 dégâts tous les 5 niveaux." },
   },
   {
@@ -33,7 +33,7 @@ export const windSpells: Spell[] = [
     castingTime: { en: "1 action", fr: "1 action" },
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Portée 6", fr: "Portée 6" },
-    effects: { en: "Rendez 1 PV à une créature Mourante.", fr: "Rendez 1 PV à une créature Mourante." },
+    effects: { en: "Rendez 1 PV à une créature **Mourante**.", fr: "Rendez 1 PV à une créature **Mourante**." },
     highLevels: { en: "+2 Portée tous les 5 niveaux.", fr: "+2 Portée tous les 5 niveaux." },
   },
   {
@@ -45,7 +45,7 @@ export const windSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Portée 12", fr: "Portée 12" },
     damage: { en: "3d4", fr: "3d4" },
-    effects: { en: "Avantage contre les cibles volantes, Petites ou Très petites. En cas d'attaque réussie : déplacez une cible Moyenne de 2 cases ; Petite/Très petite deux fois plus loin ; Grande deux fois moins loin (arrondi à l'inférieur). Pour chaque dé que vous lanceriez à cause du déplacement forcé de ce sort, infligez +5 dégâts à la place.", fr: "Avantage contre les cibles volantes, Petites ou Très petites. En cas d'attaque réussie : déplacez une cible Moyenne de 2 cases ; Petite/Très petite deux fois plus loin ; Grande deux fois moins loin (arrondi à l'inférieur). Pour chaque dé que vous lanceriez à cause du déplacement forcé de ce sort, infligez +5 dégâts à la place." },
+    effects: { en: "Avantage contre les cibles volantes, Petites ou Très petites. **En cas d'attaque réussie** : déplacez une cible Moyenne de 2 cases ; Petite/Très petite deux fois plus loin ; Grande deux fois moins loin (arrondi à l'inférieur). Pour chaque dé que vous lanceriez à cause du déplacement forcé de ce sort, infligez +5 dégâts à la place.", fr: "Avantage contre les cibles volantes, Petites ou Très petites. **En cas d'attaque réussie** : déplacez une cible Moyenne de 2 cases ; Petite/Très petite deux fois plus loin ; Grande deux fois moins loin (arrondi à l'inférieur). Pour chaque dé que vous lanceriez à cause du déplacement forcé de ce sort, infligez +5 dégâts à la place." },
     upcast: { en: "+1 déplacement.", fr: "+1 déplacement." },
   },
   {
@@ -56,7 +56,7 @@ export const windSpells: Spell[] = [
     castingTime: { en: "1 action", fr: "1 action" },
     targetType: { en: "Self", fr: "Soi-même" },
     range: { en: "Soi-même", fr: "Soi-même" },
-    effects: { en: "Réaction : quand vous êtes attaqué à distance. Défendez gratuitement. Les attaques à distance ont un désavantage contre vous cette round (y compris l'attaque déclencheuse)", fr: "Réaction : quand vous êtes attaqué à distance. Défendez gratuitement. Les attaques à distance ont un désavantage contre vous cette round (y compris l'attaque déclencheuse)" },
+    effects: { en: "**Réaction** : quand vous êtes attaqué à distance. Défendez gratuitement. Les attaques à distance ont un désavantage contre vous cette round (y compris l'attaque déclencheuse)", fr: "**Réaction** : quand vous êtes attaqué à distance. Défendez gratuitement. Les attaques à distance ont un désavantage contre vous cette round (y compris l'attaque déclencheuse)" },
     upcast: { en: "+3 Armure.", fr: "+3 Armure." },
   },
   {
@@ -81,7 +81,7 @@ export const windSpells: Spell[] = [
     targetType: { en: "AoE", fr: "Zone" },
     range: { en: "Allonge 3", fr: "Allonge 3" },
     damage: { en: "4d4+10", fr: "4d4+10" },
-    effects: { en: "Aux ennemis dans l'Allonge. Vous pouvez placer les créatures survivantes n'importe où à 1 case de l'Allonge de la tempête en cas d'échec à un Jet de sauvegarde de Force.", fr: "Aux ennemis dans l'Allonge. Vous pouvez placer les créatures survivantes n'importe où à 1 case de l'Allonge de la tempête en cas d'échec à un Jet de sauvegarde de Force." },
+    effects: { en: "Dégâts infligés Aux ennemis dans l'Allonge. Vous pouvez placer les créatures survivantes n'importe où à 1 case de l'Allonge de la tempête en cas d'échec à un **JdS FOR**.", fr: "Dégâts infligés Aux ennemis dans l'Allonge. Vous pouvez placer les créatures survivantes n'importe où à 1 case de l'Allonge de la tempête en cas d'échec à un **JdS FOR**." },
     saveType: "STR",
     upcast: { en: "+1 Allonge.", fr: "+1 Allonge." },
   },
@@ -93,7 +93,7 @@ export const windSpells: Spell[] = [
     castingTime: { en: "3 actions", fr: "3 actions" },
     targetType: { en: "AoE", fr: "Zone" },
     range: { en: "Allonge 12", fr: "Allonge 12" },
-    effects: { en: "Les ennemis dans une zone de 5x5 doivent répéter un Jet de sauvegarde de Dextérité jusqu'à réussir. Pour chaque échec, ils subissent 1d6 dégâts de chute et atterrissent À terre.", fr: "Les ennemis dans une zone de 5x5 doivent répéter un Jet de sauvegarde de Dextérité jusqu'à réussir. Pour chaque échec, ils subissent 1d6 dégâts de chute et atterrissent À terre." },
+    effects: { en: "Les ennemis dans une zone de 5x5 doivent répéter un **JdS DEX** jusqu'à réussir. Pour chaque échec, ils subissent **1d6 dégâts** de chute et atterrissent **À terre**.", fr: "Les ennemis dans une zone de 5x5 doivent répéter un **JdS DEX** jusqu'à réussir. Pour chaque échec, ils subissent **1d6 dégâts** de chute et atterrissent **À terre**." },
     saveType: "DEX",
     upcast: { en: "+2 Portée, +1 zone.", fr: "+2 Portée, +1 zone." },
   },
@@ -106,7 +106,7 @@ export const windSpells: Spell[] = [
     targetType: { en: "AoE", fr: "Zone" },
     range: { en: "Portée 12", fr: "Portée 12" },
     damage: { en: "d44", fr: "d44" },
-    effects: { en: "Tranchants (lancez avec avantage), touche aussi les ennemis dans l'Allonge 1 de votre cible.", fr: "Tranchants (lancez avec avantage), touche aussi les ennemis dans l'Allonge 1 de votre cible." },
+    effects: { en: "(lancez avec avantage), touche aussi les ennemis adjacents de votre cible.", fr: "(lancez avec avantage), touche aussi les ennemis adjacents de votre cible." },
     upcast: { en: "+1 Allonge.", fr: "+1 Allonge." },
   },
   {

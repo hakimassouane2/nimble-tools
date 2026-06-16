@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import { allSpells } from "@/data/spells";
 import type { Spell, SpellSchool } from "@/data/types";
 import { Badge, schoolBadgeVariant } from "@/components/ui/badge";
-import { t } from "@/lib/utils";
+import { RichText } from "@/components/ui/rich-text";
+import { t, stripMarkup } from "@/lib/utils";
 
 const schools: SpellSchool[] = [
   "fire",
@@ -14,13 +15,13 @@ const schools: SpellSchool[] = [
   "wind",
   "radiant",
   "necrotic",
-  "utility",
 ];
 
 export function SpellsClient({ locale }: { locale: string }) {
   const [query, setQuery] = useState("");
   const [selectedSchools, setSelectedSchools] = useState<SpellSchool[]>([]);
   const [selectedTiers, setSelectedTiers] = useState<number[]>([]);
+  const [utilityOnly, setUtilityOnly] = useState(false);
   const tc = useTranslations("common");
   const ts = useTranslations("spells");
   const q = query.toLowerCase();
@@ -35,11 +36,12 @@ export function SpellsClient({ locale }: { locale: string }) {
     );
 
   const filtered = allSpells.filter((s) => {
-    if (q && !t(s.name, locale).toLowerCase().includes(q) && !t(s.effects, locale).toLowerCase().includes(q)) return false;
+    if (q && !t(s.name, locale).toLowerCase().includes(q) && !stripMarkup(t(s.effects, locale)).toLowerCase().includes(q)) return false;
     if (selectedSchools.length > 0 && !selectedSchools.includes(s.school))
       return false;
     if (selectedTiers.length > 0 && !selectedTiers.includes(s.tier))
       return false;
+    if (utilityOnly && !s.utility) return false;
     return true;
   });
 
@@ -108,6 +110,18 @@ export function SpellsClient({ locale }: { locale: string }) {
               {ti === 0 ? tc("cantrip") : tc("tierShort", { n: ti })}
             </button>
           ))}
+          <span className="mx-1 self-stretch border-l border-border" aria-hidden />
+          <button
+            onClick={() => setUtilityOnly((v) => !v)}
+            aria-pressed={utilityOnly}
+            className={`rounded-full px-3 py-1 text-sm transition-colors ${
+              utilityOnly
+                ? "bg-utility/20 text-utility font-medium"
+                : "bg-surface text-muted hover:text-foreground"
+            }`}
+          >
+            {ts("schools.utility")}
+          </button>
         </div>
       </div>
 
@@ -146,6 +160,9 @@ function SpellCard({ spell, locale }: { spell: Spell; locale: string }) {
         <Badge variant={schoolBadgeVariant(spell.school)}>
           {ts(`schools.${spell.school}`)}
         </Badge>
+        {spell.utility && (
+          <Badge variant="utility">{ts("schools.utility")}</Badge>
+        )}
         <Badge variant="default">
           {spell.tier === 0 ? tc("cantrip") : tc("tierShort", { n: spell.tier })}
         </Badge>
@@ -166,7 +183,9 @@ function SpellCard({ spell, locale }: { spell: Spell; locale: string }) {
           value={t(spell.castingTime, locale)}
         />
         <MetaRow label={ts("target")} value={t(spell.targetType, locale)} />
-        <MetaRow label={tc("range")} value={t(spell.range, locale)} />
+        {t(spell.range, locale) && (
+          <MetaRow label={tc("range")} value={t(spell.range, locale)} />
+        )}
         {spell.damage && (
           <MetaRow label={tc("damage")} value={t(spell.damage, locale)} />
         )}
@@ -181,21 +200,22 @@ function SpellCard({ spell, locale }: { spell: Spell; locale: string }) {
         )}
       </div>
 
-      <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-foreground">
-        {t(spell.effects, locale)}
-      </p>
+      <RichText
+        text={t(spell.effects, locale)}
+        className="mt-3 block text-sm leading-relaxed text-foreground"
+      />
 
       {spell.highLevels && (
         <div className="mt-3 rounded-md border border-border/50 bg-background/50 p-2 text-sm">
           <span className="font-medium text-muted">{ts("highLevels")}:</span>{" "}
-          <span className="text-foreground">{t(spell.highLevels, locale)}</span>
+          <RichText text={t(spell.highLevels, locale)} className="text-foreground" />
         </div>
       )}
 
       {spell.upcast && (
         <div className="mt-2 rounded-md border border-border/50 bg-background/50 p-2 text-sm">
           <span className="font-medium text-muted">{ts("upcast")}:</span>{" "}
-          <span className="text-foreground">{t(spell.upcast, locale)}</span>
+          <RichText text={t(spell.upcast, locale)} className="text-foreground" />
         </div>
       )}
     </div>

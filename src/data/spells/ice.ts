@@ -10,7 +10,7 @@ export const iceSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Allonge 1", fr: "Allonge 1" },
     damage: { en: "1d6", fr: "1d6" },
-    effects: { en: "En cas d'attaque réussie : La cible est Aveuglée jusqu'à la fin de son prochain tour.", fr: "En cas d'attaque réussie : La cible est Aveuglée jusqu'à la fin de son prochain tour." },
+    effects: { en: "**En cas d'attaque réussie** : La cible est **Aveuglée** jusqu'à la fin de son prochain tour.", fr: "**En cas d'attaque réussie** : La cible est **Aveuglée** jusqu'à la fin de son prochain tour." },
     highLevels: { en: "+3 dégâts tous les 5 niveaux.", fr: "+3 dégâts tous les 5 niveaux." },
   },
   {
@@ -22,7 +22,7 @@ export const iceSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Portée 12", fr: "Portée 12" },
     damage: { en: "1d6", fr: "1d6" },
-    effects: { en: "En cas d'attaque réussie : La cible est Ralenti.", fr: "En cas d'attaque réussie : La cible est Ralenti." },
+    effects: { en: "**En cas d'attaque réussie** : La cible est **Ralenti**.", fr: "**En cas d'attaque réussie** : La cible est **Ralenti**." },
     highLevels: { en: "+3 dégâts tous les 5 niveaux.", fr: "+3 dégâts tous les 5 niveaux." },
   },
   {
@@ -33,7 +33,7 @@ export const iceSpells: Spell[] = [
     castingTime: { en: "1 action", fr: "1 action" },
     targetType: { en: "Self", fr: "Soi-même" },
     range: { en: "Soi-même", fr: "Soi-même" },
-    effects: { en: "Réaction : Quand vous êtes attaqué, gagnez 2xCLÉ PV temporaires et Défendez gratuitement. La glace fond et ces PV temporaires sont perdus au début de votre prochain tour.", fr: "Réaction : Quand vous êtes attaqué, gagnez 2xCLÉ PV temporaires et Défendez gratuitement. La glace fond et ces PV temporaires sont perdus au début de votre prochain tour." },
+    effects: { en: "**Réaction** : Quand vous êtes attaqué, gagnez 2xCLÉ PV temporaires et Défendez gratuitement. La glace fond et ces PV temporaires sont perdus au début de votre prochain tour.", fr: "**Réaction** : Quand vous êtes attaqué, gagnez 2xCLÉ PV temporaires et Défendez gratuitement. La glace fond et ces PV temporaires sont perdus au début de votre prochain tour." },
     upcast: { en: "+2xCLÉ PV temporaires.", fr: "+2xCLÉ PV temporaires." },
   },
   {
@@ -45,7 +45,7 @@ export const iceSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Portée 12", fr: "Portée 12" },
     damage: { en: "3d6", fr: "3d6" },
-    effects: { en: "Si un dé quelconque atteint son maximum contre une cible Entravée, cela compte comme un crit. En cas de crit : +20 dégâts.", fr: "Si un dé quelconque atteint son maximum contre une cible Entravée, cela compte comme un crit. En cas de crit : +20 dégâts." },
+    effects: { en: "Si un dé quelconque atteint son maximum contre une cible **Entravée**, cela compte comme un crit. **En cas de crit** : +20 dégâts.", fr: "Si un dé quelconque atteint son maximum contre une cible **Entravée**, cela compte comme un crit. **En cas de crit** : +20 dégâts." },
     upcast: { en: "augmentez le résultat de N'IMPORTE QUEL dé de 1. +5 dégâts en cas de crit.", fr: "augmentez le résultat de N'IMPORTE QUEL dé de 1. +5 dégâts en cas de crit." },
   },
   {
@@ -56,7 +56,7 @@ export const iceSpells: Spell[] = [
     castingTime: { en: "2 actions", fr: "2 actions" },
     targetType: { en: "AoE", fr: "Zone" },
     range: { en: "Allonge 12", fr: "Allonge 12" },
-    effects: { en: "Les créatures dans une zone de 2x2 dans l'Allonge sont Hébétées. En cas d'échec à un Jet de sauvegarde de Force, elles s'endorment à la place, devenant Neutralisées jusqu'à ce que leurs deux prochains tours soient passés, jusqu'à subir des dégâts, ou jusqu'à ce qu'un allié utilise une action pour les réveiller.", fr: "Les créatures dans une zone de 2x2 dans l'Allonge sont Hébétées. En cas d'échec à un Jet de sauvegarde de Force, elles s'endorment à la place, devenant Neutralisées jusqu'à ce que leurs deux prochains tours soient passés, jusqu'à subir des dégâts, ou jusqu'à ce qu'un allié utilise une action pour les réveiller." },
+    effects: { en: "Les créatures dans une zone de 2x2 dans l'Allonge sont **Hébétées**. En cas d'échec à un JdS FOR, elles **s'endorment** à la place, devenant **Neutralisées** jusqu'à ce que leurs deux prochains tours soient passés, jusqu'à subir des dégâts, ou jusqu'à ce qu'un allié utilise une action pour les réveiller.", fr: "Les créatures dans une zone de 2x2 dans l'Allonge sont **Hébétées**. En cas d'échec à un JdS FOR, elles **s'endorment** à la place, devenant **Neutralisées** jusqu'à ce que leurs deux prochains tours soient passés, jusqu'à subir des dégâts, ou jusqu'à ce qu'un allié utilise une action pour les réveiller." },
     saveType: "STR",
     upcast: { en: "+1 zone, +1 tour endormi.", fr: "+1 zone, +1 tour endormi." },
   },
@@ -82,7 +82,7 @@ export const iceSpells: Spell[] = [
     targetType: { en: "AoE", fr: "Zone" },
     range: { en: "Allonge Cône 4", fr: "Allonge Cône 4" },
     damage: { en: "4d6+10", fr: "4d6+10" },
-    effects: { en: "Cette zone est un terrain difficile jusqu'à la fin de votre prochain tour. Les créatures survivantes doivent réussir un Jet de sauvegarde de Force ou être figées sur place (Maîtrisées) jusqu'à la fin de leur prochain tour ; les créatures déjà Entravées sont Neutralisées pendant 1 tour à la place.", fr: "Cette zone est un terrain difficile jusqu'à la fin de votre prochain tour. Les créatures survivantes doivent réussir un Jet de sauvegarde de Force ou être figées sur place (Maîtrisées) jusqu'à la fin de leur prochain tour ; les créatures déjà Entravées sont Neutralisées pendant 1 tour à la place." },
+    effects: { en: "Cette zone est un terrain difficile jusqu'à la fin de votre prochain tour. Les créatures survivantes doivent réussir un JdS FOR ou être figées sur place (**Maîtrisées**) jusqu'à la fin de leur prochain tour ; les créatures déjà **Entravées** sont **Neutralisées** pendant 1 tour à la place.", fr: "Cette zone est un terrain difficile jusqu'à la fin de votre prochain tour. Les créatures survivantes doivent réussir un JdS FOR ou être figées sur place (**Maîtrisées**) jusqu'à la fin de leur prochain tour ; les créatures déjà **Entravées** sont **Neutralisées** pendant 1 tour à la place." },
     saveType: "STR",
     upcast: { en: "+1 Allonge.", fr: "+1 Allonge." },
   },
@@ -106,7 +106,7 @@ export const iceSpells: Spell[] = [
     castingTime: { en: "3 actions", fr: "3 actions" },
     targetType: { en: "AoE", fr: "Zone" },
     range: { en: "Allonge 12", fr: "Allonge 12" },
-    effects: { en: "Choisissez n'importe quel nombre d'objets ou de créatures consentantes dans l'Allonge pour les emprisonner dans la glace. Elles sont Neutralisées et immunisées aux dégâts et aux effets négatifs jusqu'au début de leur prochain tour. Toutes les autres créatures et tous les autres objets dans l'Allonge subissent d66 dégâts. Toute créature survivante ayant subi ces dégâts doit réussir un JdS FOR ou être Neutralisée pendant 1 round. Une fois ce sort lancé, vous devez effectuer un Repos sûr pendant 1 semaine avant de pouvoir le relancer.", fr: "Choisissez n'importe quel nombre d'objets ou de créatures consentantes dans l'Allonge pour les emprisonner dans la glace. Elles sont Neutralisées et immunisées aux dégâts et aux effets négatifs jusqu'au début de leur prochain tour. Toutes les autres créatures et tous les autres objets dans l'Allonge subissent d66 dégâts. Toute créature survivante ayant subi ces dégâts doit réussir un JdS FOR ou être Neutralisée pendant 1 round. Une fois ce sort lancé, vous devez effectuer un Repos sûr pendant 1 semaine avant de pouvoir le relancer." },
+    effects: { en: "Choisissez n'importe quel nombre d'objets ou de créatures consentantes dans l'Allonge pour les emprisonner dans la glace. Elles sont **Neutralisées** et immunisées aux dégâts et aux effets négatifs jusqu'au début de leur prochain tour. Toutes les autres créatures et tous les autres objets dans l'Allonge subissent d66 dégâts. Toute créature survivante ayant subi ces dégâts doit réussir un JdS FOR ou être **Neutralisée** pendant 1 round. Une fois ce sort lancé, vous devez effectuer un Repos sûr pendant 1 semaine avant de pouvoir le relancer.", fr: "Choisissez n'importe quel nombre d'objets ou de créatures consentantes dans l'Allonge pour les emprisonner dans la glace. Elles sont **Neutralisées** et immunisées aux dégâts et aux effets négatifs jusqu'au début de leur prochain tour. Toutes les autres créatures et tous les autres objets dans l'Allonge subissent d66 dégâts. Toute créature survivante ayant subi ces dégâts doit réussir un JdS FOR ou être **Neutralisée** pendant 1 round. Une fois ce sort lancé, vous devez effectuer un Repos sûr pendant 1 semaine avant de pouvoir le relancer." },
     saveType: "STR",
   },
 ];

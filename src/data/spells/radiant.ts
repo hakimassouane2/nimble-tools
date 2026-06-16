@@ -21,7 +21,7 @@ export const radiantSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Allonge 4", fr: "Allonge 4" },
     damage: { en: "1d6", fr: "1d6" },
-    effects: { en: "(ignore l'armure), ne peut pas échouer. Dégâts x2 contre les morts-vivants ou les lâches (ceux qui sont Effrayés ou à l'abri)", fr: "(ignore l'armure), ne peut pas échouer. Dégâts x2 contre les morts-vivants ou les lâches (ceux qui sont Effrayés ou à l'abri)" },
+    effects: { en: "(ignore l'armure), Ne peut pas échouer. Dégâts x2 contre les morts-vivants ou les lâches (ceux qui sont **Effrayés** ou **à l'abri**)", fr: "(ignore l'armure), Ne peut pas échouer. Dégâts x2 contre les morts-vivants ou les lâches (ceux qui sont **Effrayés** ou **à l'abri**)" },
     highLevels: { en: "+2 dégâts tous les 5 niveaux.", fr: "+2 dégâts tous les 5 niveaux." },
   },
   {
@@ -32,7 +32,7 @@ export const radiantSpells: Spell[] = [
     castingTime: { en: "1 action", fr: "1 action" },
     targetType: { en: "Self", fr: "Soi-même" },
     range: { en: "Soi-même", fr: "Soi-même" },
-    effects: { en: "Invoquez un esprit compagnon qui vous suit et est immunisé aux dommages. Il dure jusqu'à ce que vous relanciez ce sort, effectuiez un Repos sûr, ou qu'il ait soigné un nombre de fois égal au mana dépensé pour l'invoquer. Action : il attaque ou soigne une créature dans l'Allonge 4. Il attaque pour 1d6+VOL dégâts sacrés (ignore l'armure), ou soigne du même montant. La saveur est gratuite. Votre Esprit compagnon peut prendre la forme de n'importe quel petit animal amical ou créature similaire (chien, agneau, lapin, moineau, etc.). N'oubliez pas de donner un nom à votre petit compagnon ! Hors combat. Votre compagnon est un esprit, il peut donc traverser murs et dangers sans dommage. Il peut s'éloigner brièvement de vous (mais préfère toujours rester fidèlement à vos côtés). Il ne peut pas parler.<br><br> Réservé : Clerc.", fr: "Invoquez un esprit compagnon qui vous suit et est immunisé aux dommages. Il dure jusqu'à ce que vous relanciez ce sort, effectuiez un Repos sûr, ou qu'il ait soigné un nombre de fois égal au mana dépensé pour l'invoquer. Action : il attaque ou soigne une créature dans l'Allonge 4. Il attaque pour 1d6+VOL dégâts sacrés (ignore l'armure), ou soigne du même montant. La saveur est gratuite. Votre Esprit compagnon peut prendre la forme de n'importe quel petit animal amical ou créature similaire (chien, agneau, lapin, moineau, etc.). N'oubliez pas de donner un nom à votre petit compagnon ! Hors combat. Votre compagnon est un esprit, il peut donc traverser murs et dangers sans dommage. Il peut s'éloigner brièvement de vous (mais préfère toujours rester fidèlement à vos côtés). Il ne peut pas parler.<br><br> Réservé : Clerc." },
+    effects: { en: "Invoquez un esprit qui vous suit, immunisé aux dommages.<br><br>**Dure jusqu'à.** Relance du sort, Repos sûr, ou soins effectués = mana dépensé.<br><br>**Action.** attaque ou soigne une créature en Allonge 4 de **1d6+VOL** sacrés (ignore l'armure).<br><br>**Esprit.** traverse murs et dangers, ne parle pas.<br><br>**Réservé.** Clerc.", fr: "Invoquez un esprit qui vous suit, immunisé aux dommages.<br><br>**Dure jusqu'à.** Relance du sort, Repos sûr, ou soins effectués = mana dépensé.<br><br>**Action.** attaque ou soigne une créature en Allonge 4 de **1d6+VOL** sacrés (ignore l'armure).<br><br>**Esprit.** traverse murs et dangers, ne parle pas.<br><br>**Réservé.** Clerc." },
     upcast: { en: "incrémentez la taille de son dé de 1 (max d12), +1 utilisation de soin.", fr: "incrémentez la taille de son dé de 1 (max d12), +1 utilisation de soin." },
   },
   {
@@ -43,8 +43,8 @@ export const radiantSpells: Spell[] = [
     castingTime: { en: "1 action", fr: "1 action" },
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Allonge 1", fr: "Allonge 1" },
-    effects: { en: "Soignez une créature de 1d6+CLÉ PV.", fr: "Soignez une créature de 1d6+CLÉ PV." },
-    upcast: { en: "choisissez un effet : +1 cible, +4 Allonge, +1d6 de soin. Si 5+ mana sont dépensés, vous pouvez aussi soigner 1 état négatif (p. ex. Aveuglé, Empoisonné, 1 Blessure).", fr: "choisissez un effet : +1 cible, +4 Allonge, +1d6 de soin. Si 5+ mana sont dépensés, vous pouvez aussi soigner 1 état négatif (p. ex. Aveuglé, Empoisonné, 1 Blessure)." },
+    effects: { en: "Soignez une créature de 1d6+CLÉ PV. Si 5+ mana sont dépensés, vous pouvez aussi soigner 1 état négatif (p. ex. Aveuglé, Empoisonné, 1 Blessure).", fr: "Soignez une créature de 1d6+CLÉ PV. Si 5+ mana sont dépensés, vous pouvez aussi soigner 1 état négatif (p. ex. Aveuglé, Empoisonné, 1 Blessure)." },
+    upcast: { en: "choisissez un effet : +1 cible, +4 Allonge, +1d6 de soin.", fr: "choisissez un effet : +1 cible, +4 Allonge, +1d6 de soin." },
   },
   {
     id: "lien-de-protection",
@@ -65,7 +65,7 @@ export const radiantSpells: Spell[] = [
     castingTime: { en: "1 action", fr: "1 action" },
     targetType: { en: "Self", fr: "Soi-même" },
     range: { en: "Soi-même", fr: "Soi-même" },
-    effects: { en: "Réaction : Quand vous êtes attaqué, Défendez gratuitement et renvoyez à l'attaquant des dégâts sacrés égaux au montant bloqué (ignore l'armure)", fr: "Réaction : Quand vous êtes attaqué, Défendez gratuitement et renvoyez à l'attaquant des dégâts sacrés égaux au montant bloqué (ignore l'armure)" },
+    effects: { en: "**Réaction** : Quand vous êtes attaqué, Défendez gratuitement et renvoyez à l'attaquant des dégâts sacrés égaux au montant bloqué (ignore l'armure)", fr: "**Réaction** : Quand vous êtes attaqué, Défendez gratuitement et renvoyez à l'attaquant des dégâts sacrés égaux au montant bloqué (ignore l'armure)" },
     upcast: { en: "+5 Armure.", fr: "+5 Armure." },
   },
   {
@@ -89,7 +89,7 @@ export const radiantSpells: Spell[] = [
     targetType: { en: "Single Target", fr: "Cible unique" },
     range: { en: "Allonge 1", fr: "Allonge 1" },
     damage: { en: "1d100", fr: "1d100" },
-    effects: { en: "Contre une créature qui a attaqué un allié Mourant ou en a réduit un à 0 PV depuis votre dernier tour.", fr: "Contre une créature qui a attaqué un allié Mourant ou en a réduit un à 0 PV depuis votre dernier tour." },
+    effects: { en: "Contre une créature qui a attaqué un allié **Mourant** ou en a réduit un à 0 PV depuis votre dernier tour.", fr: "Contre une créature qui a attaqué un allié **Mourant** ou en a réduit un à 0 PV depuis votre dernier tour." },
     upcast: { en: "+1 Allonge, lancez avec avantage.", fr: "+1 Allonge, lancez avec avantage." },
   },
   {
@@ -111,6 +111,6 @@ export const radiantSpells: Spell[] = [
     castingTime: { en: "24 heures", fr: "24 heures" },
     targetType: { en: "AoE", fr: "Zone" },
     range: { en: "Soi-même", fr: "Soi-même" },
-    effects: { en: "Nécessite : un diamant valant au moins 10 000 po, que ce sort consume. Ranimez n'importe quel nombre de créatures décédées de votre choix—à moins d'1 mile—mortes dans la dernière année, à condition qu'elles ne soient pas mortes de vieillesse ni n'aient déjà été ranimées par ce sort.", fr: "Nécessite : un diamant valant au moins 10 000 po, que ce sort consume. Ranimez n'importe quel nombre de créatures décédées de votre choix—à moins d'1 mile—mortes dans la dernière année, à condition qu'elles ne soient pas mortes de vieillesse ni n'aient déjà été ranimées par ce sort." },
+    effects: { en: "**Nécessite** : un diamant valant au moins 10 000 po, que ce sort consume.<br><br> Ranimez n'importe quel nombre de créatures décédées de votre choix, à moins de 2km, mortes dans la dernière année, à condition qu'elles ne soient pas mortes de vieillesse ni n'aient déjà été ranimées par ce sort.", fr: "**Nécessite** : un diamant valant au moins 10 000 po, que ce sort consume.<br><br> Ranimez n'importe quel nombre de créatures décédées de votre choix, à moins de 2km, mortes dans la dernière année, à condition qu'elles ne soient pas mortes de vieillesse ni n'aient déjà été ranimées par ce sort." },
   },
 ];

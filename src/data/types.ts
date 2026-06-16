@@ -84,13 +84,14 @@ export type SpellSchool =
   | "lightning"
   | "wind"
   | "radiant"
-  | "necrotic"
-  | "utility";
+  | "necrotic";
 
 export type Spell = {
   id: string;
   name: LocalizedString;
   school: SpellSchool;
+  /** Sort utilitaire : dimension orthogonale à l'école (un sort utilitaire garde son élément). */
+  utility?: boolean;
   tier: number; // 0 = cantrip, 1-9 = spell tiers
   castingTime: LocalizedString;
   targetType: LocalizedString;

@@ -6,6 +6,15 @@ export function t(obj: LocalizedString, locale: string): string {
   return obj.en;
 }
 
+/** Supprime le balisage léger (`**gras**`, `<br>`) pour obtenir du texte brut (recherche, etc.). */
+export function stripMarkup(str: string): string {
+  return str
+    .replace(/<br\s*\/?>/g, " ")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 /** Generates a URL-safe slug from a string. */
 export function slugify(str: string): string {
   return str

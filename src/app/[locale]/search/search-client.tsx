@@ -17,7 +17,7 @@ import {
 } from "@/data/equipment";
 import { allRules } from "@/data/rules";
 import { heroClasses } from "@/data/classes";
-import { t, tArmorCategory } from "@/lib/utils";
+import { t, tArmorCategory, stripMarkup } from "@/lib/utils";
 
 type SearchResult = {
   title: string;
@@ -135,7 +135,7 @@ function search(q: string, locale: string): SearchResult[] {
     ) {
       results.push({
         title: t(spell.name, locale),
-        description: t(spell.effects, locale),
+        description: stripMarkup(t(spell.effects, locale)),
         href: "/spells",
         category: tCategory("Spells", locale),
       });
